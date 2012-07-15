@@ -84,9 +84,8 @@ void diagonalize( double S[N][N] ) {
 			for ( j = 0; j < N; ++j ) {
 
 				// diagonalized if all off-diagonals are zero
-				// TODO: check for ~0 since we're dealing with doubles
 				if ( i != j )
-					diagonalized &= ( S[i][j] == 0 );
+					diagonalized &= ( abs(S[i][j]) < 0.001 );
 			}
 		}
 
@@ -114,25 +113,15 @@ void diagonalize( double S[N][N] ) {
 			mji = S[maxJ][maxI];
 
 		// calculate rotation angle
-		// WHO. THIS SHIT IS BROKE
-		double	thetaSum = atan2( mij+mji, mjj-mii ),
-			thetaDif = atan2( mij-mji, mjj+mii ),
+		double	thetaSum = atan2( mij+mji, mii-mjj ),
+			thetaDif = atan2( mij-mji, mii+mjj ),
 			thetaL = (thetaSum - thetaDif) / 2,
 			thetaR = (thetaSum + thetaDif) / 2;
 
 		// rotate the thing
 		double rotLT[2][2] = {{cos(thetaL), -sin(thetaL)}, {sin(thetaL), cos(thetaL)}},
 		      rotR[2][2] = {{cos(thetaR), sin(thetaR)}, {-sin(thetaR), cos(thetaR)}},
-		      s[2][2] = {{mii, mji}, {mji, mjj}};
-
-		if ( !printedOut ) {
-
-			printf("intermediary matrices!\n");
-			printf("rotLT:\n");
-			printMatrix2(rotLT);
-			printf("rotR:\n");
-			printMatrix2(rotR);
-		}
+		      s[2][2] = {{mjj, mji}, {mij, mii}};
 
 		double sPrime[2][2],
 		      sDoublePrime[2][2];
@@ -140,23 +129,10 @@ void diagonalize( double S[N][N] ) {
 		multMatrix( rotLT, s, sPrime );
 		multMatrix( sPrime, rotR, sDoublePrime );
 
-		if ( !printedOut ) {
-
-			printMatrix( S );
-			printf("\n");
-		}
-
 		S[maxI][maxI] = sDoublePrime[0][0];
 		S[maxI][maxJ] = sDoublePrime[1][0];
 		S[maxJ][maxJ] = sDoublePrime[1][1];
 		S[maxJ][maxI] = sDoublePrime[0][1];
-
-		if ( !printedOut ) {
-
-			printMatrix( S );
-			printf("\n");
-			printedOut = true;
-		}
 	}
 }
 
