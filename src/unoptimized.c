@@ -6,6 +6,8 @@
 typedef char bool;
 #define true 1
 #define false 0
+#define MIN(x,y) (x<y?x:y)
+#define MAX(x,y) (x>y?x:y)
 
 /**
  * 	Takes a square matrix
@@ -107,9 +109,11 @@ void diagonalize( double S[N][N] ) {
 		}
 
 		// great. awesome. let's use those values.
-		double	d = S[maxI][maxI],
+		int	lowerDiagonal = MIN(maxI, maxJ),
+			higherDiagonal = MAX(maxI, maxJ);
+		double	d = S[higherDiagonal][higherDiagonal],
 			c = S[maxI][maxJ],
-			a = S[maxJ][maxJ],
+			a = S[lowerDiagonal][lowerDiagonal],
 			b = S[maxJ][maxI];
 
 		// calculate rotation angle
@@ -130,9 +134,9 @@ void diagonalize( double S[N][N] ) {
 		multMatrix( sPrime, rotR, sDoublePrime );
 
 		// stick the updated values back in the matrix
-		S[maxJ][maxJ] = sDoublePrime[0][0];
+		S[lowerDiagonal][lowerDiagonal] = sDoublePrime[0][0];
 		S[maxI][maxJ] = sDoublePrime[1][0];
-		S[maxI][maxI] = sDoublePrime[1][1];
+		S[higherDiagonal][higherDiagonal] = sDoublePrime[1][1];
 		S[maxJ][maxI] = sDoublePrime[0][1];
 	}
 }
