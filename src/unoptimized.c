@@ -2,10 +2,21 @@
 #include <math.h>
 #include <stdio.h>
 
+/*
+ * 	Project specifications
+ */
 #define N 2
+
+/**
+ * 	Boolean logic
+ */
 typedef char bool;
 #define true 1
 #define false 0
+
+/**
+ * 	Helper math macros
+ */
 #define MIN(x,y) (x<y?x:y)
 #define MAX(x,y) (x>y?x:y)
 
@@ -24,20 +35,6 @@ void printMatrix( double matrix[N][N] ) {
 		}
 		printf("\n");
 	}
-}
-
-void printMatrix2( double matrix[2][2] ) {
-
-	int i = 0,
-	    j = 0;
-	
-	for ( i = 0; i < 2; ++i ) {
-		for ( j = 0; j < 2; ++j ) {
-			printf( "%f%s", matrix[i][j], (j<2-1)? ", ":"" );
-		}
-		printf("\n");
-	}
-	printf("\n");
 }
 
 /**
@@ -61,14 +58,13 @@ void multMatrix( double m1[2][2], double m2[2][2], double target[2][2] ) {
 /**
  * 	Takes a square matrix and diagonalizes it
  */
-void diagonalize( double S[N][N] ) {
+void diagonalize( double matrix[N][N] ) {
 	
 	// Declare some chincey variables
 	int i = 0,
 	    j = 0;
 
-	bool diagonalized = false,
-	     printedOut = false;
+	bool diagonalized = false;
 
 	for (;;) {
 		// Check to see whether we're diagonalized
@@ -79,7 +75,7 @@ void diagonalize( double S[N][N] ) {
 				
 				// Diagonalized if all off-diagonals are zero
 				if ( i != j )
-					diagonalized &= ( fabs(S[i][j]) < 0.001 );
+					diagonalized &= ( fabs(matrix[i][j]) < 0.001 ); // comparing floats by threshold
 			}
 		}
 
@@ -87,12 +83,13 @@ void diagonalize( double S[N][N] ) {
 			break;
 
 		// find the indicies of the largest off-diagonal
+		// TODO: better scanning method
 		int maxI = 1, maxJ = 0; // gotta start somewhere
 
 		for ( i = 0; i < N; ++i ) {
 			for ( j = 0; j < N; ++j ) {
 
-				if ( i != j && fabs(S[i][j]) > fabs(S[maxI][maxJ]) ) {
+				if ( i != j && fabs(matrix[i][j]) > fabs(matrix[maxI][maxJ]) ) {
 
 					maxI = i;
 					maxJ = j;
@@ -104,10 +101,10 @@ void diagonalize( double S[N][N] ) {
 		int	lowerDiagonal = MIN(maxI, maxJ),
 			higherDiagonal = MAX(maxI, maxJ);
 			
-		double	d = S[higherDiagonal][higherDiagonal],
-				c = S[maxI][maxJ],
-				a = S[lowerDiagonal][lowerDiagonal],
-				b = S[maxJ][maxI];
+		double	d = matrix[higherDiagonal][higherDiagonal],
+				c = matrix[maxI][maxJ],
+				a = matrix[lowerDiagonal][lowerDiagonal],
+				b = matrix[maxJ][maxI];
 
 		// calculate rotation angle
 		double	thetaSum = atan2( c+b, d-a ), // Equals thetaL + thetaR
@@ -116,21 +113,26 @@ void diagonalize( double S[N][N] ) {
 				thetaR = (thetaSum + thetaDif) * 0.5;
 
 		// rotate the thing
-		double 	rotLT[2][2] = {{cos(thetaL), -sin(thetaL)}, {sin(thetaL), cos(thetaL)}}, // Left Rotation Transpose
-		      	rotR[2][2] = {{cos(thetaR), sin(thetaR)}, {-sin(thetaR), cos(thetaR)}},  // Right Rotation
-		      	s[2][2] = {{a, b}, {c, d}}; // Subset of the full S matrix
+		double 	leftRotationTranspose[2][2] =	{{	cos(thetaL),	-sin(thetaL)	},
+							 {	sin(thetaL),	cos(thetaL)	}}, // Left Rotation Transpose
 
-		double	sPrime[2][2],
-		      	sDoublePrime[2][2];
+		      	rightRotation[2][2] =		{{	cos(thetaR),	sin(thetaR)	},
+							 {	-sin(thetaR),	cos(thetaR)	}},  // Right Rotation
 
-		multMatrix( rotLT, s, sPrime );
-		multMatrix( sPrime, rotR, sDoublePrime );
+		      	sub[2][2] =			{{	a,		b		},
+							 {	c,		d		}}; // Subset of the full S matrix
+
+		double	subIntermediary[2][2],
+		      	subTransformed[2][2];
+
+		multMatrix( leftRotationTranspose, sub, subIntermediary );
+		multMatrix( subIntermediary, rightRotation, subTransformed );
 
 		// stick the updated values back in the matrix
-		S[lowerDiagonal][lowerDiagonal] = sDoublePrime[0][0];
-		S[maxI][maxJ] = sDoublePrime[1][0];
-		S[higherDiagonal][higherDiagonal] = sDoublePrime[1][1];
-		S[maxJ][maxI] = sDoublePrime[0][1];
+		matrix[lowerDiagonal][lowerDiagonal] = subTransformed[0][0];
+		matrix[maxI][maxJ] = subTransformed[1][0];
+		matrix[higherDiagonal][higherDiagonal] = subTransformed[1][1];
+		matrix[maxJ][maxI] = subTransformed[0][1];
 	}
 }
 
