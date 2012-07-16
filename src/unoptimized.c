@@ -107,21 +107,21 @@ void diagonalize( double S[N][N] ) {
 		}
 
 		// great. awesome. let's use those values.
-		double	mii = S[maxI][maxI],
-			mij = S[maxI][maxJ],
-			mjj = S[maxJ][maxJ],
-			mji = S[maxJ][maxI];
+		double	d = S[maxI][maxI],
+			c = S[maxI][maxJ],
+			a = S[maxJ][maxJ],
+			b = S[maxJ][maxI];
 
 		// calculate rotation angle
-		double	thetaSum = atan2( mij+mji, mii-mjj ),
-			thetaDif = atan2( mij-mji, mii+mjj ),
-			thetaL = (thetaSum - thetaDif) / 2,
-			thetaR = (thetaSum + thetaDif) / 2;
+		double	thetaSum = atan2( c+b, d-a ),
+			thetaDif = atan2( c-b, d+a ),
+			thetaL = (thetaSum - thetaDif) * 0.5,
+			thetaR = (thetaSum + thetaDif) * 0.5;
 
 		// rotate the thing
 		double rotLT[2][2] = {{cos(thetaL), -sin(thetaL)}, {sin(thetaL), cos(thetaL)}},
 		      rotR[2][2] = {{cos(thetaR), sin(thetaR)}, {-sin(thetaR), cos(thetaR)}},
-		      s[2][2] = {{mjj, mji}, {mij, mii}};
+		      s[2][2] = {{a, b}, {c, d}};
 
 		double sPrime[2][2],
 		      sDoublePrime[2][2];
