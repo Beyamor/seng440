@@ -111,24 +111,25 @@ void diagonalize( double S[N][N] ) {
 		// great. awesome. let's use those values.
 		int	lowerDiagonal = MIN(maxI, maxJ),
 			higherDiagonal = MAX(maxI, maxJ);
+			
 		double	d = S[higherDiagonal][higherDiagonal],
-			c = S[maxI][maxJ],
-			a = S[lowerDiagonal][lowerDiagonal],
-			b = S[maxJ][maxI];
+				c = S[maxI][maxJ],
+				a = S[lowerDiagonal][lowerDiagonal],
+				b = S[maxJ][maxI];
 
 		// calculate rotation angle
 		double	thetaSum = atan2( c+b, d-a ),
-			thetaDif = atan2( c-b, d+a ),
-			thetaL = (thetaSum - thetaDif) * 0.5,
-			thetaR = (thetaSum + thetaDif) * 0.5;
+				thetaDif = atan2( c-b, d+a ),
+				thetaL = (thetaSum - thetaDif) * 0.5,
+				thetaR = (thetaSum + thetaDif) * 0.5;
 
 		// rotate the thing
-		double rotLT[2][2] = {{cos(thetaL), -sin(thetaL)}, {sin(thetaL), cos(thetaL)}},
-		      rotR[2][2] = {{cos(thetaR), sin(thetaR)}, {-sin(thetaR), cos(thetaR)}},
-		      s[2][2] = {{a, b}, {c, d}};
+		double 	rotLT[2][2] = {{cos(thetaL), -sin(thetaL)}, {sin(thetaL), cos(thetaL)}},
+		      	rotR[2][2] = {{cos(thetaR), sin(thetaR)}, {-sin(thetaR), cos(thetaR)}},
+		      	s[2][2] = {{a, b}, {c, d}};
 
-		double sPrime[2][2],
-		      sDoublePrime[2][2];
+		double	sPrime[2][2],
+		      	sDoublePrime[2][2];
 
 		multMatrix( rotLT, s, sPrime );
 		multMatrix( sPrime, rotR, sDoublePrime );
