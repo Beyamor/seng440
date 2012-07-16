@@ -98,14 +98,14 @@ void diagonalize( double matrix[N][N] ) {
 		}
 
 		// great. awesome. let's use those values.
-		int	lowerDiagonal = MIN(maxI, maxJ),
-			higherDiagonal = MAX(maxI, maxJ);
-			
-		double	d = matrix[higherDiagonal][higherDiagonal],
-				c = matrix[maxI][maxJ],
-				a = matrix[lowerDiagonal][lowerDiagonal],
-				b = matrix[maxJ][maxI];
+		int	lowerIndex = MIN(maxI,maxJ),
+			higherIndex = MAX(maxI,maxJ);
 
+		double	a = matrix[lowerIndex][lowerIndex],
+			b = matrix[lowerIndex][higherIndex],
+			c = matrix[higherIndex][lowerIndex],
+			d = matrix[higherIndex][higherIndex];
+			
 		// calculate rotation angle
 		double	thetaSum = atan2( c+b, d-a ), // Equals thetaL + thetaR
 				thetaDif = atan2( c-b, d+a ), // Equals thetaR - thetaL
@@ -129,10 +129,10 @@ void diagonalize( double matrix[N][N] ) {
 		multMatrix( subIntermediary, rightRotation, subTransformed );
 
 		// stick the updated values back in the matrix
-		matrix[lowerDiagonal][lowerDiagonal] = subTransformed[0][0];
-		matrix[maxI][maxJ] = subTransformed[1][0];
-		matrix[higherDiagonal][higherDiagonal] = subTransformed[1][1];
-		matrix[maxJ][maxI] = subTransformed[0][1];
+		matrix[lowerIndex][lowerIndex] = subTransformed[0][0];		// a
+		matrix[lowerIndex][higherIndex] = subTransformed[0][1];		// b
+		matrix[higherIndex][lowerIndex] = subTransformed[1][0];		// c
+		matrix[higherIndex][higherIndex] = subTransformed[1][1];	// d
 	}
 }
 
