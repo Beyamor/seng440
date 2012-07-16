@@ -129,6 +129,7 @@ void diagonalize( double S[N][N] ) {
 		multMatrix( rotLT, s, sPrime );
 		multMatrix( sPrime, rotR, sDoublePrime );
 
+		// stick the updated values back in the matrix
 		S[maxI][maxI] = sDoublePrime[0][0];
 		S[maxI][maxJ] = sDoublePrime[1][0];
 		S[maxJ][maxJ] = sDoublePrime[1][1];
