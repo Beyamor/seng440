@@ -19,12 +19,9 @@ void printMatrix( double matrix[N][N] ) {
 	    j = 0;
 	
 	for ( i = 0; i < N; ++i ) {
-
 		for ( j = 0; j < N; ++j ) {
-
 			printf( "%f%s", matrix[i][j], (j<N-1)? ", ":"" );
 		}
-
 		printf("\n");
 	}
 }
@@ -35,15 +32,11 @@ void printMatrix2( double matrix[2][2] ) {
 	    j = 0;
 	
 	for ( i = 0; i < 2; ++i ) {
-
 		for ( j = 0; j < 2; ++j ) {
-
 			printf( "%f%s", matrix[i][j], (j<2-1)? ", ":"" );
 		}
-
 		printf("\n");
 	}
-
 	printf("\n");
 }
 
@@ -70,7 +63,7 @@ void multMatrix( double m1[2][2], double m2[2][2], double target[2][2] ) {
  */
 void diagonalize( double S[N][N] ) {
 	
-	// declare some chincey variables
+	// Declare some chincey variables
 	int i = 0,
 	    j = 0;
 
@@ -78,16 +71,15 @@ void diagonalize( double S[N][N] ) {
 	     printedOut = false;
 
 	for (;;) {
-
-		// check to see whether we're diagonalized
+		// Check to see whether we're diagonalized
 		diagonalized = true;
 
 		for ( i = 0; i < N; ++i ) {
 			for ( j = 0; j < N; ++j ) {
-
-				// diagonalized if all off-diagonals are zero
+				
+				// Diagonalized if all off-diagonals are zero
 				if ( i != j )
-					diagonalized &= ( abs(S[i][j]) < 0.001 );
+					diagonalized &= ( fabs(S[i][j]) < 0.001 );
 			}
 		}
 
@@ -100,7 +92,7 @@ void diagonalize( double S[N][N] ) {
 		for ( i = 0; i < N; ++i ) {
 			for ( j = 0; j < N; ++j ) {
 
-				if ( i != j && abs(S[i][j]) > abs(S[maxI][maxJ]) ) {
+				if ( i != j && fabs(S[i][j]) > fabs(S[maxI][maxJ]) ) {
 
 					maxI = i;
 					maxJ = j;
@@ -118,15 +110,15 @@ void diagonalize( double S[N][N] ) {
 				b = S[maxJ][maxI];
 
 		// calculate rotation angle
-		double	thetaSum = atan2( c+b, d-a ),
-				thetaDif = atan2( c-b, d+a ),
+		double	thetaSum = atan2( c+b, d-a ), // Equals thetaL + thetaR
+				thetaDif = atan2( c-b, d+a ), // Equals thetaR - thetaL
 				thetaL = (thetaSum - thetaDif) * 0.5,
 				thetaR = (thetaSum + thetaDif) * 0.5;
 
 		// rotate the thing
-		double 	rotLT[2][2] = {{cos(thetaL), -sin(thetaL)}, {sin(thetaL), cos(thetaL)}},
-		      	rotR[2][2] = {{cos(thetaR), sin(thetaR)}, {-sin(thetaR), cos(thetaR)}},
-		      	s[2][2] = {{a, b}, {c, d}};
+		double 	rotLT[2][2] = {{cos(thetaL), -sin(thetaL)}, {sin(thetaL), cos(thetaL)}}, // Left Rotation Transpose
+		      	rotR[2][2] = {{cos(thetaR), sin(thetaR)}, {-sin(thetaR), cos(thetaR)}},  // Right Rotation
+		      	s[2][2] = {{a, b}, {c, d}}; // Subset of the full S matrix
 
 		double	sPrime[2][2],
 		      	sDoublePrime[2][2];
