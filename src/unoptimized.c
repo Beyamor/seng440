@@ -31,9 +31,8 @@ void printMatrix( double matrix[N][N] ) {
 	
 	for ( i = 0; i < N; ++i ) {
 		for ( j = 0; j < N; ++j ) {
-			printf( "%f%s", matrix[i][j], (j<N-1)? ", ":"" );
+			printf( "%f%s", matrix[i][j], (j<N-1)? ", ":"\n" );
 		}
-		printf("\n");
 	}
 }
 
