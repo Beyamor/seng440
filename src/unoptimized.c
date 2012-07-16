@@ -20,6 +20,22 @@ typedef char bool;
 #define MIN(x,y) (x<y?x:y)
 #define MAX(x,y) (x>y?x:y)
 
+#define BIT(x,y) (0x01 << (N*x) + y)
+
+
+
+const char* byte_to_binary( int x )
+{
+    static char b[15] = {0};
+	int z; int y =0;
+    for (z=32768,y=0; z>0; z>>=1,y++)
+    {
+        b[y] = ( ((x & z) == z) ? 49 : 48);
+    }
+
+    return b;
+}
+
 /**
  * 	Takes a square matrix
  * 	The function prints the contents of the matrix
@@ -65,9 +81,15 @@ void diagonalize( double matrix[N][N] ) {
 
 	bool diagonalized = false;
 
+	unsigned int diagMap = 0xFFFF8421;//all diagonal elements initialize to 1, first four bytes also (bitwise negation casts to int)	
+
+	int c = 0;
+
 	for (;;) {
 		// Check to see whether we're diagonalized
-		diagonalized = true;
+		
+
+		/*diagonalized = true;
 
 		for ( i = 0; i < N; ++i ) {
 			for ( j = 0; j < N; ++j ) {
@@ -80,6 +102,14 @@ void diagonalize( double matrix[N][N] ) {
 
 		if ( diagonalized )
 			break;
+		*/
+
+
+
+		if(!~diagMap)
+			break;
+
+
 
 		// find the indicies of the largest off-diagonal
 		// TODO: better scanning method
@@ -132,6 +162,23 @@ void diagonalize( double matrix[N][N] ) {
 		matrix[lowerIndex][higherIndex] = subTransformed[0][1];		// b
 		matrix[higherIndex][lowerIndex] = subTransformed[1][0];		// c
 		matrix[higherIndex][higherIndex] = subTransformed[1][1];	// d
+		
+		printMatrix(matrix);
+
+		printf("%s \n", byte_to_binary(diagMap));
+
+		if(fabs(matrix[lowerIndex][higherIndex]) < 0.001)
+		{
+			diagMap |= BIT(lowerIndex,higherIndex);
+		}
+		
+		if(fabs(matrix[higherIndex][lowerIndex]) < 0.001)
+		{
+			diagMap |= BIT(higherIndex,lowerIndex);
+		}
+
+		printf("%s \n\n", byte_to_binary(diagMap));
+
 	}
 }
 
@@ -147,6 +194,7 @@ int main() {
 
 	diagonalize( m );
 	printMatrix( m );
+
 
 	return 0;
 }
