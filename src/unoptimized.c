@@ -93,7 +93,7 @@ void diagonalize( double S[N][N] ) {
 			break;
 
 		// find the indicies of the largest off-diagonal
-		int maxI = 0, maxJ = 1; // gotta start somewhere
+		int maxI = 1, maxJ = 0; // gotta start somewhere
 
 		for ( i = 0; i < N; ++i ) {
 			for ( j = 0; j < N; ++j ) {
@@ -130,9 +130,9 @@ void diagonalize( double S[N][N] ) {
 		multMatrix( sPrime, rotR, sDoublePrime );
 
 		// stick the updated values back in the matrix
-		S[maxI][maxI] = sDoublePrime[0][0];
+		S[maxJ][maxJ] = sDoublePrime[0][0];
 		S[maxI][maxJ] = sDoublePrime[1][0];
-		S[maxJ][maxJ] = sDoublePrime[1][1];
+		S[maxI][maxI] = sDoublePrime[1][1];
 		S[maxJ][maxI] = sDoublePrime[0][1];
 	}
 }
