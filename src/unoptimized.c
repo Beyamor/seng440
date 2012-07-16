@@ -5,7 +5,7 @@
 /*
  * 	Project specifications
  */
-#define N 2
+#define N 4
 
 /**
  * 	Boolean logic
@@ -31,7 +31,7 @@ void printMatrix( double matrix[N][N] ) {
 	
 	for ( i = 0; i < N; ++i ) {
 		for ( j = 0; j < N; ++j ) {
-			printf( "%f%s", matrix[i][j], (j<N-1)? ", ":"\n" );
+			printf( "%s%f%s", matrix[i][j] < 0?"":" ", matrix[i][j], (j<N-1)? ",\t":"\n" );
 		}
 	}
 }
@@ -137,8 +137,10 @@ void diagonalize( double matrix[N][N] ) {
 
 int main() {
 
-	double m[N][N]	= {{	1,	2	},
-			   {	3,	4	}};
+	double m[N][N]	= {{	1,	2,	3,	1	},
+			   {	2,	3,	1,	2	},
+			   {	3,	1,	2,	3	},
+			   {	1,	2,	3,	4	}};
 
 	printMatrix( m );
 	printf("\r\n->\r\n\r\n");
