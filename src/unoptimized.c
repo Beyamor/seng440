@@ -33,16 +33,30 @@ void printMatrix( double matrix[N][N] ) {
 	
 	for ( i = 0; i < N; ++i ) {
 		for ( j = 0; j < N; ++j ) {
-			printf( "%s%f%s", matrix[i][j] < 0?"":" ", matrix[i][j], (j<N-1)? ",\t":"\n" );
+			//(j,i) because column-first
+			printf( "%s%f%s", matrix[j][i] < 0?"":" ", matrix[j][i], (j<N-1)? ",\t":"\n" );
 		}
 	}
 }
 
 /**
+ *	Multiplies a 2x2 matrix with a 1x2 matrix, storing output in a 1x2 matrix
+ */
+void multMatrix( double m1[2][2], double m2[2], double target[2] ) {
+
+	target[0] = m1[0][0] * m2[0] + m1[1][0] * m2[1];
+	target[1] = m1[0][1] * m2[0] + m1[1][1] * m2[1];
+}
+
+/**
  * 	Multiplies two 2x2 matrices, storing the result in a third
  */
-void multMatrix( double m1[2][2], double m2[2][2], double target[2][2] ) {
+void multMatrix2( double m1[2][2], double m2[2][2], double target[2][2] ) {
+	multMatrix( m1, m2[0], target[0]);
+	multMatrix( m1, m2[1], target[1]);
 
+
+/*
 	int i, j, k;
 
 	for ( i = 0; i < 2; ++i ) {
@@ -53,8 +67,9 @@ void multMatrix( double m1[2][2], double m2[2][2], double target[2][2] ) {
 				target[i][j] += m1[i][k] * m2[k][j];
 			}
 		}
-	}
+	}*/
 }
+
 
 /**
  * 	Takes a square matrix and diagonalizes it
@@ -109,20 +124,20 @@ void diagonalize( double matrix[N][N] ) {
 				thetaR = (thetaSum + thetaDif) * 0.5;
 
 		// rotate the thing
-		double 	leftRotationTranspose[2][2] =	{{	cos(thetaL),	-sin(thetaL)	},
-							 {	sin(thetaL),	cos(thetaL)	}}, // Left Rotation Transpose
+		double 	leftRotationTranspose[2][2] =	{{	cos(thetaL),	sin(thetaL)	},
+							 {	-sin(thetaL),	cos(thetaL)	}}, // Left Rotation Transpose
 
-		      	rightRotation[2][2] =		{{	cos(thetaR),	sin(thetaR)	},
-							 {	-sin(thetaR),	cos(thetaR)	}},  // Right Rotation
+		      	rightRotation[2][2] =		{{	cos(thetaR),	-sin(thetaR)	},
+							 {	sin(thetaR),	cos(thetaR)	}},  // Right Rotation
 
-		      	sub[2][2] =			{{	a,		b		},
-							 {	c,		d		}}; // Subset of the full S matrix
+		      	sub[2][2] =			{{	a,		c		},
+							 {	b,		d		}}; // Subset of the full S matrix
 
 		double	subIntermediary[2][2],
 		      	subTransformed[2][2];
 
-		multMatrix( leftRotationTranspose, sub, subIntermediary );
-		multMatrix( subIntermediary, rightRotation, subTransformed );
+		multMatrix2( leftRotationTranspose, sub, subIntermediary );
+		multMatrix2( subIntermediary, rightRotation, subTransformed );
 
 		// stick the updated values back in the matrix
 		matrix[lowerIndex][lowerIndex] = subTransformed[0][0];		// a
@@ -154,7 +169,7 @@ void diagonalize( double matrix[N][N] ) {
 
 int main() {
 
-	double m[N][N]	= {{	1,	2,	3,	1	},
+	double m[N][N]	= {{	1,	2,	3,	2	}, // this is the first COLUMN, not row.
 			   {	2,	3,	1,	2	},
 			   {	3,	1,	2,	3	},
 			   {	1,	2,	3,	4	}};
