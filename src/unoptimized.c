@@ -22,20 +22,6 @@ typedef char bool;
 
 #define BIT(x,y) (0x01 << (N*x) + y)
 
-
-
-const char* byte_to_binary( int x )
-{
-    static char b[15] = {0};
-	int z; int y =0;
-    for (z=32768,y=0; z>0; z>>=1,y++)
-    {
-        b[y] = ( ((x & z) == z) ? 49 : 48);
-    }
-
-    return b;
-}
-
 /**
  * 	Takes a square matrix
  * 	The function prints the contents of the matrix
@@ -87,25 +73,6 @@ void diagonalize( double matrix[N][N] ) {
 
 	for (;;) {
 		// Check to see whether we're diagonalized
-		
-
-		/*diagonalized = true;
-
-		for ( i = 0; i < N; ++i ) {
-			for ( j = 0; j < N; ++j ) {
-				
-				// Diagonalized if all off-diagonals are zero
-				if ( i != j )
-					diagonalized &= ( fabs(matrix[i][j]) < 0.001 ); // comparing floats by threshold
-			}
-		}
-
-		if ( diagonalized )
-			break;
-		*/
-
-
-
 		if(!~diagMap)
 			break;
 
@@ -163,21 +130,15 @@ void diagonalize( double matrix[N][N] ) {
 		matrix[higherIndex][lowerIndex] = subTransformed[1][0];		// c
 		matrix[higherIndex][higherIndex] = subTransformed[1][1];	// d
 		
-		printMatrix(matrix);
-
-		printf("%s \n", byte_to_binary(diagMap));
-
 		if(fabs(matrix[lowerIndex][higherIndex]) < 0.001)
 		{
 			diagMap |= BIT(lowerIndex,higherIndex);
 		}
-		
 		if(fabs(matrix[higherIndex][lowerIndex]) < 0.001)
 		{
 			diagMap |= BIT(higherIndex,lowerIndex);
 		}
 
-		printf("%s \n\n", byte_to_binary(diagMap));
 
 	}
 }
