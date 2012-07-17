@@ -22,6 +22,19 @@ typedef char bool;
 
 #define BIT(x,y) (0x01 << (N*x) + y)
 
+const char* byte_to_binary( int x )
+{
+    static char b[15] = {0};
+       int z; int y =0;
+    for (z=32768,y=0; z>0; z>>=1,y++)
+    {
+        b[y] = ( ((x & z) == z) ? 49 : 48);
+    }
+
+    return b;
+}
+
+
 /**
  * 	Takes a square matrix
  * 	The function prints the contents of the matrix
