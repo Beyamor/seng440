@@ -149,9 +149,18 @@ void diagonalize( double matrix[N][N] ) {
 		{
 			diagMap |= BIT(lowerIndex,higherIndex);
 		}
+		else
+		{
+			diagMap &= ~BIT(lowerIndex, higherIndex);
+		}		
+
 		if(fabs(matrix[higherIndex][lowerIndex]) < 0.001)
 		{
 			diagMap |= BIT(higherIndex,lowerIndex);
+		}
+		else
+		{
+			diagMap &= ~BIT(higherIndex, lowerIndex);
 		}
 
 
