@@ -67,22 +67,20 @@ void multMatrix( double m1[2][2], double m2[2], double target[2] ) {
 void multMatrix2( double m1[2][2], double m2[2][2], double target[2][2] ) {
 	multMatrix( m1, m2[0], target[0]);
 	multMatrix( m1, m2[1], target[1]);
-
-
-/*
-	int i, j, k;
-
-	for ( i = 0; i < 2; ++i ) {
-		for ( j = 0; j < 2; ++j ) {
-
-			target[i][j] = 0;
-			for ( k = 0; k < 2; ++k ) {
-				target[i][j] += m1[i][k] * m2[k][j];
-			}
-		}
-	}*/
 }
 
+
+void update(unsigned int * diagMap, double (*matrix)[4], int x, int y)
+{
+	if(fabs(matrix[x][y]) < 0.000001)
+		{
+			*diagMap |= BIT(x,y);
+		}
+		else
+		{
+			*diagMap &= ~BIT(x,y);
+		}
+}
 
 /**
  * 	Takes a square matrix and diagonalizes it
@@ -122,19 +120,52 @@ void diagonalize( double matrix[N][N] ) {
 		}
 
 		// great. awesome. let's use those values.
-		int	lowerIndex = MIN(maxI,maxJ),
-			higherIndex = MAX(maxI,maxJ);
+		int	L = MIN(maxI,maxJ),
+			H = MAX(maxI,maxJ);
 
-		double	a = matrix[lowerIndex][lowerIndex],
-			b = matrix[lowerIndex][higherIndex],
-			c = matrix[higherIndex][lowerIndex],
-			d = matrix[higherIndex][higherIndex];
+		//also get the values which are valid indices but are not L or H
+		int 	Lprime = -1, 
+			Hprime = -1;
+
+		//iterate through 0-3 setting the lower one which is not L or H to L' and the higher to H'
+		int i;
+		for(i = 0; i < 4; i++)
+		{
+			if(i != L && i != H)
+			{
+				if(Lprime == -1)
+				{
+					Lprime = i;
+					continue;
+				}
+				else
+				{
+					Hprime = i;
+					break;
+				}
+			}
+		}
+
+
+
+		double	a = matrix[L][L],
+			c = matrix[L][H],
+			b = matrix[H][L],
+			d = matrix[H][H];
+
+		
 			
 		// calculate rotation angle
 		double	thetaSum = atan2( c+b, d-a ), // Equals thetaL + thetaR
 				thetaDif = atan2( c-b, d+a ), // Equals thetaR - thetaL
 				thetaL = (thetaSum - thetaDif) * 0.5,
 				thetaR = (thetaSum + thetaDif) * 0.5;
+
+
+		double	subMainIntermediary[2][2],
+		      	subMainTransformed[2][2],
+			subHorTransformed[2][2],
+			subVertTransformed[2][2];
 
 		// rotate the thing
 		double 	leftRotationTranspose[2][2] =	{{	cos(thetaL),	sin(thetaL)	},
@@ -143,38 +174,59 @@ void diagonalize( double matrix[N][N] ) {
 		      	rightRotation[2][2] =		{{	cos(thetaR),	-sin(thetaR)	},
 							 {	sin(thetaR),	cos(thetaR)	}},  // Right Rotation
 
-		      	sub[2][2] =			{{	a,		c		},
-							 {	b,		d		}}; // Subset of the full S matrix
+		      	subMain[2][2] =			{{	a,		c		},
+							 {	b,		d		}}, // Subset of the full S matrix
 
-		double	subIntermediary[2][2],
-		      	subTransformed[2][2];
+			subHorMain[2][2] = 		{{	matrix[Lprime][L],	matrix[Lprime][H]	},
+							 {	matrix[Hprime][L],	matrix[Hprime][H]	}},
 
-		multMatrix2( leftRotationTranspose, sub, subIntermediary );
-		multMatrix2( subIntermediary, rightRotation, subTransformed );
+			subVertMain[2][2] =		{{	matrix[L][Lprime],	matrix[L][Hprime]	},
+							 {	matrix[H][Lprime],	matrix[H][Hprime]	}};
+			
+
+		//multiply main twice
+		multMatrix2( leftRotationTranspose, subMain, subMainIntermediary );
+		multMatrix2( subMainIntermediary, rightRotation, subMainTransformed );
+
+		//multiply horizontal by left
+		multMatrix2( leftRotationTranspose, subHorMain, subHorTransformed );
+
+		//multiply vertical by right
+		multMatrix2( subVertMain, rightRotation, subVertTransformed );
 
 		// stick the updated values back in the matrix
-		matrix[lowerIndex][lowerIndex] = subTransformed[0][0];		// a
-		matrix[lowerIndex][higherIndex] = subTransformed[0][1];		// b
-		matrix[higherIndex][lowerIndex] = subTransformed[1][0];		// c
-		matrix[higherIndex][higherIndex] = subTransformed[1][1];	// d
-		
-		if(fabs(matrix[lowerIndex][higherIndex]) < 0.001)
-		{
-			diagMap |= BIT(lowerIndex,higherIndex);
-		}
-		else
-		{
-			diagMap &= ~BIT(lowerIndex, higherIndex);
-		}		
+		//main (the original set)
+		matrix[L][L] = subMainTransformed[0][0];		// a
+		matrix[L][H] = subMainTransformed[0][1];		// c
+		matrix[H][L] = subMainTransformed[1][0];		// b
+		matrix[H][H] = subMainTransformed[1][1];		// d
 
-		if(fabs(matrix[higherIndex][lowerIndex]) < 0.001)
-		{
-			diagMap |= BIT(higherIndex,lowerIndex);
-		}
-		else
-		{
-			diagMap &= ~BIT(higherIndex, lowerIndex);
-		}
+		//horizontal values
+		matrix[Lprime][L] = subHorTransformed[0][0];
+		matrix[Lprime][H] = subHorTransformed[0][1];
+		matrix[Hprime][L] = subHorTransformed[1][0];
+		matrix[Hprime][H] = subHorTransformed[1][1];
+		
+		//vertical values
+		matrix[L][Lprime] = subVertTransformed[0][0];
+		matrix[L][Hprime] = subVertTransformed[0][1];
+		matrix[H][Lprime] = subVertTransformed[1][0];
+		matrix[H][Hprime] = subVertTransformed[1][1];
+		
+		//update everything
+		update(&diagMap, matrix, L,H);
+		update(&diagMap, matrix, H,L);
+		update(&diagMap, matrix, Lprime,L);
+		update(&diagMap, matrix, Lprime,H);
+		update(&diagMap, matrix, Hprime,L);
+		update(&diagMap, matrix, Hprime,H);
+		update(&diagMap, matrix, L,Lprime);
+		update(&diagMap, matrix, L,Hprime);
+		update(&diagMap, matrix, H,Lprime);
+		update(&diagMap, matrix, H,Hprime);
+
+		printMatrix(matrix);
+		printf("\n%x\n\n", diagMap );
 
 
 	}
@@ -182,10 +234,13 @@ void diagonalize( double matrix[N][N] ) {
 
 int main() {
 
-	double m[N][N]	= {{	1,	2,	3,	2	}, // this is the first COLUMN, not row.
+/*	double m[N][N]	= {{	1,	2,	3,	1	}, // this is the first COLUMN, not row.
 			   {	2,	3,	1,	2	},
 			   {	3,	1,	2,	3	},
 			   {	1,	2,	3,	4	}};
+*/
+
+	double m[N][N] = {{ 1, 5, 9, 13},{2,6,10,14},{3,7,11,15},{4,8,12,16}};
 
 	printMatrix( m );
 	printf("\r\n->\r\n\r\n");
