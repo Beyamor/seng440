@@ -70,6 +70,39 @@ void multMatrix2( double m1[2][2], double m2[2][2], double target[2][2] ) {
 }
 
 
+
+/**
+ *	Multiplies a 4x4 matrix with a 4x4 matrix, storing output in a 4x4 matrix
+ */
+void multMatrix4( double m1[4][4], double m2[4][4], double target[4][4] ) {
+	int i,j,k;
+
+
+	for(i = 0; i < 4; i++)
+	{
+		for(j = 0; j < 4; j++)
+		{
+			target[i][j] = 0;
+		}	
+	}
+
+	for( i = 0; i < 4; i++)
+	{
+		for( j = 0; j < 4; j++)
+		{
+			//finding target[i][j]
+			for(k = 0; k <  4; k++)
+			{
+				target[i][j] += m1[k][j] * m2[i][k];
+			}
+	
+		}
+	}
+
+}
+
+
+
 void update(unsigned int * diagMap, double (*matrix)[4], int x, int y)
 {
 	if(fabs(matrix[x][y]) < 0.000001)
@@ -233,20 +266,42 @@ void diagonalize( double matrix[N][N] ) {
 }
 
 int main() {
-
-/*	double m[N][N]	= {{	1,	2,	3,	1	}, // this is the first COLUMN, not row.
+/*
+	double m[N][N]	= {{	1,	2,	3,	1	}, // this is the first COLUMN, not row.
 			   {	2,	3,	1,	2	},
 			   {	3,	1,	2,	3	},
 			   {	1,	2,	3,	4	}};
+
 */
 
-	double m[N][N] = {{ 1, 5, 9, 13},{2,6,10,14},{3,7,11,15},{4,8,12,16}};
+	double m1[N][N] = {{	666,	384, 	-719,	12},
+			  {	13,	288,	140,	360},
+			  {	98,	387,	826,	557},
+			  {	-1011,	47,	399,	499}};
 
-	printMatrix( m );
+	double m2[N][N] = {{	335,	976, 	400,	-78},
+			  {	222,	553,	-474,	-690},
+			  {	744,	747,	-300,	41},
+			  {	42,	430,	444,	-555}};
+
+	double Targaryen[N][N] = {{0,0,0,0},{0,0,0,0},{0,0,0,0},{0,0,0,0}};
+	
+
+
+
+	printMatrix( m1 );
 	printf("\r\n->\r\n\r\n");
 
-	diagonalize( m );
-	printMatrix( m );
+	printMatrix( m2 );
+
+	printf("\r\n->\r\n\r\n");
+
+	
+	multMatrix4(m1, m2, Targaryen);
+
+	
+	//diagonalize( m );
+	printMatrix( Targaryen );
 
 
 	return 0;
