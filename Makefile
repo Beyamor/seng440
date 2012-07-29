@@ -10,7 +10,7 @@ UNOP = $(BINDIR)/unoptimized
 OP_OBJS = $(SRCDIR)/optimized.o
 OP = $(BINDIR)/optimized
 
-all: unoptimized
+all: unoptimized optimized
 
 unoptimized: $(UNOP_OBJS)
 	$(CC) $(CFLAGS) -o $(UNOP) $(UNOP_OBJS) -l$(CLIBS)
