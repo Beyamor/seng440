@@ -6,6 +6,7 @@
  * 	Project specifications
  */
 #define N 4
+#define PI 3.1415926
 
 
 /**
@@ -58,7 +59,10 @@ void multMatrix4( double m1[4][4], double m2[4][4], double target[4][4] ) {
 
 }
 
-double atan_new(double angle){
+double atan_new(double y, double x){
+	double angle = 0;
+	angle = (fabs(x) > fabs(y)) ? (y/x) : (x/y);
+	
 	double result = 0;
 	if(angle > 0.5 && angle <= 1.0){
 		result = 0.644*angle + 0.142;
@@ -69,6 +73,8 @@ double atan_new(double angle){
 	else if(angle < -0.5 && angle >= -1.0){
 		result = 0.644*angle - 0.142;
 	}
+	
+	if(fabs(y) > fabs(x)) return (PI/2 - result);
 	return result;
 }
 
@@ -92,7 +98,7 @@ void diagonalize( double matrix[N][N] ) {
 	int ia[16] = {1,0,1,0,2,0};
 	int ja[16] = {2,3,3,2,3,1};
 
-	for(repeat = 0; repeat < 6; repeat++)
+	for(repeat = 0; repeat < 10; repeat++)
 	{
 		for ( iter = 0; iter < 6; iter++) 
 		{
@@ -109,13 +115,10 @@ void diagonalize( double matrix[N][N] ) {
 		
 			
 			// calculate rotation angle
-			double	thetaSum = atan_new( (c+b) / (d-a) ), // Equals thetaL + thetaR
-					thetaDif = atan_new( (c-b) / (d+a) ), // Equals thetaR - thetaL
+			double	thetaSum = atan_new( (c+b) , (d-a) ), // Equals thetaL + thetaR
+					thetaDif = atan_new( (c-b) , (d+a) ), // Equals thetaR - thetaL
 					thetaL = (thetaSum - thetaDif) * 0.5,
 					thetaR = (thetaSum + thetaDif) * 0.5;
-					
-			printf
-
 
 			double rotR[N][N] = {{1,0,0,0},{0,1,0,0},{0,0,1,0},{0,0,0,1}};
 			double rotL[N][N] = {{1,0,0,0},{0,1,0,0},{0,0,1,0},{0,0,0,1}};
