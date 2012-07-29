@@ -8,7 +8,6 @@
 #define N 4
 #define PI 3.1415926
 
-
 /**
  * 	Takes a square matrix
  * 	The function prints the contents of the matrix
@@ -59,10 +58,22 @@ void multMatrix4( double m1[4][4], double m2[4][4], double target[4][4] ) {
 
 }
 
-double atan_new(double y, double x){
-	double angle = 0;
-	angle = (fabs(x) > fabs(y)) ? (y/x) : (x/y);
-	
+double cos_new(double angle) {
+
+	float	angleSquared = angle*angle;
+
+	return 1 - angleSquared/2 + angleSquared/24;
+}
+
+double sin_new(double angle) {
+
+	float	angleSquared = angle*angle,
+		angleCubed = angle*angleSquared;
+
+	return angle - angleCubed/6 + angleSquared*angleCubed/120;
+}
+
+double atan_new(double angle){
 	double result = 0;
 	if(angle > 0.5 && angle <= 1.0){
 		result = 0.644*angle + 0.142;
@@ -120,19 +131,20 @@ void diagonalize( double matrix[N][N] ) {
 					thetaL = (thetaSum - thetaDif) * 0.5,
 					thetaR = (thetaSum + thetaDif) * 0.5;
 
+			
 			double rotR[N][N] = {{1,0,0,0},{0,1,0,0},{0,0,1,0},{0,0,0,1}};
 			double rotL[N][N] = {{1,0,0,0},{0,1,0,0},{0,0,1,0},{0,0,0,1}};
 
 
-			rotL[i][i] = cos(thetaL);	//rotation'
-			rotL[i][j] = -sin(thetaL);
-			rotL[j][i] = sin(thetaL);
-			rotL[j][j] = cos(thetaL);
+			rotL[i][i] = cos_new(thetaL);	//rotation'
+			rotL[i][j] = -sin_new(thetaL);
+			rotL[j][i] = sin_new(thetaL);
+			rotL[j][j] = cos_new(thetaL);
 
-			rotR[i][i] = cos(thetaR);	//rotation
-			rotR[i][j] = sin(thetaR);
-			rotR[j][i] = -sin(thetaR);
-			rotR[j][j] = cos(thetaR);
+			rotR[i][i] = cos_new(thetaR);	//rotation
+			rotR[i][j] = sin_new(thetaR);
+			rotR[j][i] = -sin_new(thetaR);
+			rotR[j][j] = cos_new(thetaR);
 
 
 			double med[N][N] = {{0,0,0,0},{0,0,0,0},{0,0,0,0},{0,0,0,0}};
