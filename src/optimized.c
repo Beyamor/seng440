@@ -73,8 +73,10 @@ double sin_new(double angle) {
 	return angle - angleCubed/6 + angleSquared*angleCubed/120;
 }
 
-double atan_new(double angle){
+double atan_new(double y, double x){
 	double result = 0;
+	double angle = (fabs(x) > fabs(y)) ? (y/x) : (x/y);
+	
 	if(angle > 0.5 && angle <= 1.0){
 		result = 0.644*angle + 0.142;
 	}
