@@ -58,6 +58,19 @@ void multMatrix4( double m1[4][4], double m2[4][4], double target[4][4] ) {
 
 }
 
+double atan_new(double angle){
+	double result = 0;
+	if(angle > 0.5 && angle <= 1.0){
+		result = 0.644*angle + 0.142;
+	}
+	else if(angle <= 0.5 && angle >= -0.5){
+		result = 0.928*angle;
+	}
+	else if(angle < -0.5 && angle >= -1.0){
+		result = 0.644*angle - 0.142;
+	}
+	return result;
+}
 
 /**
  * 	Takes a square matrix and diagonalizes it
@@ -96,10 +109,12 @@ void diagonalize( double matrix[N][N] ) {
 		
 			
 			// calculate rotation angle
-			double	thetaSum = atan( (c+b) / (d-a) ), // Equals thetaL + thetaR
-					thetaDif = atan( (c-b) / (d+a) ), // Equals thetaR - thetaL
+			double	thetaSum = atan_new( (c+b) / (d-a) ), // Equals thetaL + thetaR
+					thetaDif = atan_new( (c-b) / (d+a) ), // Equals thetaR - thetaL
 					thetaL = (thetaSum - thetaDif) * 0.5,
 					thetaR = (thetaSum + thetaDif) * 0.5;
+					
+			printf
 
 
 			double rotR[N][N] = {{1,0,0,0},{0,1,0,0},{0,0,1,0},{0,0,0,1}};
