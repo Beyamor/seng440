@@ -62,7 +62,7 @@ double cos_new(double angle) {
 
 	float	angleSquared = angle*angle;
 
-	return 1 - angleSquared*0.5 + angleSquared*0.04166666;
+	return 1 - angleSquared*0.5 + angleSquared*angleSquared*0.04166666;
 }
 
 double sin_new(double angle) {
