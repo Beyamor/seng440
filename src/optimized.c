@@ -75,7 +75,8 @@ double sin_new(double angle) {
 
 double atan_new(double y, double x){
 	double result = 0;
-	double angle = (fabs(x) > fabs(y)) ? (y/x) : (x/y);
+	char isCot = fabs(y) > fabs(x);
+	double angle = isCot ? (x/y) : (y/x);
 	
 	if(angle > 0.5 && angle <= 1.0){
 		result = 0.644*angle + 0.142;
@@ -86,8 +87,12 @@ double atan_new(double y, double x){
 	else if(angle < -0.5 && angle >= -1.0){
 		result = 0.644*angle - 0.142;
 	}
+
+	if (isCot && angle < 0)
+		result += PI;
 	
-	if(fabs(y) > fabs(x)) return (PI/2 - result);
+	if (isCot)
+		result = PI/2 - result;
 	return result;
 }
 
