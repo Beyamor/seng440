@@ -60,9 +60,31 @@ void multMatrix4( double m1[4][4], double m2[4][4], double target[4][4] ) {
 
 double cos_new(double angle) {
 
-	float	angleSquared = angle*angle;
+	double result = 0;
 
-	return 1 - angleSquared*0.5 + angleSquared*angleSquared*0.04166666;
+#define POINT 0.691149999999
+	if (angle < -POINT) {
+
+		result = 1.46968194526 + 0.935628585443 * angle;
+	}
+
+	else if (angle < 0) {
+
+		result = 1.0 + 0.231246543965 * angle;
+	}
+
+	else if (angle < POINT) {
+
+		result = 1.0 + -0.231246543965 * angle;
+	}
+
+	else if (angle < PI/2) {
+
+		result = 1.46968194526 + -0.935628585443 * angle;
+	}
+#undef POINT
+
+	return result;
 }
 
 double sin_new(double angle) {
@@ -70,6 +92,7 @@ double sin_new(double angle) {
 	float	angleSquared = angle*angle,
 		angleCubed = angle*angleSquared;
 
+	return sin(angle);
 	return angle - angleCubed*0.1666666 + angleSquared*angleCubed*0.00833333;
 }
 
@@ -93,6 +116,8 @@ double atan_new(double y, double x){
 	
 	if (isCot)
 		result = PI/2 - result;
+
+	return atan(y/x);
 	return result;
 }
 
