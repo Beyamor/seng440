@@ -26,7 +26,7 @@ while test_join_point < 1.0:
 		error = 0
 		angle = -pi/2
 		while angle < pi/2:
-			error += abs((cos(angle) - my_cos(angle, test_join_point, test_join_height)))
+			error += abs((cos(angle) - my_cos(angle, test_join_point, test_join_height)) / cos(angle))
 			angle += pi/100
 		errors[(test_join_point, test_join_height)] = error
 		test_join_height += 0.01

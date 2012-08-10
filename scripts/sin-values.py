@@ -2,11 +2,11 @@ from math import *
 
 #join_point = 0.50474
 #join_point = 0.818999999999
-join_point = 0.9039999999999335
+join_point = 0.8327999999999414
 #join_point = pi/4
 
 #join_height = cos(join_point)
-join_height = 0.8458070762631025
+join_height = 0.8098181280798935
 
 print "section 1:"
 start_x = -pi/2
