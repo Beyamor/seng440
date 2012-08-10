@@ -18,14 +18,20 @@ use work.data_type.all;
 entity atan is 
 port (
 	angle 	: in integer16_bit;
-	arc		: out integer32_bit
+	arc		: out integer16_bit;
+	clock	: in std_logic;
+	reset	: in std_logic
 );
 end atan;
 
 architecture atan_arch of atan is
 begin
-	process
+	process(clock, reset)
 	begin
-		arc <= angle*16;
+		if reset='0' then
+			arc <= 0;
+		elsif clock'event and clock='1' then
+			arc <= angle*2;
+		end if;
 	end process;
 end atan_arch;
