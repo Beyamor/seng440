@@ -62,25 +62,25 @@ double cos_new(double angle) {
 
 	double result = 0;
 
-#define POINT 0.691149999999
+#define POINT 0.8097483720555431
 	if (angle < -POINT) {
 
-		result = 1.46968194526 + 0.935628585443 * angle;
+		result = 1.52750736076 + 0.972441388294 * angle;
 	}
 
 	else if (angle < 0) {
 
-		result = 1.0 + 0.231246543965 * angle;
+		result = 1.0 + 0.25775860716 * angle;
 	}
 
 	else if (angle < POINT) {
 
-		result = 1.0 + -0.231246543965 * angle;
+		result = 1.0 + -0.25775860716 * angle;
 	}
 
 	else if (angle < PI/2) {
 
-		result = 1.46968194526 + -0.935628585443 * angle;
+		result = 1.52750736076 + -0.972441388294 * angle;
 	}
 #undef POINT
 
@@ -91,34 +91,27 @@ double sin_new(double angle) {
 
 	double result = 0;
 
-#define POINT 0.9039999999999335
+#define POINT 0.8098181280798935
 	if (angle < -POINT) {
 
-		result = -0.636762128868 + 0.231244410835 * angle;
+		result = -0.595205321506 + 0.257700296079 * angle;
 	}
 	else if (angle < POINT) {
 
-		result = 0.0 + 0.935627296751 * angle;
+		result = 0.0 + 0.972404092315 * angle;
 	}
 
 	else if (angle < PI/2) {
 
-		result = 0.636762128868 + 0.231244410835 * angle;
+		result = 0.595205321506 + 0.257700296079 * angle;
 	}
 #undef POINT
 
 	return result;
-
-	/*
-	float	angleSquared = angle*angle,
-		angleCubed = angle*angleSquared;
-
-	return sin(angle);
-	return angle - angleCubed*0.1666666 + angleSquared*angleCubed*0.00833333;
-	*/
 }
 
 double atan_new(double y, double x){
+
 	double result = 0;
 	char isCot = fabs(y) > fabs(x);
 	double angle = isCot ? (x/y) : (y/x);
@@ -139,7 +132,6 @@ double atan_new(double y, double x){
 	if (isCot)
 		result = PI/2 - result;
 
-	return atan(y/x);
 	return result;
 }
 

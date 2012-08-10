@@ -2,11 +2,11 @@ from math import *
 
 #join_point = 0.50474
 #join_point = 0.818999999999
-join_point = 0.6667999999999596
+join_point = 0.7380999999999518
 #join_point = pi/4
 
 #join_height = cos(join_point)
-join_height = 0.8458048044844768
+join_height = 0.8097483720555431
 
 print "section 1:"
 slope = (0 - join_height) / (-pi/2 - -join_point)
