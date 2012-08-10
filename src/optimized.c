@@ -89,11 +89,33 @@ double cos_new(double angle) {
 
 double sin_new(double angle) {
 
+	double result = 0;
+
+#define POINT 0.9039999999999335
+	if (angle < -POINT) {
+
+		result = -0.636762128868 + 0.231244410835 * angle;
+	}
+	else if (angle < POINT) {
+
+		result = 0.0 + 0.935627296751 * angle;
+	}
+
+	else if (angle < PI/2) {
+
+		result = 0.636762128868 + 0.231244410835 * angle;
+	}
+#undef POINT
+
+	return result;
+
+	/*
 	float	angleSquared = angle*angle,
 		angleCubed = angle*angleSquared;
 
 	return sin(angle);
 	return angle - angleCubed*0.1666666 + angleSquared*angleCubed*0.00833333;
+	*/
 }
 
 double atan_new(double y, double x){
