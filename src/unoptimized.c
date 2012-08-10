@@ -7,39 +7,75 @@
  */
 #define N 4
 
+#define SCALE 4096
+/*	2^12 = 4096
+ *	This value is multiplied with the input(max 2^15) in a 32-bit int, but 
+ *	there was little accuracy difference between 2^12 and 2^14 for the scale
+ *	(about +/- 0.2%) 
+ */
+
 
 /**
  * 	Takes a square matrix
  * 	The function prints the contents of the matrix
  */
-void printMatrix( double matrix[N][N] ) {
+void printMatrix( short matrix[N][N] ) {
 
-	int i = 0,
+	short i = 0,
 	    j = 0;
 	
 	for ( i = 0; i < N; ++i ) {
 		for ( j = 0; j < N; ++j ) {
-			//(j,i) because column-first
-			printf( "%s%f%s", matrix[i][j] < 0?"":" ", matrix[i][j], (j<N-1)? ",\t":"\n" );
+			printf( "%s%d%s", matrix[i][j] < 0?"":" ", matrix[i][j], (j<N-1)? ",\t":"\n" );
 		}
 	}
 }
 
+
+double cos_new(double angle) {
+
+	float	angleSquared = angle*angle;
+
+	return 1 - angleSquared/2 + angleSquared/24;
+}
+
+double sin_new(double angle) {
+
+	float	angleSquared = angle*angle,
+		angleCubed = angle*angleSquared;
+
+	return angle - angleCubed/6 + angleSquared*angleCubed/120;
+}
+
+double atan_new(double angle){
+	double result = 0;
+	if(angle > 0.5 && angle <= 1.0){
+		result = 0.644*angle + 0.142;
+	}
+	else if(angle <= 0.5 && angle >= -0.5){
+		result = 0.928*angle;
+	}
+	else if(angle < -0.5 && angle >= -1.0){
+		result = 0.644*angle - 0.142;
+	}
+	return result;
+}
 
 
 
 /**
  *	Multiplies a 4x4 matrix with a 4x4 matrix, storing output in a 4x4 matrix
  */
-void multMatrix4( double m1[4][4], double m2[4][4], double target[4][4] ) {
-	int i,j,k;
+void multMatrix4( short m1[4][4], short m2[4][4], short target[4][4] ) {
+	short i,j,k;
 
+	short target32[4][4];
 
-	for(i = 0; i < 4; i++)
+	for( i = 0; i < 4; i++)
 	{
 		for(j = 0; j < 4; j++)
 		{
-			target[i][j] = 0;
+			target32[i][j] = 0;
 		}	
 	}
 
@@ -50,11 +86,13 @@ void multMatrix4( double m1[4][4], double m2[4][4], double target[4][4] ) {
 			//finding target[i][j]
 			for(k = 0; k <  4; k++)
 			{
-				target[i][j] += m1[i][k] * m2[k][j];
+				target32[i][j] += m1[i][k] * m2[k][j];
+				target[i][j] = (short)(target32[i][j] / SCALE);
 			}
 	
 		}
 	}
+
 
 }
 
@@ -62,68 +100,70 @@ void multMatrix4( double m1[4][4], double m2[4][4], double target[4][4] ) {
 /**
  * 	Takes a square matrix and diagonalizes it
  */
-void diagonalize( double matrix[N][N] ) {
+void diagonalize( short matrix[N][N] ) {
 	
 	// Declare some chincey variables
 
-	int iter = 0;
+	short iter = 0;
 
-	int repeat;
+	short repeat;
 	
 	//sima method
-	//int ia[16] = {0,2,0,1,0,1};
-	//int ja[16] = {1,3,2,3,3,2};
+	//i {0,2,0,1,0,1}
+	//j {1,3,2,3,3,2}
 
 	
 	//found by testing permutations, matches wolframalpha
-	int ia[16] = {1,0,1,0,2,0};
-	int ja[16] = {2,3,3,2,3,1};
+	short ia[16] = {1,0,1,0,2,0};
+	short ja[16] = {2,3,3,2,3,1};
+
 
 	for(repeat = 0; repeat < 6; repeat++)
 	{
 		for ( iter = 0; iter < 6; iter++) 
 		{
 		
-			int i = ia[iter];
-			int j = ja[iter];
+			short i = ia[iter];
+			short j = ja[iter];
 
 
-			double	a = matrix[i][i],
+			short	a = matrix[i][i],
 				b = matrix[i][j],
 				c = matrix[j][i],
 				d = matrix[j][j];
 
 		
+			short rotR[N][N] = {{SCALE,0,0,0},{0,SCALE,0,0},{0,0,SCALE,0},{0,0,0,SCALE}};
+			short rotL[N][N] = {{SCALE,0,0,0},{0,SCALE,0,0},{0,0,SCALE,0},{0,0,0,SCALE}};
 			
 			// calculate rotation angle
-			double	thetaSum = atan( (c+b) / (d-a) ), // Equals thetaL + thetaR
-					thetaDif = atan( (c-b) / (d+a) ), // Equals thetaR - thetaL
+			double	thetaSum = atan( (c+b) / (double)(d-a) ), // Equals thetaL + thetaR
+					thetaDif = atan( (c-b)  / (double)(d+a) ), // Equals thetaR - thetaL
 					thetaL = (thetaSum - thetaDif) * 0.5,
 					thetaR = (thetaSum + thetaDif) * 0.5;
 
-
-			double rotR[N][N] = {{1,0,0,0},{0,1,0,0},{0,0,1,0},{0,0,0,1}};
-			double rotL[N][N] = {{1,0,0,0},{0,1,0,0},{0,0,1,0},{0,0,0,1}};
+			
 
 
-			rotL[i][i] = cos(thetaL);	//rotation'
-			rotL[i][j] = -sin(thetaL);
-			rotL[j][i] = sin(thetaL);
-			rotL[j][j] = cos(thetaL);
+			rotL[i][i] = (short)((double)SCALE *  cos(thetaL));	//rotation'
+			rotL[i][j] = (short)((double)SCALE * -sin(thetaL));
+			rotL[j][i] = (short)((double)SCALE *  sin(thetaL));
+			rotL[j][j] = (short)((double)SCALE *  cos(thetaL));
 
-			rotR[i][i] = cos(thetaR);	//rotation
-			rotR[i][j] = sin(thetaR);
-			rotR[j][i] = -sin(thetaR);
-			rotR[j][j] = cos(thetaR);
+			rotR[i][i] = (short)((double)SCALE *  cos(thetaR));	//rotation
+			rotR[i][j] = (short)((double)SCALE *  sin(thetaR));
+			rotR[j][i] = (short)((double)SCALE * -sin(thetaR));
+			rotR[j][j] = (short)((double)SCALE *  cos(thetaR));
 
 
-			double med[N][N] = {{0,0,0,0},{0,0,0,0},{0,0,0,0},{0,0,0,0}};
-			double res[N][N] = {{0,0,0,0},{0,0,0,0},{0,0,0,0},{0,0,0,0}};
+			short med[N][N] = {{0,0,0,0},{0,0,0,0},{0,0,0,0},{0,0,0,0}};
 
 
 			multMatrix4( rotL, matrix, med);
 			multMatrix4(med, rotR, matrix);
-
+			
+			printMatrix(rotR);
+			printf("\n\n");
 
 		}
 
@@ -133,10 +173,10 @@ void diagonalize( double matrix[N][N] ) {
 int main() {
 
 
-	double m[N][N]	= {{	1,	2,	3,	1	}, 
-			   {	2,	3,	1,	2	},
-			   {	3,	1,	2,	3	},
-			   {	1,	2,	3,	4	}};
+	short m[N][N]	= {{	512,	1024,	1536,	512	}, 
+			   {	1024,	1536,	512,	1024	},
+			   {	1536,	512,	1024,	1536	},
+			   {	512,	1024,	1536,	2048	}};
 
 
 
@@ -146,6 +186,8 @@ int main() {
 	
 	diagonalize( m );
 	printMatrix( m );
+
+
 
 	return 0;
 }
