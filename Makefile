@@ -1,7 +1,7 @@
 SRCDIR = src
 BINDIR = bin
 CC = gcc
-CFLAGS =
+CFLAGS = --std=c99
 CLIBS = m
 
 UNOP_OBJS = $(SRCDIR)/unoptimized.o

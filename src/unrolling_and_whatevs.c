@@ -143,26 +143,20 @@ short atan_fixed(short y, short x)
 /**
  *	Multiplies a 4x4 matrix with a 4x4 matrix, storing output in a 4x4 matrix
  */
-void multMatrix4( short m1[N][N], short m2[N][N], short target[N][N] ) {
+void multMatrix4( short *restrict m1, short *restrict m2, short *restrict target ) {
 	short i,j,k;
 
 	int temp32 = 0;
-	for( i = 0; i < N; i++)
-	{
-		for(j = 0; j < N; j++)
-		{
-			target[i][j] = 0;
-		}	
-	}
 
 	for( i = 0; i < N; i++)
 	{
 		for( j = 0; j < N; j++)
 		{
+			target[i*N + j] = 0;
 			for(k = 0; k < N; k++)
 			{
-				temp32 = m1[i][k] * m2[k][j];
-				target[i][j] += (short)(temp32 >> SCALE_BITS); //bitshift 12 is the same as division by scale
+				temp32 = m1[i*N + k] * m2[k*N + j];
+				target[i*N + j] += (short)(temp32 >> SCALE_BITS); //bitshift 12 is the same as division by scale
 			}
 		}
 	}
@@ -209,8 +203,8 @@ void multMatrix4( short m1[N][N], short m2[N][N], short target[N][N] ) {
 	rotR[j][i] = -sinR; \
 	rotR[j][j] =  cosR; \
 	\
-	multMatrix4( rotL, matrix, med); \
-	multMatrix4( med, rotR, matrix);
+	multMatrix4( (short*)rotL, (short*)matrix, (short*)med); \
+	multMatrix4( (short*)med, (short*)rotR, (short*)matrix);
 
 #define DIAGONALIZATION_CYCLE() \
 	DIAGONALIZATION_ITERATION(0) \
@@ -256,8 +250,6 @@ void diagonalize( short matrix[N][N] ) {
 		rotL[N][N],
 		med[N][N];
 
-	DIAGONALIZATION_CYCLE()
-	DIAGONALIZATION_CYCLE()
 	DIAGONALIZATION_CYCLE()
 	DIAGONALIZATION_CYCLE()
 	DIAGONALIZATION_CYCLE()
