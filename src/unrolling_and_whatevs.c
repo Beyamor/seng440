@@ -172,9 +172,9 @@ void multMatrix4( short m1[N][N], short m2[N][N], short target[N][N] ) {
 	m[0][0] = SCALE; m[0][1] = 0; m[0][2] = 0; m[0][3] = 0; \
 	m[1][0] = 0; m[1][1] = SCALE; m[1][2] = 0; m[1][3] = 0; \
 	m[2][0] = 0; m[2][1] = 0; m[2][2] = SCALE; m[2][3] = 0; \
-	m[3][0] = 0; m[3][1] = 0; m[3][2] = 0; m[3][3] = SCALE; \
+	m[3][0] = 0; m[3][1] = 0; m[3][2] = 0; m[3][3] = SCALE;
 
-#define DIAGONALIZTION_ITERATION(iter)\
+#define DIAGONALIZATION_ITERATION(iter)\
 	i = ia[iter]; \
 	j = ja[iter]; \
 	\
@@ -212,6 +212,13 @@ void multMatrix4( short m1[N][N], short m2[N][N], short target[N][N] ) {
 	multMatrix4( rotL, matrix, med); \
 	multMatrix4( med, rotR, matrix);
 
+#define DIAGONALIZATION_CYCLE() \
+	DIAGONALIZATION_ITERATION(0) \
+	DIAGONALIZATION_ITERATION(1) \
+	DIAGONALIZATION_ITERATION(2) \
+	DIAGONALIZATION_ITERATION(3) \
+	DIAGONALIZATION_ITERATION(4) \
+	DIAGONALIZATION_ITERATION(5)
 
 /**
  * 	Takes a square matrix and diagonalizes it
@@ -249,16 +256,11 @@ void diagonalize( short matrix[N][N] ) {
 		rotL[N][N],
 		med[N][N];
 
-
-	for(repeat = 0; repeat < 3; repeat++)
-	{
-		DIAGONALIZTION_ITERATION(0) 
-		DIAGONALIZTION_ITERATION(1)
-		DIAGONALIZTION_ITERATION(2)
-		DIAGONALIZTION_ITERATION(3)
-		DIAGONALIZTION_ITERATION(4)
-		DIAGONALIZTION_ITERATION(5)
-	}
+	DIAGONALIZATION_CYCLE()
+	DIAGONALIZATION_CYCLE()
+	DIAGONALIZATION_CYCLE()
+	DIAGONALIZATION_CYCLE()
+	DIAGONALIZATION_CYCLE()
 }
 
 int main() {
