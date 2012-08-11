@@ -138,7 +138,32 @@ short atan_fixed(short y, short x)
 	return result;
 }
 
+#define MULTIPLICATION_STEP_INITIALIZATION(i,j) \
+	targetIndex = i*N + j; \
+	target[targetIndex] = 0;
 
+#define MULTIPLICATION_STEP(i,j,k) \
+	temp32 = m1[i*N + k] * m2[k*N + j]; \
+	target[targetIndex] += (short)(temp32 >> SCALE_BITS); /* bitshift 12 is the same as division by scale */
+
+#define MULTIPLICATION_STEPS_FOR_IJ(i,j) \
+	MULTIPLICATION_STEP_INITIALIZATION(i,j) \
+	MULTIPLICATION_STEP(i,j,0) \
+	MULTIPLICATION_STEP(i,j,1) \
+	MULTIPLICATION_STEP(i,j,2) \
+	MULTIPLICATION_STEP(i,j,3)
+
+#define MULTIPLICATION_STEPS_FOR_I(i) \
+	MULTIPLICATION_STEPS_FOR_IJ(i,0) \
+	MULTIPLICATION_STEPS_FOR_IJ(i,1) \
+	MULTIPLICATION_STEPS_FOR_IJ(i,2) \
+	MULTIPLICATION_STEPS_FOR_IJ(i,3)
+
+#define MULTIPLICATION_STEPS() \
+	MULTIPLICATION_STEPS_FOR_I(0) \
+	MULTIPLICATION_STEPS_FOR_I(1) \
+	MULTIPLICATION_STEPS_FOR_I(2) \
+	MULTIPLICATION_STEPS_FOR_I(3)
 
 /**
  *	Multiplies a 4x4 matrix with a 4x4 matrix, storing output in a 4x4 matrix
@@ -146,20 +171,9 @@ short atan_fixed(short y, short x)
 void multMatrix4( short *restrict m1, short *restrict m2, short *restrict target ) {
 	short i,j,k;
 
-	int temp32 = 0;
+	int temp32 = 0, targetIndex = 0;
 
-	for( i = 0; i < N; i++)
-	{
-		for( j = 0; j < N; j++)
-		{
-			target[i*N + j] = 0;
-			for(k = 0; k < N; k++)
-			{
-				temp32 = m1[i*N + k] * m2[k*N + j];
-				target[i*N + j] += (short)(temp32 >> SCALE_BITS); //bitshift 12 is the same as division by scale
-			}
-		}
-	}
+	MULTIPLICATION_STEPS()
 }
 
 #define SET_AS_IDENTITY(m) \
