@@ -7,16 +7,32 @@
  */
 #define N 4
 
-#define DEBUG 0
-
-#define SCALE 4096
+#define SCALE 		 4096
+#define SCALE_OVER_2 	 2048
+#define SCALE_BITS	 12
 /*	2^12 = (4096 * 16)
  *	This value is multiplied with the input(max 2^15) in a 32-bit int, but 
  *	there was little accuracy difference between 2^12 and 2^14 for the scale
  *	(about +/- 0.2%) 
  */
 
-#define FPI 12868 // 3.1415926 * 4096
+#define PI 		 12868 
+#define PI_OVER_2 	 6434
+
+#define POINT 		 3317 
+
+#define COS_OFFSET 	 6257 
+#define SIN_OFFSET 	-2438
+#define TAN_OFFSET	 582
+
+#define SIN_OUT_MULT	 1056
+#define SIN_IN_MULT	 3983
+
+#define TAN_OUT_MULT	 2638
+#define TAN_IN_MULT	 3801
+
+#define COS_OUT_MULT	 3983
+#define COS_IN_MULT	 1056
 
 
 /**
@@ -39,92 +55,86 @@ void printMatrix( short matrix[N][N] ) {
 short cos_fixed(short angle){
 	short result = 0;
 
-#define POINT 0.8097483720555431 * SCALE
 	if(angle < -POINT)
 	{
-		result = 1.52750736076 * SCALE + 0.972441388294 * angle;
+		result = COS_OFFSET + ((COS_OUT_MULT * angle) >> SCALE_BITS);  
 	}
 	else if (angle < 0) {
 
-		result = SCALE + 0.25775860716 * angle;
+		result = SCALE + ((COS_IN_MULT * angle) >> SCALE_BITS);
 	}
 
 	else if (angle < POINT) {
 
-		result = SCALE + -0.25775860716 * angle;
+		result = SCALE -((COS_IN_MULT * angle) >> SCALE_BITS);
 	}
 
-	else if (angle < FPI) {
+	else if (angle < PI) {
 
-		result = 1.52750736076 * SCALE + -0.972441388294 * angle;
+		result = COS_OFFSET - ((COS_OUT_MULT * angle) >> SCALE_BITS); 
 	}
-#undef POINT
 	return result;
 }
 
 
 short sin_fixed(short angle) {
-	short result = 0;
-#define POINT 0.8098181280798935 * SCALE
+	int result = 0;
 	if (angle < -POINT) {
 
-		result = -0.595205321506 * SCALE + 0.257700296079 * angle;
+		result = SIN_OFFSET + ((SIN_OUT_MULT * angle) >> SCALE_BITS);
 	}
 	else if (angle < POINT) {
 
-		result = 0.972404092315 * angle;
+		result = (SIN_IN_MULT * angle) >> SCALE_BITS;
 	}
 
-	else if (angle < FPI/2) {
+	else if (angle < PI_OVER_2) {
 
-		result = 0.595205321506 * SCALE + 0.257700296079 * angle;
+		result = SIN_OFFSET + ((SIN_OUT_MULT * angle) >> SCALE_BITS);
 	}
 
-#undef POINT
-	return result;
+	return (short)result;
 }
 
 
 short atan_fixed(short y, short x)
 {
-
 	if(x == 0 && y == 0)
 	{
 		printf("This should never happen\n");
 		return 0;
 	}
 
-	char isCot = y >= 0 ? x >= 0 ? y > x : y > -x : x >= 0 ? -y > x : -y > FPI/2;	
+	char isCot = y >= 0 ? x >= 0 ? y > x : y > -x : x >= 0 ? -y > x : -y > -x;	
 
 	short result = 0;
 
 	//store angle in 32 bit to avoid truncation errors, shift up another scale factor (bitshift it later)
-	int angle = isCot ? (SCALE * x)/y : (SCALE * y)/x;
+	int angle = isCot ? (x << SCALE_BITS) / y : (y << SCALE_BITS) / x;
 	
-	if(angle > (SCALE * 0.5) && angle <= (SCALE))
+	if(angle > SCALE_OVER_2 && angle <= (SCALE))
 	{
-		result = (short)(0.644f * (float)angle) + (0.142f * (float)SCALE);
+		result = ((TAN_OUT_MULT * angle) >> SCALE_BITS) + TAN_OFFSET;
 	}
-	else if(angle <= ((float)SCALE * 0.5f) && angle >= (-0.5f * (float)SCALE))
+	else if(angle <= SCALE_OVER_2 && angle >= -SCALE_OVER_2) 
 	{
-		result = (short)(0.928f * (float)angle);
+		result = (TAN_IN_MULT * angle) >> SCALE_BITS;
 	}
-	else if(angle < (-0.5f * (float)SCALE) && angle >= -(float)SCALE)
+	else if(angle < -SCALE_OVER_2 && angle >= -SCALE)
 	{
-		result = (short)(0.644f * (float)angle) - (0.142f * (float)SCALE);
+		result = ((TAN_OUT_MULT * angle) >> SCALE_BITS) - TAN_OFFSET;
 	}
 
 
 	if(isCot && angle < 0)
 	{
-		result += FPI;
+		result += PI;
 	}
 
 	if(isCot)
 	{	
-		result = (FPI/2) - result;
+		result = (PI_OVER_2) - result;
 	}
-//	printf("res: %d\n", result );
 	return result;
 }
 
@@ -133,34 +143,29 @@ short atan_fixed(short y, short x)
 /**
  *	Multiplies a 4x4 matrix with a 4x4 matrix, storing output in a 4x4 matrix
  */
-void multMatrix4(  short m1[4][4], short m2[4][4], short target[4][4] ) {
+void multMatrix4( short m1[N][N], short m2[N][N], short target[N][N] ) {
 	short i,j,k;
 
-	//short target32[4][4];
 	int temp32 = 0;
-	for( i = 0; i < 4; i++)
+	for( i = 0; i < N; i++)
 	{
-		for(j = 0; j < 4; j++)
+		for(j = 0; j < N; j++)
 		{
 			target[i][j] = 0;
 		}	
 	}
 
-	for( i = 0; i < 4; i++)
+	for( i = 0; i < N; i++)
 	{
-		for( j = 0; j < 4; j++)
+		for( j = 0; j < N; j++)
 		{
-			//finding target[i][j]
-			for(k = 0; k <  4; k++)
+			for(k = 0; k < N; k++)
 			{
 				temp32 = m1[i][k] * m2[k][j];
-				target[i][j] += (short)(temp32 / SCALE);
+				target[i][j] += (short)(temp32 >> SCALE_BITS); //bitshift 12 is the same as division by scale
 			}
-	
 		}
 	}
-
-
 }
 
 
@@ -168,11 +173,8 @@ void multMatrix4(  short m1[4][4], short m2[4][4], short target[4][4] ) {
  * 	Takes a square matrix and diagonalizes it
  */
 void diagonalize( short matrix[N][N] ) {
-	
-	// Declare some chincey variables
 
-	short iter = 0;
-
+	short iter;
 	short repeat;
 	
 	//sima method
@@ -197,24 +199,22 @@ void diagonalize( short matrix[N][N] ) {
 				b = matrix[i][j],
 				c = matrix[j][i],
 				d = matrix[j][j];
-
-		
-			short rotR[N][N] = {{SCALE,0,0,0},{0,SCALE,0,0},{0,0,SCALE,0},{0,0,0,SCALE}};
-			short rotL[N][N] = {{SCALE,0,0,0},{0,SCALE,0,0},{0,0,SCALE,0},{0,0,0,SCALE}};
 			
 			// calculate rotation angle
 			short	thetaSum = atan_fixed( (c+b), (d-a)); // Equals thetaL + thetaR
 			short	thetaDif = atan_fixed( (c-b), (d+a)); // Equals thetaR - thetaL
 
-			short	thetaL = (thetaSum - thetaDif) * (0.5);
-			short	thetaR = (thetaSum + thetaDif) * (0.5);
+			short	thetaL = (thetaSum - thetaDif) >> 1;//division by 2
+			short	thetaR = (thetaSum + thetaDif) >> 1;
 			
 			short cosL = cos_fixed(thetaL);
-			short cosR = cos_fixed(thetaR);//remember to unscale when using old
-			
+			short cosR = cos_fixed(thetaR);
 			short sinL = sin_fixed(thetaL);
 			short sinR = sin_fixed(thetaR);
 
+
+			short rotR[N][N] = {{SCALE,0,0,0},{0,SCALE,0,0},{0,0,SCALE,0},{0,0,0,SCALE}};
+			short rotL[N][N] = {{SCALE,0,0,0},{0,SCALE,0,0},{0,0,SCALE,0},{0,0,0,SCALE}};
 
 			rotL[i][i] =  cosL;	//rotation'
 			rotL[i][j] = -sinL;
@@ -229,15 +229,12 @@ void diagonalize( short matrix[N][N] ) {
 			short med[N][N] = {{0,0,0,0},{0,0,0,0},{0,0,0,0},{0,0,0,0}};
 
 			multMatrix4( rotL, matrix, med);
-			multMatrix4(med, rotR, matrix);
-
+			multMatrix4( med, rotR, matrix);
 		}
-
 	}
 }
 
 int main() {
-
 
 	short m[N][N]	= {{	512,	1024,	1536,	512	}, 
 			   {	1024,	1536,	512,	1024	},
@@ -249,7 +246,6 @@ int main() {
 	
 	diagonalize( m );
 	printMatrix( m );
-
 
 	return 0;
 }
