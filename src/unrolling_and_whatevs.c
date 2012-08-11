@@ -139,7 +139,7 @@ short atan_fixed(short y, short x)
 }
 
 #define MULTIPLICATION_STEP_INITIALIZATION(i,j) \
-	targetIndex = i*N + j; \
+	targetIndex = i*N + j; /* constant arithmetic was verified as being resolved at compile time */ \
 	target[targetIndex] = 0;
 
 #define MULTIPLICATION_STEP(i,j,k) \
@@ -169,7 +169,6 @@ short atan_fixed(short y, short x)
  *	Multiplies a 4x4 matrix with a 4x4 matrix, storing output in a 4x4 matrix
  */
 void multMatrix4( short *restrict m1, short *restrict m2, short *restrict target ) {
-	short i,j,k;
 
 	int temp32 = 0, targetIndex = 0;
 
