@@ -168,6 +168,50 @@ void multMatrix4( short m1[N][N], short m2[N][N], short target[N][N] ) {
 	}
 }
 
+#define SET_AS_IDENTITY(m) \
+	m[0][0] = SCALE; m[0][1] = 0; m[0][2] = 0; m[0][3] = 0; \
+	m[1][0] = 0; m[1][1] = SCALE; m[1][2] = 0; m[1][3] = 0; \
+	m[2][0] = 0; m[2][1] = 0; m[2][2] = SCALE; m[2][3] = 0; \
+	m[3][0] = 0; m[3][1] = 0; m[3][2] = 0; m[3][3] = SCALE; \
+
+#define DIAGONALIZTION_ITERATION(iter)\
+	i = ia[iter]; \
+	j = ja[iter]; \
+	\
+	a = matrix[i][i]; \
+	b = matrix[i][j]; \
+	c = matrix[j][i]; \
+	d = matrix[j][j]; \
+	\
+	/* calculate rotation angle */ \
+	thetaSum = atan_fixed( (c+b), (d-a)); /* Equals thetaL + thetaR */ \
+	thetaDif = atan_fixed( (c-b), (d+a)); /* Equals thetaR - thetaL */ \
+	\
+	thetaL = (thetaSum - thetaDif) >> 1; /* division by 2 */ \
+	thetaR = (thetaSum + thetaDif) >> 1; \
+	\
+	cosL = cos_fixed(thetaL); \
+	cosR = cos_fixed(thetaR); \
+	sinL = sin_fixed(thetaL); \
+	sinR = sin_fixed(thetaR); \
+	\
+	\
+	SET_AS_IDENTITY(rotR)\
+	SET_AS_IDENTITY(rotL)\
+	\
+	rotL[i][i] =  cosL; /* rotation' */ \
+	rotL[i][j] = -sinL; \
+	rotL[j][i] =  sinL; \
+	rotL[j][j] =  cosL; \
+	\
+	rotR[i][i] =  cosR; /* rotation */ \
+	rotR[i][j] =  sinR; \
+	rotR[j][i] = -sinR; \
+	rotR[j][j] =  cosR; \
+	\
+	multMatrix4( rotL, matrix, med); \
+	multMatrix4( med, rotR, matrix);
+
 
 /**
  * 	Takes a square matrix and diagonalizes it
@@ -186,51 +230,34 @@ void diagonalize( short matrix[N][N] ) {
 	//found by testing permutations, matches wolframalpha
 	//short ia[16] = {1,0,1,0,2,0};
 	//short ja[16] = {2,3,3,2,3,1};
+	
+	short	i = 0,
+		j = 0,
+		a = 0,
+		b = 0,
+		c = 0,
+		d = 0,
+		thetaSum = 0,
+		thetaDif = 0,
+		thetaL = 0,
+		thetaR = 0,
+		cosL = 0,
+		cosR = 0,
+		sinL = 0,
+		sinR = 0,
+		rotR[N][N],
+		rotL[N][N],
+		med[N][N];
 
 
 	for(repeat = 0; repeat < 3; repeat++)
 	{
-		for ( iter = 0; iter < 6; iter++) 
-		{
-			short i = ia[iter];
-			short j = ja[iter];
-
-			short	a = matrix[i][i],
-				b = matrix[i][j],
-				c = matrix[j][i],
-				d = matrix[j][j];
-			
-			// calculate rotation angle
-			short	thetaSum = atan_fixed( (c+b), (d-a)); // Equals thetaL + thetaR
-			short	thetaDif = atan_fixed( (c-b), (d+a)); // Equals thetaR - thetaL
-
-			short	thetaL = (thetaSum - thetaDif) >> 1;//division by 2
-			short	thetaR = (thetaSum + thetaDif) >> 1;
-			
-			short cosL = cos_fixed(thetaL);
-			short cosR = cos_fixed(thetaR);
-			short sinL = sin_fixed(thetaL);
-			short sinR = sin_fixed(thetaR);
-
-
-			short rotR[N][N] = {{SCALE,0,0,0},{0,SCALE,0,0},{0,0,SCALE,0},{0,0,0,SCALE}};
-			short rotL[N][N] = {{SCALE,0,0,0},{0,SCALE,0,0},{0,0,SCALE,0},{0,0,0,SCALE}};
-
-			rotL[i][i] =  cosL;	//rotation'
-			rotL[i][j] = -sinL;
-			rotL[j][i] =  sinL;
-			rotL[j][j] =  cosL;
-
-			rotR[i][i] =  cosR;	//rotation
-			rotR[i][j] =  sinR;
-			rotR[j][i] = -sinR;
-			rotR[j][j] =  cosR;
-
-			short med[N][N] = {{0,0,0,0},{0,0,0,0},{0,0,0,0},{0,0,0,0}};
-
-			multMatrix4( rotL, matrix, med);
-			multMatrix4( med, rotR, matrix);
-		}
+		DIAGONALIZTION_ITERATION(0) 
+		DIAGONALIZTION_ITERATION(1)
+		DIAGONALIZTION_ITERATION(2)
+		DIAGONALIZTION_ITERATION(3)
+		DIAGONALIZTION_ITERATION(4)
+		DIAGONALIZTION_ITERATION(5)
 	}
 }
 
