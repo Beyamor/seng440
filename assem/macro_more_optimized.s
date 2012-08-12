@@ -2258,8 +2258,8 @@ diagonalize:
 	add	r3, r3, r2
 	mov	r3, r3, asl #5
 	mov	r3, r3, asr #12
-	sub	r3, r3, #2432
-	sub	r3, r3, #6
+	add	r3, r3, #2432
+	add	r3, r3, #6
 	str	r3, [fp, #-24]
 .L51:
 	ldr	r3, [fp, #-64]
@@ -2305,8 +2305,8 @@ diagonalize:
 	add	r3, r3, r2
 	mov	r3, r3, asl #5
 	mov	r3, r3, asr #12
-	sub	r3, r3, #2432
-	sub	r3, r3, #6
+	add	r3, r3, #2432
+	add	r3, r3, #6
 	str	r3, [fp, #-28]
 .L54:
 	mov	r3, #4096
@@ -3070,8 +3070,8 @@ diagonalize:
 	add	r3, r3, r2
 	mov	r3, r3, asl #5
 	mov	r3, r3, asr #12
-	sub	r3, r3, #2432
-	sub	r3, r3, #6
+	add	r3, r3, #2432
+	add	r3, r3, #6
 	str	r3, [fp, #-24]
 .L93:
 	ldr	r3, [fp, #-64]
@@ -3117,8 +3117,8 @@ diagonalize:
 	add	r3, r3, r2
 	mov	r3, r3, asl #5
 	mov	r3, r3, asr #12
-	sub	r3, r3, #2432
-	sub	r3, r3, #6
+	add	r3, r3, #2432
+	add	r3, r3, #6
 	str	r3, [fp, #-28]
 .L96:
 	mov	r3, #4096
@@ -3872,8 +3872,8 @@ diagonalize:
 	add	r3, r3, r2
 	mov	r3, r3, asl #5
 	mov	r3, r3, asr #12
-	sub	r3, r3, #2432
-	sub	r3, r3, #6
+	add	r3, r3, #2432
+	add	r3, r3, #6
 	str	r3, [fp, #-24]
 .L135:
 	ldr	r3, [fp, #-64]
@@ -3919,8 +3919,8 @@ diagonalize:
 	add	r3, r3, r2
 	mov	r3, r3, asl #5
 	mov	r3, r3, asr #12
-	sub	r3, r3, #2432
-	sub	r3, r3, #6
+	add	r3, r3, #2432
+	add	r3, r3, #6
 	str	r3, [fp, #-28]
 .L138:
 	mov	r3, #4096
@@ -4674,8 +4674,8 @@ diagonalize:
 	add	r3, r3, r2
 	mov	r3, r3, asl #5
 	mov	r3, r3, asr #12
-	sub	r3, r3, #2432
-	sub	r3, r3, #6
+	add	r3, r3, #2432
+	add	r3, r3, #6
 	str	r3, [fp, #-24]
 .L177:
 	ldr	r3, [fp, #-64]
@@ -4731,8 +4731,8 @@ diagonalize:
 	add	r3, r3, r2
 	mov	r3, r3, asl #5
 	mov	r3, r3, asr #12
-	sub	r3, r3, #2432
-	sub	r3, r3, #6
+	add	r3, r3, #2432
+	add	r3, r3, #6
 	str	r3, [fp, #-28]
 .L180:
 	mov	r3, #4096
@@ -5486,8 +5486,8 @@ diagonalize:
 	add	r3, r3, r2
 	mov	r3, r3, asl #5
 	mov	r3, r3, asr #12
-	sub	r3, r3, #2432
-	sub	r3, r3, #6
+	add	r3, r3, #2432
+	add	r3, r3, #6
 	str	r3, [fp, #-24]
 .L219:
 	ldr	r3, [fp, #-64]
@@ -5533,8 +5533,8 @@ diagonalize:
 	add	r3, r3, r2
 	mov	r3, r3, asl #5
 	mov	r3, r3, asr #12
-	sub	r3, r3, #2432
-	sub	r3, r3, #6
+	add	r3, r3, #2432
+	add	r3, r3, #6
 	str	r3, [fp, #-28]
 .L222:
 	mov	r3, #4096
@@ -6288,8 +6288,8 @@ diagonalize:
 	add	r3, r3, r2
 	mov	r3, r3, asl #5
 	mov	r3, r3, asr #12
-	sub	r3, r3, #2432
-	sub	r3, r3, #6
+	add	r3, r3, #2432
+	add	r3, r3, #6
 	str	r3, [fp, #-24]
 .L261:
 	ldr	r3, [fp, #-64]
@@ -6335,8 +6335,8 @@ diagonalize:
 	add	r3, r3, r2
 	mov	r3, r3, asl #5
 	mov	r3, r3, asr #12
-	sub	r3, r3, #2432
-	sub	r3, r3, #6
+	add	r3, r3, #2432
+	add	r3, r3, #6
 	str	r3, [fp, #-28]
 .L264:
 	mov	r3, #4096
@@ -7100,8 +7100,8 @@ diagonalize:
 	add	r3, r3, r2
 	mov	r3, r3, asl #5
 	mov	r3, r3, asr #12
-	sub	r3, r3, #2432
-	sub	r3, r3, #6
+	add	r3, r3, #2432
+	add	r3, r3, #6
 	str	r3, [fp, #-24]
 .L303:
 	ldr	r3, [fp, #-64]
@@ -7147,8 +7147,8 @@ diagonalize:
 	add	r3, r3, r2
 	mov	r3, r3, asl #5
 	mov	r3, r3, asr #12
-	sub	r3, r3, #2432
-	sub	r3, r3, #6
+	add	r3, r3, #2432
+	add	r3, r3, #6
 	str	r3, [fp, #-28]
 .L306:
 	mov	r3, #4096
@@ -7902,8 +7902,8 @@ diagonalize:
 	add	r3, r3, r2
 	mov	r3, r3, asl #5
 	mov	r3, r3, asr #12
-	sub	r3, r3, #2432
-	sub	r3, r3, #6
+	add	r3, r3, #2432
+	add	r3, r3, #6
 	str	r3, [fp, #-24]
 .L345:
 	ldr	r3, [fp, #-64]
@@ -7949,8 +7949,8 @@ diagonalize:
 	add	r3, r3, r2
 	mov	r3, r3, asl #5
 	mov	r3, r3, asr #12
-	sub	r3, r3, #2432
-	sub	r3, r3, #6
+	add	r3, r3, #2432
+	add	r3, r3, #6
 	str	r3, [fp, #-28]
 .L348:
 	mov	r3, #4096
@@ -8704,8 +8704,8 @@ diagonalize:
 	add	r3, r3, r2
 	mov	r3, r3, asl #5
 	mov	r3, r3, asr #12
-	sub	r3, r3, #2432
-	sub	r3, r3, #6
+	add	r3, r3, #2432
+	add	r3, r3, #6
 	str	r3, [fp, #-24]
 .L387:
 	ldr	r3, [fp, #-64]
@@ -8751,8 +8751,8 @@ diagonalize:
 	add	r3, r3, r2
 	mov	r3, r3, asl #5
 	mov	r3, r3, asr #12
-	sub	r3, r3, #2432
-	sub	r3, r3, #6
+	add	r3, r3, #2432
+	add	r3, r3, #6
 	str	r3, [fp, #-28]
 .L390:
 	mov	r3, #4096
@@ -9516,8 +9516,8 @@ diagonalize:
 	add	r3, r3, r2
 	mov	r3, r3, asl #5
 	mov	r3, r3, asr #12
-	sub	r3, r3, #2432
-	sub	r3, r3, #6
+	add	r3, r3, #2432
+	add	r3, r3, #6
 	str	r3, [fp, #-24]
 .L429:
 	ldr	r3, [fp, #-64]
@@ -9563,8 +9563,8 @@ diagonalize:
 	add	r3, r3, r2
 	mov	r3, r3, asl #5
 	mov	r3, r3, asr #12
-	sub	r3, r3, #2432
-	sub	r3, r3, #6
+	add	r3, r3, #2432
+	add	r3, r3, #6
 	str	r3, [fp, #-28]
 .L432:
 	mov	r3, #4096
@@ -10318,8 +10318,8 @@ diagonalize:
 	add	r3, r3, r2
 	mov	r3, r3, asl #5
 	mov	r3, r3, asr #12
-	sub	r3, r3, #2432
-	sub	r3, r3, #6
+	add	r3, r3, #2432
+	add	r3, r3, #6
 	str	r3, [fp, #-24]
 .L471:
 	ldr	r3, [fp, #-64]
@@ -10365,8 +10365,8 @@ diagonalize:
 	add	r3, r3, r2
 	mov	r3, r3, asl #5
 	mov	r3, r3, asr #12
-	sub	r3, r3, #2432
-	sub	r3, r3, #6
+	add	r3, r3, #2432
+	add	r3, r3, #6
 	str	r3, [fp, #-28]
 .L474:
 	mov	r3, #4096
@@ -11120,8 +11120,8 @@ diagonalize:
 	add	r3, r3, r2
 	mov	r3, r3, asl #5
 	mov	r3, r3, asr #12
-	sub	r3, r3, #2432
-	sub	r3, r3, #6
+	add	r3, r3, #2432
+	add	r3, r3, #6
 	str	r3, [fp, #-24]
 .L513:
 	ldr	r3, [fp, #-64]
@@ -11177,8 +11177,8 @@ diagonalize:
 	add	r3, r3, r2
 	mov	r3, r3, asl #5
 	mov	r3, r3, asr #12
-	sub	r3, r3, #2432
-	sub	r3, r3, #6
+	add	r3, r3, #2432
+	add	r3, r3, #6
 	str	r3, [fp, #-28]
 .L516:
 	mov	r3, #4096
@@ -11932,8 +11932,8 @@ diagonalize:
 	add	r3, r3, r2
 	mov	r3, r3, asl #5
 	mov	r3, r3, asr #12
-	sub	r3, r3, #2432
-	sub	r3, r3, #6
+	add	r3, r3, #2432
+	add	r3, r3, #6
 	str	r3, [fp, #-24]
 .L555:
 	ldr	r3, [fp, #-64]
@@ -11979,8 +11979,8 @@ diagonalize:
 	add	r3, r3, r2
 	mov	r3, r3, asl #5
 	mov	r3, r3, asr #12
-	sub	r3, r3, #2432
-	sub	r3, r3, #6
+	add	r3, r3, #2432
+	add	r3, r3, #6
 	str	r3, [fp, #-28]
 .L558:
 	mov	r3, #4096
@@ -12734,8 +12734,8 @@ diagonalize:
 	add	r3, r3, r2
 	mov	r3, r3, asl #5
 	mov	r3, r3, asr #12
-	sub	r3, r3, #2432
-	sub	r3, r3, #6
+	add	r3, r3, #2432
+	add	r3, r3, #6
 	str	r3, [fp, #-24]
 .L597:
 	ldr	r3, [fp, #-64]
@@ -12781,8 +12781,8 @@ diagonalize:
 	add	r3, r3, r2
 	mov	r3, r3, asl #5
 	mov	r3, r3, asr #12
-	sub	r3, r3, #2432
-	sub	r3, r3, #6
+	add	r3, r3, #2432
+	add	r3, r3, #6
 	str	r3, [fp, #-28]
 .L600:
 	mov	r3, #4096
@@ -13546,8 +13546,8 @@ diagonalize:
 	add	r3, r3, r2
 	mov	r3, r3, asl #5
 	mov	r3, r3, asr #12
-	sub	r3, r3, #2432
-	sub	r3, r3, #6
+	add	r3, r3, #2432
+	add	r3, r3, #6
 	str	r3, [fp, #-24]
 .L639:
 	ldr	r3, [fp, #-64]
@@ -13593,8 +13593,8 @@ diagonalize:
 	add	r3, r3, r2
 	mov	r3, r3, asl #5
 	mov	r3, r3, asr #12
-	sub	r3, r3, #2432
-	sub	r3, r3, #6
+	add	r3, r3, #2432
+	add	r3, r3, #6
 	str	r3, [fp, #-28]
 .L642:
 	mov	r3, #4096
@@ -14348,8 +14348,8 @@ diagonalize:
 	add	r3, r3, r2
 	mov	r3, r3, asl #5
 	mov	r3, r3, asr #12
-	sub	r3, r3, #2432
-	sub	r3, r3, #6
+	add	r3, r3, #2432
+	add	r3, r3, #6
 	str	r3, [fp, #-24]
 .L681:
 	ldr	r3, [fp, #-64]
@@ -14395,8 +14395,8 @@ diagonalize:
 	add	r3, r3, r2
 	mov	r3, r3, asl #5
 	mov	r3, r3, asr #12
-	sub	r3, r3, #2432
-	sub	r3, r3, #6
+	add	r3, r3, #2432
+	add	r3, r3, #6
 	str	r3, [fp, #-28]
 .L684:
 	mov	r3, #4096
@@ -15150,8 +15150,8 @@ diagonalize:
 	add	r3, r3, r2
 	mov	r3, r3, asl #5
 	mov	r3, r3, asr #12
-	sub	r3, r3, #2432
-	sub	r3, r3, #6
+	add	r3, r3, #2432
+	add	r3, r3, #6
 	str	r3, [fp, #-24]
 .L723:
 	ldr	r3, [fp, #-64]
@@ -15197,8 +15197,8 @@ diagonalize:
 	add	r3, r3, r2
 	mov	r3, r3, asl #5
 	mov	r3, r3, asr #12
-	sub	r3, r3, #2432
-	sub	r3, r3, #6
+	add	r3, r3, #2432
+	add	r3, r3, #6
 	str	r3, [fp, #-28]
 .L726:
 	mov	r3, #4096
@@ -15962,8 +15962,8 @@ diagonalize:
 	add	r3, r3, r2
 	mov	r3, r3, asl #5
 	mov	r3, r3, asr #12
-	sub	r3, r3, #2432
-	sub	r3, r3, #6
+	add	r3, r3, #2432
+	add	r3, r3, #6
 	str	r3, [fp, #-24]
 .L765:
 	ldr	r3, [fp, #-64]
@@ -16009,8 +16009,8 @@ diagonalize:
 	add	r3, r3, r2
 	mov	r3, r3, asl #5
 	mov	r3, r3, asr #12
-	sub	r3, r3, #2432
-	sub	r3, r3, #6
+	add	r3, r3, #2432
+	add	r3, r3, #6
 	str	r3, [fp, #-28]
 .L768:
 	mov	r3, #4096
@@ -16764,8 +16764,8 @@ diagonalize:
 	add	r3, r3, r2
 	mov	r3, r3, asl #5
 	mov	r3, r3, asr #12
-	sub	r3, r3, #2432
-	sub	r3, r3, #6
+	add	r3, r3, #2432
+	add	r3, r3, #6
 	str	r3, [fp, #-24]
 .L807:
 	ldr	r3, [fp, #-64]
@@ -16811,8 +16811,8 @@ diagonalize:
 	add	r3, r3, r2
 	mov	r3, r3, asl #5
 	mov	r3, r3, asr #12
-	sub	r3, r3, #2432
-	sub	r3, r3, #6
+	add	r3, r3, #2432
+	add	r3, r3, #6
 	str	r3, [fp, #-28]
 .L810:
 	mov	r3, #4096
@@ -17566,8 +17566,8 @@ diagonalize:
 	add	r3, r3, r2
 	mov	r3, r3, asl #5
 	mov	r3, r3, asr #12
-	sub	r3, r3, #2432
-	sub	r3, r3, #6
+	add	r3, r3, #2432
+	add	r3, r3, #6
 	str	r3, [fp, #-24]
 .L849:
 	ldr	r3, [fp, #-64]
@@ -17623,8 +17623,8 @@ diagonalize:
 	add	r3, r3, r2
 	mov	r3, r3, asl #5
 	mov	r3, r3, asr #12
-	sub	r3, r3, #2432
-	sub	r3, r3, #6
+	add	r3, r3, #2432
+	add	r3, r3, #6
 	str	r3, [fp, #-28]
 .L852:
 	mov	r3, #4096
@@ -18378,8 +18378,8 @@ diagonalize:
 	add	r3, r3, r2
 	mov	r3, r3, asl #5
 	mov	r3, r3, asr #12
-	sub	r3, r3, #2432
-	sub	r3, r3, #6
+	add	r3, r3, #2432
+	add	r3, r3, #6
 	str	r3, [fp, #-24]
 .L891:
 	ldr	r3, [fp, #-64]
@@ -18425,8 +18425,8 @@ diagonalize:
 	add	r3, r3, r2
 	mov	r3, r3, asl #5
 	mov	r3, r3, asr #12
-	sub	r3, r3, #2432
-	sub	r3, r3, #6
+	add	r3, r3, #2432
+	add	r3, r3, #6
 	str	r3, [fp, #-28]
 .L894:
 	mov	r3, #4096
@@ -19180,8 +19180,8 @@ diagonalize:
 	add	r3, r3, r2
 	mov	r3, r3, asl #5
 	mov	r3, r3, asr #12
-	sub	r3, r3, #2432
-	sub	r3, r3, #6
+	add	r3, r3, #2432
+	add	r3, r3, #6
 	str	r3, [fp, #-24]
 .L933:
 	ldr	r3, [fp, #-64]
@@ -19227,8 +19227,8 @@ diagonalize:
 	add	r3, r3, r2
 	mov	r3, r3, asl #5
 	mov	r3, r3, asr #12
-	sub	r3, r3, #2432
-	sub	r3, r3, #6
+	add	r3, r3, #2432
+	add	r3, r3, #6
 	str	r3, [fp, #-28]
 .L936:
 	mov	r3, #4096
@@ -19992,8 +19992,8 @@ diagonalize:
 	add	r3, r3, r2
 	mov	r3, r3, asl #5
 	mov	r3, r3, asr #12
-	sub	r3, r3, #2432
-	sub	r3, r3, #6
+	add	r3, r3, #2432
+	add	r3, r3, #6
 	str	r3, [fp, #-24]
 .L975:
 	ldr	r3, [fp, #-64]
@@ -20039,8 +20039,8 @@ diagonalize:
 	add	r3, r3, r2
 	mov	r3, r3, asl #5
 	mov	r3, r3, asr #12
-	sub	r3, r3, #2432
-	sub	r3, r3, #6
+	add	r3, r3, #2432
+	add	r3, r3, #6
 	str	r3, [fp, #-28]
 .L978:
 	mov	r3, #4096
@@ -20794,8 +20794,8 @@ diagonalize:
 	add	r3, r3, r2
 	mov	r3, r3, asl #5
 	mov	r3, r3, asr #12
-	sub	r3, r3, #2432
-	sub	r3, r3, #6
+	add	r3, r3, #2432
+	add	r3, r3, #6
 	str	r3, [fp, #-24]
 .L1017:
 	ldr	r3, [fp, #-64]
@@ -20841,8 +20841,8 @@ diagonalize:
 	add	r3, r3, r2
 	mov	r3, r3, asl #5
 	mov	r3, r3, asr #12
-	sub	r3, r3, #2432
-	sub	r3, r3, #6
+	add	r3, r3, #2432
+	add	r3, r3, #6
 	str	r3, [fp, #-28]
 .L1020:
 	mov	r3, #4096
@@ -21596,8 +21596,8 @@ diagonalize:
 	add	r3, r3, r2
 	mov	r3, r3, asl #5
 	mov	r3, r3, asr #12
-	sub	r3, r3, #2432
-	sub	r3, r3, #6
+	add	r3, r3, #2432
+	add	r3, r3, #6
 	str	r3, [fp, #-24]
 .L1059:
 	ldr	r3, [fp, #-64]
@@ -21643,8 +21643,8 @@ diagonalize:
 	add	r3, r3, r2
 	mov	r3, r3, asl #5
 	mov	r3, r3, asr #12
-	sub	r3, r3, #2432
-	sub	r3, r3, #6
+	add	r3, r3, #2432
+	add	r3, r3, #6
 	str	r3, [fp, #-28]
 .L1062:
 	mov	r3, #4096
@@ -22408,8 +22408,8 @@ diagonalize:
 	add	r3, r3, r2
 	mov	r3, r3, asl #5
 	mov	r3, r3, asr #12
-	sub	r3, r3, #2432
-	sub	r3, r3, #6
+	add	r3, r3, #2432
+	add	r3, r3, #6
 	str	r3, [fp, #-24]
 .L1101:
 	ldr	r3, [fp, #-64]
@@ -22455,8 +22455,8 @@ diagonalize:
 	add	r3, r3, r2
 	mov	r3, r3, asl #5
 	mov	r3, r3, asr #12
-	sub	r3, r3, #2432
-	sub	r3, r3, #6
+	add	r3, r3, #2432
+	add	r3, r3, #6
 	str	r3, [fp, #-28]
 .L1104:
 	mov	r3, #4096
@@ -23210,8 +23210,8 @@ diagonalize:
 	add	r3, r3, r2
 	mov	r3, r3, asl #5
 	mov	r3, r3, asr #12
-	sub	r3, r3, #2432
-	sub	r3, r3, #6
+	add	r3, r3, #2432
+	add	r3, r3, #6
 	str	r3, [fp, #-24]
 .L1143:
 	ldr	r3, [fp, #-64]
@@ -23257,8 +23257,8 @@ diagonalize:
 	add	r3, r3, r2
 	mov	r3, r3, asl #5
 	mov	r3, r3, asr #12
-	sub	r3, r3, #2432
-	sub	r3, r3, #6
+	add	r3, r3, #2432
+	add	r3, r3, #6
 	str	r3, [fp, #-28]
 .L1146:
 	mov	r3, #4096
@@ -24012,8 +24012,8 @@ diagonalize:
 	add	r3, r3, r2
 	mov	r3, r3, asl #5
 	mov	r3, r3, asr #12
-	sub	r3, r3, #2432
-	sub	r3, r3, #6
+	add	r3, r3, #2432
+	add	r3, r3, #6
 	str	r3, [fp, #-24]
 .L1185:
 	ldr	r3, [fp, #-64]
@@ -24069,8 +24069,8 @@ diagonalize:
 	add	r3, r3, r2
 	mov	r3, r3, asl #5
 	mov	r3, r3, asr #12
-	sub	r3, r3, #2432
-	sub	r3, r3, #6
+	add	r3, r3, #2432
+	add	r3, r3, #6
 	str	r3, [fp, #-28]
 .L1188:
 	mov	r3, #4096
@@ -24824,8 +24824,8 @@ diagonalize:
 	add	r3, r3, r2
 	mov	r3, r3, asl #5
 	mov	r3, r3, asr #12
-	sub	r3, r3, #2432
-	sub	r3, r3, #6
+	add	r3, r3, #2432
+	add	r3, r3, #6
 	str	r3, [fp, #-24]
 .L1227:
 	ldr	r3, [fp, #-64]
@@ -24871,8 +24871,8 @@ diagonalize:
 	add	r3, r3, r2
 	mov	r3, r3, asl #5
 	mov	r3, r3, asr #12
-	sub	r3, r3, #2432
-	sub	r3, r3, #6
+	add	r3, r3, #2432
+	add	r3, r3, #6
 	str	r3, [fp, #-28]
 .L1230:
 	mov	r3, #4096
@@ -25626,8 +25626,8 @@ diagonalize:
 	add	r3, r3, r2
 	mov	r3, r3, asl #5
 	mov	r3, r3, asr #12
-	sub	r3, r3, #2432
-	sub	r3, r3, #6
+	add	r3, r3, #2432
+	add	r3, r3, #6
 	str	r3, [fp, #-24]
 .L1269:
 	ldr	r3, [fp, #-64]
@@ -25673,8 +25673,8 @@ diagonalize:
 	add	r3, r3, r2
 	mov	r3, r3, asl #5
 	mov	r3, r3, asr #12
-	sub	r3, r3, #2432
-	sub	r3, r3, #6
+	add	r3, r3, #2432
+	add	r3, r3, #6
 	str	r3, [fp, #-28]
 .L1272:
 	mov	r3, #4096
