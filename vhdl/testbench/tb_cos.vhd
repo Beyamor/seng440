@@ -1,7 +1,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
 use ieee.std_logic_signed.all;
+use ieee.numeric_std.all;
 
 entity tb_cos is
 end tb_cos;
@@ -46,7 +46,6 @@ BEGIN
 		severity warning;
 		
 		wait;
-	
 	end process;
 
 END;

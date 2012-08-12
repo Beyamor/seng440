@@ -2,7 +2,6 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.std_logic_signed.all;
 use ieee.numeric_std.all;
---use ieee.std_logic_arith.all;
 
 entity cos is 
 port (
