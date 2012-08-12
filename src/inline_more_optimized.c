@@ -40,9 +40,9 @@
  * 	Takes a square matrix
  * 	The function prints the contents of the matrix
  */
-void printMatrix( short matrix[N][N] ) {
+void printMatrix( int matrix[N][N] ) {
 
-	short i = 0,
+	int i = 0,
 	      j = 0;
 	
 	for ( i = 0; i < N; ++i ) {
@@ -53,8 +53,8 @@ void printMatrix( short matrix[N][N] ) {
 }
 
 
-static inline short cos_fixed(short angle){
-	short result = 0;
+static inline int cos_fixed(int angle){
+	int result = 0;
 
 	if(angle < -POINT)
 	{
@@ -78,7 +78,7 @@ static inline short cos_fixed(short angle){
 }
 
 
-static inline short sin_fixed(short angle) {
+static inline int sin_fixed(int angle) {
 	int result = 0;
 	if (angle < -POINT) {
 
@@ -94,11 +94,11 @@ static inline short sin_fixed(short angle) {
 		result = SIN_OFFSET + ((SIN_OUT_MULT * angle) >> SCALE_BITS);
 	}
 
-	return (short)result;
+	return (int)result;
 }
 
 
-static inline short atan_fixed(short y, short x)
+static inline int atan_fixed(int y, int x)
 {
 	if(x == 0 && y == 0)
 	{
@@ -108,7 +108,7 @@ static inline short atan_fixed(short y, short x)
 
 	char isCot = y >= 0 ? x >= 0 ? y > x : y > -x : x >= 0 ? -y > x : -y > -x;	
 
-	short result = 0;
+	int result = 0;
 
 	//store angle in 32 bit to avoid truncation errors, shift up another scale factor (bitshift it later)
 	int angle = isCot ? (x << SCALE_BITS) / y : (y << SCALE_BITS) / x;
@@ -145,7 +145,7 @@ static inline short atan_fixed(short y, short x)
 
 #define MULTIPLICATION_STEP(i,j,k) \
 	temp32 = m1[i*N + k] * m2[k*N + j]; \
-	target[targetIndex] += (short)(temp32 >> SCALE_BITS); /* bitshift 12 is the same as division by scale */
+	target[targetIndex] += (int)(temp32 >> SCALE_BITS); /* bitshift 12 is the same as division by scale */
 
 #define MULTIPLICATION_STEPS_FOR_IJ(i,j) \
 	MULTIPLICATION_STEP_INITIALIZATION(i,j) \
@@ -169,8 +169,8 @@ static inline short atan_fixed(short y, short x)
 /**
  *	Multiplies a 4x4 matrix with a 4x4 matrix, storing output in a 4x4 matrix
  */
-void multMatrix4( short *restrict m1, short *restrict m2, short *restrict target ) {
-	short i,j,k;
+void multMatrix4( int *restrict m1, int *restrict m2, int *restrict target ) {
+	int i,j,k;
 
 	int temp32 = 0, targetIndex = 0;
 
@@ -218,8 +218,8 @@ void multMatrix4( short *restrict m1, short *restrict m2, short *restrict target
 	rotR[j][i] = -sinR; \
 	rotR[j][j] =  cosR; \
 	\
-	multMatrix4( (short*)rotL, (short*)matrix, (short*)med); \
-	multMatrix4( (short*)med, (short*)rotR, (short*)matrix);
+	multMatrix4( (int*)rotL, (int*)matrix, (int*)med); \
+	multMatrix4( (int*)med, (int*)rotR, (int*)matrix);
 
 #define DIAGONALIZATION_CYCLE() \
 	DIAGONALIZATION_ITERATION(0) \
@@ -232,22 +232,22 @@ void multMatrix4( short *restrict m1, short *restrict m2, short *restrict target
 /**
  * 	Takes a square matrix and diagonalizes it
  */
-void diagonalize( short matrix[N][N] ) {
+void diagonalize( int matrix[N][N] ) {
 
-	short iter;
-	short repeat;
+	int iter;
+	int repeat;
 	
 	//sima method
 	//i {0,2,0,1,0,1}
 	//j {1,3,2,3,3,2}
-	short ia[16] = {1,0,1,0,0,2};
-	short ja[16] = {2,3,3,2,1,3};
+	int ia[16] = {1,0,1,0,0,2};
+	int ja[16] = {2,3,3,2,1,3};
 	
 	//found by testing permutations, matches wolframalpha
-	//short ia[16] = {1,0,1,0,2,0};
-	//short ja[16] = {2,3,3,2,3,1};
+	//int ia[16] = {1,0,1,0,2,0};
+	//int ja[16] = {2,3,3,2,3,1};
 	
-	short	i = 0,
+	int	i = 0,
 		j = 0,
 		a = 0,
 		b = 0,
@@ -280,7 +280,7 @@ int main() {
 
 	for (i = 0; i < 100000; ++i) {
 
-		short m[N][N]	= {{	512,	1024,	1536,	512	}, 
+		int m[N][N]	= {{	512,	1024,	1536,	512	}, 
 				   {	1024,	1536,	512,	1024	},
 				   {	1536,	512,	1024,	1536	},
 				   {	512,	1024,	1536,	2048	}};
