@@ -52,91 +52,82 @@ void printMatrix( short matrix[N][N] ) {
 }
 
 
-short cos_fixed(short angle){
-	short result = 0;
-
-	if(angle < -POINT)
-	{
-		result = COS_OFFSET + ((COS_OUT_MULT * angle) >> SCALE_BITS);  
-	}
-	else if (angle < 0) {
-
-		result = SCALE + ((COS_IN_MULT * angle) >> SCALE_BITS);
-	}
-
-	else if (angle < POINT) {
-
-		result = SCALE -((COS_IN_MULT * angle) >> SCALE_BITS);
-	}
-
-	else if (angle < PI) {
-
-		result = COS_OFFSET - ((COS_OUT_MULT * angle) >> SCALE_BITS); 
-	}
-	return result;
-}
-
-
-short sin_fixed(short angle) {
-	int result = 0;
-	if (angle < -POINT) {
-
-		result = SIN_OFFSET + ((SIN_OUT_MULT * angle) >> SCALE_BITS);
-	}
-	else if (angle < POINT) {
-
-		result = (SIN_IN_MULT * angle) >> SCALE_BITS;
-	}
-
-	else if (angle < PI_OVER_2) {
-
-		result = SIN_OFFSET + ((SIN_OUT_MULT * angle) >> SCALE_BITS);
-	}
-
-	return (short)result;
-}
-
-
-short atan_fixed(short y, short x)
-{
-	if(x == 0 && y == 0)
-	{
-		printf("This should never happen\n");
-		return 0;
-	}
-
-	char isCot = y >= 0 ? x >= 0 ? y > x : y > -x : x >= 0 ? -y > x : -y > -x;	
-
-	short result = 0;
-
-	//store angle in 32 bit to avoid truncation errors, shift up another scale factor (bitshift it later)
-	int angle = isCot ? (x << SCALE_BITS) / y : (y << SCALE_BITS) / x;
-	
-	if(angle > SCALE_OVER_2 && angle <= (SCALE))
-	{
-		result = ((TAN_OUT_MULT * angle) >> SCALE_BITS) + TAN_OFFSET;
-	}
-	else if(angle <= SCALE_OVER_2 && angle >= -SCALE_OVER_2) 
-	{
-		result = (TAN_IN_MULT * angle) >> SCALE_BITS;
-	}
-	else if(angle < -SCALE_OVER_2 && angle >= -SCALE)
-	{
-		result = ((TAN_OUT_MULT * angle) >> SCALE_BITS) - TAN_OFFSET;
+#define cos_fixed(a,result) \
+	angle = a; \
+ \
+	if(angle < -POINT) \
+	{ \
+		result = COS_OFFSET + ((COS_OUT_MULT * angle) >> SCALE_BITS);   \
+	} \
+	else if (angle < 0) { \
+ \
+		result = SCALE + ((COS_IN_MULT * angle) >> SCALE_BITS); \
+	} \
+ \
+	else if (angle < POINT) { \
+ \
+		result = SCALE -((COS_IN_MULT * angle) >> SCALE_BITS); \
+	} \
+ \
+	else if (angle < PI) { \
+ \
+		result = COS_OFFSET - ((COS_OUT_MULT * angle) >> SCALE_BITS);  \
 	}
 
 
-	if(isCot && angle < 0)
-	{
-		result += PI;
+#define sin_fixed(a,result) \
+	angle = a; \
+	if (angle < -POINT) { \
+ \
+		result = SIN_OFFSET + ((SIN_OUT_MULT * angle) >> SCALE_BITS); \
+	} \
+	else if (angle < POINT) { \
+ \
+		result = (SIN_IN_MULT * angle) >> SCALE_BITS; \
+	} \
+ \
+	else if (angle < PI_OVER_2) { \
+ \
+		result = SIN_OFFSET + ((SIN_OUT_MULT * angle) >> SCALE_BITS); \
 	}
 
-	if(isCot)
-	{	
-		result = (PI_OVER_2) - result;
+#define atan_fixed(y,x,result) \
+	if(x == 0 && y == 0) \
+	{ \
+		printf("This should never happen\n"); \
+		result = 0; \
+	} \
+ \
+	isCot = y >= 0 ? x >= 0 ? y > x : y > -x : x >= 0 ? -y > x : -y > -x;	 \
+ \
+	result = 0; \
+ \
+	/* store angle in 32 bit to avoid truncation errors, shift up another scale factor (bitshift it later)*/ \
+	angle = isCot ? (x << SCALE_BITS) / y : (y << SCALE_BITS) / x; \
+	 \
+	if(angle > SCALE_OVER_2 && angle <= (SCALE)) \
+	{ \
+		result = ((TAN_OUT_MULT * angle) >> SCALE_BITS) + TAN_OFFSET; \
+	} \
+	else if(angle <= SCALE_OVER_2 && angle >= -SCALE_OVER_2)  \
+	{ \
+		result = (TAN_IN_MULT * angle) >> SCALE_BITS; \
+	} \
+	else if(angle < -SCALE_OVER_2 && angle >= -SCALE) \
+	{ \
+		result = ((TAN_OUT_MULT * angle) >> SCALE_BITS) - TAN_OFFSET; \
+	} \
+ \
+ \
+	if(isCot && angle < 0) \
+	{ \
+		result += PI; \
+	} \
+ \
+	if(isCot) \
+	{	 \
+		result = (PI_OVER_2) - result; \
 	}
-	return result;
-}
 
 #define MULTIPLICATION_STEP_INITIALIZATION(i,j) \
 	targetIndex = i*N + j; \
@@ -168,13 +159,11 @@ short atan_fixed(short y, short x)
 /**
  *	Multiplies a 4x4 matrix with a 4x4 matrix, storing output in a 4x4 matrix
  */
-void multMatrix4( short *restrict m1, short *restrict m2, short *restrict target ) {
-	short i,j,k;
-
-	int temp32 = 0, targetIndex = 0;
-
+#define multMatrix4(M1,M2,Target) \
+	m1 = (short*)M1; \
+	m2 = (short*)M2; \
+	target = (short*)Target; \
 	MULTIPLICATION_STEPS()
-}
 
 #define SET_AS_IDENTITY(m) \
 	m[0][0] = SCALE; m[0][1] = 0; m[0][2] = 0; m[0][3] = 0; \
@@ -192,16 +181,16 @@ void multMatrix4( short *restrict m1, short *restrict m2, short *restrict target
 	d = matrix[j][j]; \
 	\
 	/* calculate rotation angle */ \
-	thetaSum = atan_fixed( (c+b), (d-a)); /* Equals thetaL + thetaR */ \
-	thetaDif = atan_fixed( (c-b), (d+a)); /* Equals thetaR - thetaL */ \
+	atan_fixed((c+b), (d-a), thetaSum); /* Equals thetaL + thetaR */ \
+	atan_fixed((c-b), (d+a), thetaDif); /* Equals thetaR - thetaL */ \
 	\
 	thetaL = (thetaSum - thetaDif) >> 1; /* division by 2 */ \
 	thetaR = (thetaSum + thetaDif) >> 1; \
 	\
-	cosL = cos_fixed(thetaL); \
-	cosR = cos_fixed(thetaR); \
-	sinL = sin_fixed(thetaL); \
-	sinR = sin_fixed(thetaR); \
+	cos_fixed(thetaL, cosL); \
+	cos_fixed(thetaR, cosR); \
+	sin_fixed(thetaL, sinL); \
+	sin_fixed(thetaR, sinR); \
 	\
 	\
 	SET_AS_IDENTITY(rotR)\
@@ -233,9 +222,6 @@ void multMatrix4( short *restrict m1, short *restrict m2, short *restrict target
  */
 void diagonalize( short matrix[N][N] ) {
 
-	short iter;
-	short repeat;
-	
 	//sima method
 	//i {0,2,0,1,0,1}
 	//j {1,3,2,3,3,2}
@@ -246,12 +232,15 @@ void diagonalize( short matrix[N][N] ) {
 	//short ia[16] = {1,0,1,0,2,0};
 	//short ja[16] = {2,3,3,2,3,1};
 	
+	int	temp32;
+	
 	short	i = 0,
 		j = 0,
 		a = 0,
 		b = 0,
 		c = 0,
 		d = 0,
+		angle = 0,
 		thetaSum = 0,
 		thetaDif = 0,
 		thetaL = 0,
@@ -260,9 +249,15 @@ void diagonalize( short matrix[N][N] ) {
 		cosR = 0,
 		sinL = 0,
 		sinR = 0,
+		result = 0,
+		isCot = 0,
+		targetIndex = 0,
 		rotR[N][N],
 		rotL[N][N],
-		med[N][N];
+		med[N][N],
+		*restrict m1,
+		*restrict m2,
+		*restrict target;
 
 	DIAGONALIZATION_CYCLE()
 	DIAGONALIZATION_CYCLE()
