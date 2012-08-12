@@ -1,7 +1,11 @@
 SRCDIR = src
 BINDIR = bin
+ASSDIR = assem
 CC = gcc
-CFLAGS = --std=c99
+ARMCC = arm-linux-gnueabi-gcc
+CFLAGS = -std=c99
+ARMFLAGS = $(CFLAGS) -static -march=armv5
+ASSFLAGS = -S
 CLIBS = m
 
 UNOP_OBJS = $(SRCDIR)/unoptimized.o
@@ -43,6 +47,13 @@ inline_more_optimized: $(INLINE_MORE_OP_OBJS)
 
 macro_more_optimized: $(MACRO_MORE_OP_OBJS)
 	$(CC) $(CFLAGS) -o $(MACRO_MORE_OP) $(MACRO_MORE_OP_OBJS) -l$(CLIBS)
+
+assembler:
+	$(ARMCC) $(CFLAGS) $(ARMFLAGS) $(ASSFLAGS) -o $(ASSDIR)/macro_more_optimized.s $(SRCDIR)/macro_more_optimized.c -l$(CLIBS)
+
+arm:
+	$(ARMCC) $(CFLAGS) $(ARMFLAGS) -o $(BINDIR)/arm-macro_more_optimized $(SRCDIR)/macro_more_optimized.c -l$(CLIBS)
+	$(ARMCC) $(CFLAGS) $(ARMFLAGS) -o $(BINDIR)/arm-unoptimized $(SRCDIR)/unoptimized.c -l$(CLIBS)
 
 clean:
 	rm -f $(ALL_OBJS) $(BINDIR)/*
