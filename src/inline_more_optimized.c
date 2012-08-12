@@ -169,7 +169,7 @@ static inline short atan_fixed(short y, short x)
 /**
  *	Multiplies a 4x4 matrix with a 4x4 matrix, storing output in a 4x4 matrix
  */
-static inline void multMatrix4( short *restrict m1, short *restrict m2, short *restrict target ) {
+void multMatrix4( short *restrict m1, short *restrict m2, short *restrict target ) {
 	short i,j,k;
 
 	int temp32 = 0, targetIndex = 0;

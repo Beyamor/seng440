@@ -160,11 +160,12 @@ void printMatrix( short matrix[N][N] ) {
 /**
  *	Multiplies a 4x4 matrix with a 4x4 matrix, storing output in a 4x4 matrix
  */
-#define multMatrix4(M1,M2,Target) \
-	m1 = (short*)M1; \
-	m2 = (short*)M2; \
-	target = (short*)Target; \
+void multMatrix4( short *restrict m1, short *restrict m2, short *restrict target ) {
+
+	int temp32 = 0, targetIndex = 0;
+
 	MULTIPLICATION_STEPS()
+}
 
 #define SET_AS_IDENTITY(m) \
 	m[0][0] = SCALE; m[0][1] = 0; m[0][2] = 0; m[0][3] = 0; \
@@ -255,10 +256,7 @@ void diagonalize( short matrix[N][N] ) {
 		targetIndex = 0,
 		rotR[N][N],
 		rotL[N][N],
-		med[N][N],
-		*restrict m1,
-		*restrict m2,
-		*restrict target;
+		med[N][N];
 
 	DIAGONALIZATION_CYCLE()
 	DIAGONALIZATION_CYCLE()
