@@ -28,21 +28,21 @@ BEGIN
 		T_angle <= "0000000000101000"; -- 40 in binary
 		T_sel <= "00"; -- Select High Point
 		wait for 20 ns;
-		assert(T_arc="00000000000000011001111001110110") report "Error Detected! High"
+		assert(T_arc="00000000000000000000001001011111") report "Error Detected! High"
 		severity warning;
 		
 		-- Tests the Bottom piece-wise function
 		T_angle <= "0000000000101000"; -- 40 in binary
 		T_sel <= "01"; -- Select Low Point
 		wait for 20 ns;
-		assert(T_arc="00000000000000011001100111101010") report "Error Detected! Low"
+		assert(T_arc="11111111111111111111110111010011") report "Error Detected! Low"
 		severity warning;
 		
 		-- Tests the middle piece-wise function
 		T_angle <= "0000000000101000"; -- 40 in binary
 		T_sel <= "10";
 		wait for 20 ns;
-		assert(T_arc="00000000000000100101000111101000") report "Error Detected! Mid"
+		assert(T_arc="00000000000000000000000000100101") report "Error Detected! Mid"
 		severity warning;
 		
 		wait;
