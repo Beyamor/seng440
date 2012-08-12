@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <stdio.h>
+#include <time.h>
 
 /*
  * 	Project specifications
@@ -168,7 +169,7 @@ static inline short atan_fixed(short y, short x)
 /**
  *	Multiplies a 4x4 matrix with a 4x4 matrix, storing output in a 4x4 matrix
  */
-static inline void multMatrix4( short *restrict m1, short *restrict m2, short *restrict target ) {
+void multMatrix4( short *restrict m1, short *restrict m2, short *restrict target ) {
 	short i,j,k;
 
 	int temp32 = 0, targetIndex = 0;
@@ -267,20 +268,27 @@ void diagonalize( short matrix[N][N] ) {
 	DIAGONALIZATION_CYCLE()
 	DIAGONALIZATION_CYCLE()
 	DIAGONALIZATION_CYCLE()
+	DIAGONALIZATION_CYCLE()
+	DIAGONALIZATION_CYCLE()
+	DIAGONALIZATION_CYCLE()
 }
 
 int main() {
 
-	short m[N][N]	= {{	512,	1024,	1536,	512	}, 
-			   {	1024,	1536,	512,	1024	},
-			   {	1536,	512,	1024,	1536	},
-			   {	512,	1024,	1536,	2048	}};
+	int i = 0;
+	time_t startTime = clock();
 
-	printMatrix( m );
-	printf("\r\n->\r\n\r\n");
-	
-	diagonalize( m );
-	printMatrix( m );
+	for (i = 0; i < 100000; ++i) {
+
+		short m[N][N]	= {{	512,	1024,	1536,	512	}, 
+				   {	1024,	1536,	512,	1024	},
+				   {	1536,	512,	1024,	1536	},
+				   {	512,	1024,	1536,	2048	}};
+
+		diagonalize( m );
+	}
+
+	printf("elapsed time: %lf\n", ((double)clock() - startTime)/CLOCKS_PER_SEC);
 
 	return 0;
 }

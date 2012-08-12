@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <stdio.h>
+#include <time.h>
 
 /*
  * 	Project specifications
@@ -132,20 +133,20 @@ void diagonalize( double matrix[N][N] ) {
 
 int main() {
 
+	int i = 0;
+	time_t startTime = clock();
 
-	double m[N][N]	= {{	1,	2,	3,	1	}, 
-			   {	2,	3,	1,	2	},
-			   {	3,	1,	2,	3	},
-			   {	1,	2,	3,	4	}};
+	for (i = 0; i < 100000; ++i) {
 
+		double m[N][N]	= {{	512,	1024,	1536,	512	}, 
+				   {	1024,	1536,	512,	1024	},
+				   {	1536,	512,	1024,	1536	},
+				   {	512,	1024,	1536,	2048	}};
 
+		diagonalize( m );
+	}
 
-	printMatrix( m );
-	printf("\r\n->\r\n\r\n");
-
-	
-	diagonalize( m );
-	printMatrix( m );
+	printf("elapsed time: %lf\n", ((double)clock() - startTime)/CLOCKS_PER_SEC);
 
 	return 0;
 }
