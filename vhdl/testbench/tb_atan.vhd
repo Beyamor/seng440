@@ -38,11 +38,18 @@ BEGIN
 		assert(T_arc="11111111111111111111011000101110") report "Error Detected! Low"
 		severity warning;
 		
-		-- Tests the middle piece-wise function
+		-- Tests the middle piece-wise function Postive Case
 		T_angle <= "0000000000101000"; -- 40 in binary
 		T_sel <= "10";
 		wait for 20 ns;
-		assert(T_arc="00000000000000000000000000100101") report "Error Detected! Mid"
+		assert(T_arc="00000000000000000000000000100101") report "Error Detected! Mid High"
+		severity warning;
+		
+		-- Tests the middle piece-wise function Negative Case
+		T_angle <= "0000000000101000"; -- 40 in binary (Give absolute value)
+		T_sel <= "11";
+		wait for 20 ns;
+		assert(T_arc="11111111111111111111111111011011") report "Error Detected! Mid Neg"
 		severity warning;
 		
 		wait;

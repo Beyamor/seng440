@@ -16,9 +16,10 @@ architecture atan_arch of atan is
 begin
 	process(angle, sel)
 	variable angle_reg 	: std_logic_vector(15 downto 0);
-  	variable arc_reg	: std_logic_vector(31 downto 0);
-  	variable arc_reg_h	: std_logic_vector(31 downto 0);
-  	variable arc_reg_l	: std_logic_vector(31 downto 0);
+  	variable arc_reg	: std_logic_vector(31 downto 0); -- Mid-Range Pos Case
+  	variable arc_reg_n	: std_logic_vector(31 downto 0); -- Mid-Range Neg Case
+  	variable arc_reg_h	: std_logic_vector(31 downto 0); -- High Range Case
+  	variable arc_reg_l	: std_logic_vector(31 downto 0); -- Low Range Case
   	variable tan_offset	: std_logic_vector(15 downto 0);
 	
 	begin
@@ -38,6 +39,18 @@ begin
 		end loop;
 		arc_reg(31 downto 0) := "000000000000" & arc_reg(31 downto 12); 
 		
+		-- Now get the Mid-Range Negative Caser
+		arc_reg_n(31 downto 0) := arc_reg(31 downto 0);
+		for i in 0 to 31 loop
+			if arc_reg(i)='0' then
+				arc_reg_n(i) := '1';
+			else
+				arc_reg_n(i) := '0';
+				arc_reg_n(31 downto 0) := arc_reg_n(31 downto 0) xor "11111111111111111111111111111111";
+				exit;
+			end if;
+		end loop;
+		
 		-- High Case (High part of Piece-Wise)
 		for i in 1 to 16 loop
 			if arc_reg_h(0)='1' then
@@ -49,6 +62,7 @@ begin
 		arc_reg_h(31 downto 0) := "000000000000" & arc_reg_h(31 downto 12); 
 		arc_reg_h(31 downto 0) := arc_reg_h(31 downto 0) + tan_offset(15 downto 0);
 		
+		-- Calculate the case if it is negative (Low bound case)
 		arc_reg_l(31 downto 0) := arc_reg_h(31 downto 0);
 		for i in 0 to 31 loop
 			if arc_reg_h(i)='0' then
@@ -65,8 +79,8 @@ begin
 			when "00" => arc <= arc_reg_h(31 downto 0);
 			when "01" => arc <= arc_reg_l(31 downto 0);
 			when "10" => arc <= arc_reg(31 downto 0);
-			when "11" => arc <= arc_reg(31 downto 0);
-			when others => arc <= arc_reg(31 downto 0);
+			when "11" => arc <= arc_reg_n(31 downto 0);
+			when others => arc <= "00000000000000000000000000000000"; -- 0 Otherwise
 		end case;
 	end process;
 	
