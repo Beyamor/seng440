@@ -89,7 +89,7 @@ void printMatrix( int matrix[N][N] ) {
  \
 	else if (angle < PI_OVER_2) { \
  \
-		result = SIN_OFFSET + ((SIN_OUT_MULT * angle) >> SCALE_BITS); \
+		result = -SIN_OFFSET + ((SIN_OUT_MULT * angle) >> SCALE_BITS); \
 	}
 
 #define atan_fixed(y,x,result) \

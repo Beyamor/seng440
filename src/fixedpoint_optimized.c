@@ -90,7 +90,7 @@ short sin_fixed(short angle) {
 
 	else if (angle < PI_OVER_2) {
 
-		result = SIN_OFFSET + ((SIN_OUT_MULT * angle) >> SCALE_BITS);
+		result = -SIN_OFFSET + ((SIN_OUT_MULT * angle) >> SCALE_BITS);
 	}
 
 	return (short)result;
