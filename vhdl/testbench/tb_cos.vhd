@@ -51,8 +51,8 @@ BEGIN
 END;
 
 -----------------------------------------------------------
-configuration CFG_TB of tb_cos is
+configuration CFG_TB2 of tb_cos is
 	for TB
 	end for;
-end CFG_TB;
+end CFG_TB2;
 -----------------------------------------------------------
