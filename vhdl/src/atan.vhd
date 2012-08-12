@@ -38,7 +38,7 @@ begin
 		end loop;
 		arc_reg(31 downto 0) := "000000000000" & arc_reg(31 downto 12); 
 		
-		-- High and Low Cases (Other parts of Piece-Wise)
+		-- High Case (High part of Piece-Wise)
 		for i in 1 to 16 loop
 			if arc_reg_h(0)='1' then
 	  			arc_reg_h(31 downto 16) := arc_reg_h(31 downto 16) 
@@ -47,8 +47,18 @@ begin
 			arc_reg_h(31 downto 0) := '0' & arc_reg_h(31 downto 1);
 		end loop;
 		arc_reg_h(31 downto 0) := "000000000000" & arc_reg_h(31 downto 12); 
-		arc_reg_l(31 downto 0) := arc_reg_h(31 downto 0) - tan_offset(15 downto 0);
 		arc_reg_h(31 downto 0) := arc_reg_h(31 downto 0) + tan_offset(15 downto 0);
+		
+		arc_reg_l(31 downto 0) := arc_reg_h(31 downto 0);
+		for i in 0 to 31 loop
+			if arc_reg_h(i)='0' then
+				arc_reg_l(i) := '1';
+			else
+				arc_reg_l(i) := '0';
+				arc_reg_l(31 downto 0) := arc_reg_l(31 downto 0) xor "11111111111111111111111111111111";
+				exit;
+			end if;
+		end loop;
 		
 		-- Select which answer to use
 		case sel is 
