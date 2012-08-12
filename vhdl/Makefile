@@ -2,7 +2,7 @@
 PROJECT=matrix_diagonalization
 
 #vhdl files
-FILES = src/multiplier.vhd
+FILES = src/atan.vhd
 VHDLEX = .vhd
 
 #testbench
