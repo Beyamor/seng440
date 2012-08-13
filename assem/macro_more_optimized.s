@@ -39,10 +39,7 @@ printMatrix:
 	str	r0, [fp, #-16]
 	mov	r3, #0
 	str	r3, [fp, #-8]
-	mov	r3, #0
 	str	r3, [fp, #-12]
-	mov	r3, #0
-	str	r3, [fp, #-8]
 	b	.L2
 .L9:
 	mov	r3, #0
@@ -114,21 +111,15 @@ multMatrix4:
 	@ frame_needed = 1, uses_anonymous_args = 0
 	@ link register save eliminated.
 	str	fp, [sp, #-4]!
-	add	fp, sp, #0
+	mov	fp, sp						
 	sub	sp, sp, #28
 	str	r0, [fp, #-16]
 	str	r1, [fp, #-20]
 	str	r2, [fp, #-24]
 	mov	r3, #0
 	str	r3, [fp, #-8]
-	mov	r3, #0
 	str	r3, [fp, #-12]
-	mov	r3, #0
-	str	r3, [fp, #-12]
-	ldr	r3, [fp, #-12]
-	mov	r3, r3, asl #2
-	ldr	r2, [fp, #-24]
-	add	r3, r2, r3
+	mov	r3, r2
 	mov	r2, #0
 	str	r2, [r3, #0]
 	ldr	r3, [fp, #-16]
@@ -144,18 +135,15 @@ multMatrix4:
 	ldr	r2, [fp, #-12]
 	mov	r2, r2, asl #2
 	ldr	r1, [fp, #-24]
-	add	r2, r1, r2
-	ldr	r1, [r2, #0]
+	ldr	r1, [r2, r1]
 	ldr	r2, [fp, #-8]
 	mov	r2, r2, asr #12
 	add	r2, r1, r2
 	str	r2, [r3, #0]
 	ldr	r3, [fp, #-16]
-	add	r3, r3, #4
-	ldr	r3, [r3, #0]
+	ldr	r3, [r3, #4]							
 	ldr	r2, [fp, #-20]
-	add	r2, r2, #16
-	ldr	r2, [r2, #0]
+	ldr	r2, [r2, #16] 							
 	mul	r3, r2, r3
 	str	r3, [fp, #-8]
 	ldr	r3, [fp, #-12]
@@ -165,18 +153,15 @@ multMatrix4:
 	ldr	r2, [fp, #-12]
 	mov	r2, r2, asl #2
 	ldr	r1, [fp, #-24]
-	add	r2, r1, r2
-	ldr	r1, [r2, #0]
+	ldr	r1, [r2, r1]
 	ldr	r2, [fp, #-8]
 	mov	r2, r2, asr #12
 	add	r2, r1, r2
 	str	r2, [r3, #0]
 	ldr	r3, [fp, #-16]
-	add	r3, r3, #8
-	ldr	r3, [r3, #0]
+	ldr	r3, [r3, #8]
 	ldr	r2, [fp, #-20]
-	add	r2, r2, #32
-	ldr	r2, [r2, #0]
+	ldr	r2, [r2, #32] 
 	mul	r3, r2, r3
 	str	r3, [fp, #-8]
 	ldr	r3, [fp, #-12]
@@ -186,18 +171,15 @@ multMatrix4:
 	ldr	r2, [fp, #-12]
 	mov	r2, r2, asl #2
 	ldr	r1, [fp, #-24]
-	add	r2, r1, r2
-	ldr	r1, [r2, #0]
+	ldr	r1, [r2, r1]					
 	ldr	r2, [fp, #-8]
 	mov	r2, r2, asr #12
 	add	r2, r1, r2
 	str	r2, [r3, #0]
 	ldr	r3, [fp, #-16]
-	add	r3, r3, #12
-	ldr	r3, [r3, #0]
+	ldr	r3, [r3, #12]
 	ldr	r2, [fp, #-20]
-	add	r2, r2, #48
-	ldr	r2, [r2, #0]
+	ldr	r2, [r2, #48]					
 	mul	r3, r2, r3
 	str	r3, [fp, #-8]
 	ldr	r3, [fp, #-12]
@@ -207,15 +189,13 @@ multMatrix4:
 	ldr	r2, [fp, #-12]
 	mov	r2, r2, asl #2
 	ldr	r1, [fp, #-24]
-	add	r2, r1, r2
-	ldr	r1, [r2, #0]
+	ldr	r1, [r2, r1] 
 	ldr	r2, [fp, #-8]
 	mov	r2, r2, asr #12
 	add	r2, r1, r2
 	str	r2, [r3, #0]
 	mov	r3, #1
 	str	r3, [fp, #-12]
-	ldr	r3, [fp, #-12]
 	mov	r3, r3, asl #2
 	ldr	r2, [fp, #-24]
 	add	r3, r2, r3
@@ -224,8 +204,7 @@ multMatrix4:
 	ldr	r3, [fp, #-16]
 	ldr	r3, [r3, #0]
 	ldr	r2, [fp, #-20]
-	add	r2, r2, #4
-	ldr	r2, [r2, #0]
+	ldr	r2, [r2, #4]						
 	mul	r3, r2, r3
 	str	r3, [fp, #-8]
 	ldr	r3, [fp, #-12]
@@ -235,18 +214,15 @@ multMatrix4:
 	ldr	r2, [fp, #-12]
 	mov	r2, r2, asl #2
 	ldr	r1, [fp, #-24]
-	add	r2, r1, r2
-	ldr	r1, [r2, #0]
+	ldr	r1, [r2, r1]						
 	ldr	r2, [fp, #-8]
 	mov	r2, r2, asr #12
 	add	r2, r1, r2
 	str	r2, [r3, #0]
 	ldr	r3, [fp, #-16]
-	add	r3, r3, #4
-	ldr	r3, [r3, #0]
+	ldr	r3, [r3, #4]			
 	ldr	r2, [fp, #-20]
-	add	r2, r2, #20
-	ldr	r2, [r2, #0]
+	ldr	r2, [r2, #20]						
 	mul	r3, r2, r3
 	str	r3, [fp, #-8]
 	ldr	r3, [fp, #-12]
@@ -256,18 +232,15 @@ multMatrix4:
 	ldr	r2, [fp, #-12]
 	mov	r2, r2, asl #2
 	ldr	r1, [fp, #-24]
-	add	r2, r1, r2
-	ldr	r1, [r2, #0]
+	ldr	r1, [r2, r1]	
 	ldr	r2, [fp, #-8]
 	mov	r2, r2, asr #12
 	add	r2, r1, r2
 	str	r2, [r3, #0]
 	ldr	r3, [fp, #-16]
-	add	r3, r3, #8
-	ldr	r3, [r3, #0]
+	ldr	r3, [r3, #8]						
 	ldr	r2, [fp, #-20]
-	add	r2, r2, #36
-	ldr	r2, [r2, #0]
+	ldr	r2, [r2, #36						
 	mul	r3, r2, r3
 	str	r3, [fp, #-8]
 	ldr	r3, [fp, #-12]
@@ -277,18 +250,15 @@ multMatrix4:
 	ldr	r2, [fp, #-12]
 	mov	r2, r2, asl #2
 	ldr	r1, [fp, #-24]
-	add	r2, r1, r2
-	ldr	r1, [r2, #0]
+	ldr	r1, [r2, r1]						
 	ldr	r2, [fp, #-8]
 	mov	r2, r2, asr #12
 	add	r2, r1, r2
 	str	r2, [r3, #0]
 	ldr	r3, [fp, #-16]
-	add	r3, r3, #12
-	ldr	r3, [r3, #0]
+	ldr	r3, [r3, #12]
 	ldr	r2, [fp, #-20]
-	add	r2, r2, #52
-	ldr	r2, [r2, #0]
+	ldr r2, [r2, #52]
 	mul	r3, r2, r3
 	str	r3, [fp, #-8]
 	ldr	r3, [fp, #-12]
@@ -306,7 +276,6 @@ multMatrix4:
 	str	r2, [r3, #0]
 	mov	r3, #2
 	str	r3, [fp, #-12]
-	ldr	r3, [fp, #-12]
 	mov	r3, r3, asl #2
 	ldr	r2, [fp, #-24]
 	add	r3, r2, r3
@@ -315,8 +284,7 @@ multMatrix4:
 	ldr	r3, [fp, #-16]
 	ldr	r3, [r3, #0]
 	ldr	r2, [fp, #-20]
-	add	r2, r2, #8
-	ldr	r2, [r2, #0]
+	ldr r2, [r2, #8]
 	mul	r3, r2, r3
 	str	r3, [fp, #-8]
 	ldr	r3, [fp, #-12]
@@ -333,11 +301,9 @@ multMatrix4:
 	add	r2, r1, r2
 	str	r2, [r3, #0]
 	ldr	r3, [fp, #-16]
-	add	r3, r3, #4
-	ldr	r3, [r3, #0]
+	ldr	r3, [r3, #4]
 	ldr	r2, [fp, #-20]
-	add	r2, r2, #24
-	ldr	r2, [r2, #0]
+	ldr r2, [r2, #24]
 	mul	r3, r2, r3
 	str	r3, [fp, #-8]
 	ldr	r3, [fp, #-12]
@@ -354,11 +320,9 @@ multMatrix4:
 	add	r2, r1, r2
 	str	r2, [r3, #0]
 	ldr	r3, [fp, #-16]
-	add	r3, r3, #8
-	ldr	r3, [r3, #0]
+	ldr	r3, [r3, #8]
 	ldr	r2, [fp, #-20]
-	add	r2, r2, #40
-	ldr	r2, [r2, #0]
+	ldr r2, [r2, #40]
 	mul	r3, r2, r3
 	str	r3, [fp, #-8]
 	ldr	r3, [fp, #-12]
@@ -375,11 +339,9 @@ multMatrix4:
 	add	r2, r1, r2
 	str	r2, [r3, #0]
 	ldr	r3, [fp, #-16]
-	add	r3, r3, #12
-	ldr	r3, [r3, #0]
+	ldr	r3, [r3, #12]
 	ldr	r2, [fp, #-20]
-	add	r2, r2, #56
-	ldr	r2, [r2, #0]
+	ldr r2, [r2, #56]
 	mul	r3, r2, r3
 	str	r3, [fp, #-8]
 	ldr	r3, [fp, #-12]
@@ -397,7 +359,6 @@ multMatrix4:
 	str	r2, [r3, #0]
 	mov	r3, #3
 	str	r3, [fp, #-12]
-	ldr	r3, [fp, #-12]
 	mov	r3, r3, asl #2
 	ldr	r2, [fp, #-24]
 	add	r3, r2, r3
@@ -406,8 +367,7 @@ multMatrix4:
 	ldr	r3, [fp, #-16]
 	ldr	r3, [r3, #0]
 	ldr	r2, [fp, #-20]
-	add	r2, r2, #12
-	ldr	r2, [r2, #0]
+	ldr r2, [r2, #12]
 	mul	r3, r2, r3
 	str	r3, [fp, #-8]
 	ldr	r3, [fp, #-12]
@@ -424,11 +384,9 @@ multMatrix4:
 	add	r2, r1, r2
 	str	r2, [r3, #0]
 	ldr	r3, [fp, #-16]
-	add	r3, r3, #4
-	ldr	r3, [r3, #0]
+	ldr	r3, [r3, #4]
 	ldr	r2, [fp, #-20]
-	add	r2, r2, #28
-	ldr	r2, [r2, #0]
+	ldr r2, [r2, #28]
 	mul	r3, r2, r3
 	str	r3, [fp, #-8]
 	ldr	r3, [fp, #-12]
@@ -445,11 +403,9 @@ multMatrix4:
 	add	r2, r1, r2
 	str	r2, [r3, #0]
 	ldr	r3, [fp, #-16]
-	add	r3, r3, #8
-	ldr	r3, [r3, #0]
+	ldr	r3, [r3, #8]
 	ldr	r2, [fp, #-20]
-	add	r2, r2, #44
-	ldr	r2, [r2, #0]
+	ldr r2, [r2, #44]
 	mul	r3, r2, r3
 	str	r3, [fp, #-8]
 	ldr	r3, [fp, #-12]
@@ -466,11 +422,9 @@ multMatrix4:
 	add	r2, r1, r2
 	str	r2, [r3, #0]
 	ldr	r3, [fp, #-16]
-	add	r3, r3, #12
-	ldr	r3, [r3, #0]
+	ldr	r3, [r3, #12]
 	ldr	r2, [fp, #-20]
-	add	r2, r2, #60
-	ldr	r2, [r2, #0]
+	ldr r2, [r2, #60]
 	mul	r3, r2, r3
 	str	r3, [fp, #-8]
 	ldr	r3, [fp, #-12]
@@ -488,15 +442,13 @@ multMatrix4:
 	str	r2, [r3, #0]
 	mov	r3, #4
 	str	r3, [fp, #-12]
-	ldr	r3, [fp, #-12]
 	mov	r3, r3, asl #2
 	ldr	r2, [fp, #-24]
 	add	r3, r2, r3
 	mov	r2, #0
 	str	r2, [r3, #0]
 	ldr	r3, [fp, #-16]
-	add	r3, r3, #16
-	ldr	r3, [r3, #0]
+	ldr	r3, [r3, #16]
 	ldr	r2, [fp, #-20]
 	ldr	r2, [r2, #0]
 	mul	r3, r2, r3
@@ -515,11 +467,9 @@ multMatrix4:
 	add	r2, r1, r2
 	str	r2, [r3, #0]
 	ldr	r3, [fp, #-16]
-	add	r3, r3, #20
-	ldr	r3, [r3, #0]
+	ldr	r3, [r3, #20]
 	ldr	r2, [fp, #-20]
-	add	r2, r2, #16
-	ldr	r2, [r2, #0]
+	ldr r2, [r2, #16]
 	mul	r3, r2, r3
 	str	r3, [fp, #-8]
 	ldr	r3, [fp, #-12]
@@ -536,11 +486,9 @@ multMatrix4:
 	add	r2, r1, r2
 	str	r2, [r3, #0]
 	ldr	r3, [fp, #-16]
-	add	r3, r3, #24
-	ldr	r3, [r3, #0]
+	ldr	r3, [r3, #24]
 	ldr	r2, [fp, #-20]
-	add	r2, r2, #32
-	ldr	r2, [r2, #0]
+	ldr r2, [r2, #32]
 	mul	r3, r2, r3
 	str	r3, [fp, #-8]
 	ldr	r3, [fp, #-12]
@@ -557,11 +505,9 @@ multMatrix4:
 	add	r2, r1, r2
 	str	r2, [r3, #0]
 	ldr	r3, [fp, #-16]
-	add	r3, r3, #28
-	ldr	r3, [r3, #0]
+	ldr	r3, [r3, #28]
 	ldr	r2, [fp, #-20]
-	add	r2, r2, #48
-	ldr	r2, [r2, #0]
+	ldr r2, [r2, #48]
 	mul	r3, r2, r3
 	str	r3, [fp, #-8]
 	ldr	r3, [fp, #-12]
@@ -579,18 +525,15 @@ multMatrix4:
 	str	r2, [r3, #0]
 	mov	r3, #5
 	str	r3, [fp, #-12]
-	ldr	r3, [fp, #-12]
 	mov	r3, r3, asl #2
 	ldr	r2, [fp, #-24]
 	add	r3, r2, r3
 	mov	r2, #0
 	str	r2, [r3, #0]
 	ldr	r3, [fp, #-16]
-	add	r3, r3, #16
-	ldr	r3, [r3, #0]
+	ldr	r3, [r3, #16]
 	ldr	r2, [fp, #-20]
-	add	r2, r2, #4
-	ldr	r2, [r2, #0]
+	ldr r2, [r2, #4]
 	mul	r3, r2, r3
 	str	r3, [fp, #-8]
 	ldr	r3, [fp, #-12]
@@ -607,11 +550,9 @@ multMatrix4:
 	add	r2, r1, r2
 	str	r2, [r3, #0]
 	ldr	r3, [fp, #-16]
-	add	r3, r3, #20
-	ldr	r3, [r3, #0]
+	ldr	r3, [r3, #20]
 	ldr	r2, [fp, #-20]
-	add	r2, r2, #20
-	ldr	r2, [r2, #0]
+	ldr r2, [r2, #20]
 	mul	r3, r2, r3
 	str	r3, [fp, #-8]
 	ldr	r3, [fp, #-12]
@@ -628,11 +569,9 @@ multMatrix4:
 	add	r2, r1, r2
 	str	r2, [r3, #0]
 	ldr	r3, [fp, #-16]
-	add	r3, r3, #24
-	ldr	r3, [r3, #0]
+	ldr	r3, [r3, #24]
 	ldr	r2, [fp, #-20]
-	add	r2, r2, #36
-	ldr	r2, [r2, #0]
+	ldr r2, [r2, #36]
 	mul	r3, r2, r3
 	str	r3, [fp, #-8]
 	ldr	r3, [fp, #-12]
@@ -649,11 +588,9 @@ multMatrix4:
 	add	r2, r1, r2
 	str	r2, [r3, #0]
 	ldr	r3, [fp, #-16]
-	add	r3, r3, #28
-	ldr	r3, [r3, #0]
+	ldr	r3, [r3, #28]
 	ldr	r2, [fp, #-20]
-	add	r2, r2, #52
-	ldr	r2, [r2, #0]
+	ldr r2, [r2, #52]
 	mul	r3, r2, r3
 	str	r3, [fp, #-8]
 	ldr	r3, [fp, #-12]
@@ -671,18 +608,15 @@ multMatrix4:
 	str	r2, [r3, #0]
 	mov	r3, #6
 	str	r3, [fp, #-12]
-	ldr	r3, [fp, #-12]
 	mov	r3, r3, asl #2
 	ldr	r2, [fp, #-24]
 	add	r3, r2, r3
 	mov	r2, #0
 	str	r2, [r3, #0]
 	ldr	r3, [fp, #-16]
-	add	r3, r3, #16
-	ldr	r3, [r3, #0]
+	ldr	r3, [r3, #16]
 	ldr	r2, [fp, #-20]
-	add	r2, r2, #8
-	ldr	r2, [r2, #0]
+	ldr r2, [r2, #8]
 	mul	r3, r2, r3
 	str	r3, [fp, #-8]
 	ldr	r3, [fp, #-12]
@@ -699,11 +633,9 @@ multMatrix4:
 	add	r2, r1, r2
 	str	r2, [r3, #0]
 	ldr	r3, [fp, #-16]
-	add	r3, r3, #20
-	ldr	r3, [r3, #0]
+	ldr	r3, [r3, #20]
 	ldr	r2, [fp, #-20]
-	add	r2, r2, #24
-	ldr	r2, [r2, #0]
+	ldr r2, [r2, #24]
 	mul	r3, r2, r3
 	str	r3, [fp, #-8]
 	ldr	r3, [fp, #-12]
@@ -720,11 +652,9 @@ multMatrix4:
 	add	r2, r1, r2
 	str	r2, [r3, #0]
 	ldr	r3, [fp, #-16]
-	add	r3, r3, #24
-	ldr	r3, [r3, #0]
+	ldr	r3, [r3, #24]
 	ldr	r2, [fp, #-20]
-	add	r2, r2, #40
-	ldr	r2, [r2, #0]
+	ldr r2, [r2, #40]
 	mul	r3, r2, r3
 	str	r3, [fp, #-8]
 	ldr	r3, [fp, #-12]
@@ -741,11 +671,9 @@ multMatrix4:
 	add	r2, r1, r2
 	str	r2, [r3, #0]
 	ldr	r3, [fp, #-16]
-	add	r3, r3, #28
-	ldr	r3, [r3, #0]
+	ldr	r3, [r3, #28]
 	ldr	r2, [fp, #-20]
-	add	r2, r2, #56
-	ldr	r2, [r2, #0]
+	ldr r2, [r2, #56]
 	mul	r3, r2, r3
 	str	r3, [fp, #-8]
 	ldr	r3, [fp, #-12]
@@ -763,18 +691,15 @@ multMatrix4:
 	str	r2, [r3, #0]
 	mov	r3, #7
 	str	r3, [fp, #-12]
-	ldr	r3, [fp, #-12]
 	mov	r3, r3, asl #2
 	ldr	r2, [fp, #-24]
 	add	r3, r2, r3
 	mov	r2, #0
 	str	r2, [r3, #0]
 	ldr	r3, [fp, #-16]
-	add	r3, r3, #16
-	ldr	r3, [r3, #0]
+	ldr	r3, [r3, #16]
 	ldr	r2, [fp, #-20]
-	add	r2, r2, #12
-	ldr	r2, [r2, #0]
+	ldr r2, [r2, #12]
 	mul	r3, r2, r3
 	str	r3, [fp, #-8]
 	ldr	r3, [fp, #-12]
@@ -791,11 +716,9 @@ multMatrix4:
 	add	r2, r1, r2
 	str	r2, [r3, #0]
 	ldr	r3, [fp, #-16]
-	add	r3, r3, #20
-	ldr	r3, [r3, #0]
+	ldr	r3, [r3, #20]
 	ldr	r2, [fp, #-20]
-	add	r2, r2, #28
-	ldr	r2, [r2, #0]
+	ldr r2, [r2, #28]
 	mul	r3, r2, r3
 	str	r3, [fp, #-8]
 	ldr	r3, [fp, #-12]
@@ -812,11 +735,9 @@ multMatrix4:
 	add	r2, r1, r2
 	str	r2, [r3, #0]
 	ldr	r3, [fp, #-16]
-	add	r3, r3, #24
-	ldr	r3, [r3, #0]
+	ldr	r3, [r3, #24]
 	ldr	r2, [fp, #-20]
-	add	r2, r2, #44
-	ldr	r2, [r2, #0]
+	ldr r2, [r2, #44]
 	mul	r3, r2, r3
 	str	r3, [fp, #-8]
 	ldr	r3, [fp, #-12]
@@ -833,11 +754,9 @@ multMatrix4:
 	add	r2, r1, r2
 	str	r2, [r3, #0]
 	ldr	r3, [fp, #-16]
-	add	r3, r3, #28
-	ldr	r3, [r3, #0]
+	ldr	r3, [r3, #28]
 	ldr	r2, [fp, #-20]
-	add	r2, r2, #60
-	ldr	r2, [r2, #0]
+	ldr r2, [r2, #60]
 	mul	r3, r2, r3
 	str	r3, [fp, #-8]
 	ldr	r3, [fp, #-12]
@@ -855,15 +774,13 @@ multMatrix4:
 	str	r2, [r3, #0]
 	mov	r3, #8
 	str	r3, [fp, #-12]
-	ldr	r3, [fp, #-12]
 	mov	r3, r3, asl #2
 	ldr	r2, [fp, #-24]
 	add	r3, r2, r3
 	mov	r2, #0
 	str	r2, [r3, #0]
 	ldr	r3, [fp, #-16]
-	add	r3, r3, #32
-	ldr	r3, [r3, #0]
+	ldr	r3, [r3, #32]
 	ldr	r2, [fp, #-20]
 	ldr	r2, [r2, #0]
 	mul	r3, r2, r3
@@ -882,11 +799,9 @@ multMatrix4:
 	add	r2, r1, r2
 	str	r2, [r3, #0]
 	ldr	r3, [fp, #-16]
-	add	r3, r3, #36
-	ldr	r3, [r3, #0]
+	ldr	r3, [r3, #36]
 	ldr	r2, [fp, #-20]
-	add	r2, r2, #16
-	ldr	r2, [r2, #0]
+	ldr r2, [r2, #16]
 	mul	r3, r2, r3
 	str	r3, [fp, #-8]
 	ldr	r3, [fp, #-12]
@@ -903,11 +818,9 @@ multMatrix4:
 	add	r2, r1, r2
 	str	r2, [r3, #0]
 	ldr	r3, [fp, #-16]
-	add	r3, r3, #40
-	ldr	r3, [r3, #0]
+	ldr r3, [r3, #40]
 	ldr	r2, [fp, #-20]
-	add	r2, r2, #32
-	ldr	r2, [r2, #0]
+	ldr r2, [r2, #32]
 	mul	r3, r2, r3
 	str	r3, [fp, #-8]
 	ldr	r3, [fp, #-12]
@@ -924,11 +837,9 @@ multMatrix4:
 	add	r2, r1, r2
 	str	r2, [r3, #0]
 	ldr	r3, [fp, #-16]
-	add	r3, r3, #44
-	ldr	r3, [r3, #0]
+	ldr r3, [r3, #44]
 	ldr	r2, [fp, #-20]
-	add	r2, r2, #48
-	ldr	r2, [r2, #0]
+	ldr r2, [r2, #48]
 	mul	r3, r2, r3
 	str	r3, [fp, #-8]
 	ldr	r3, [fp, #-12]
@@ -946,18 +857,15 @@ multMatrix4:
 	str	r2, [r3, #0]
 	mov	r3, #9
 	str	r3, [fp, #-12]
-	ldr	r3, [fp, #-12]
 	mov	r3, r3, asl #2
 	ldr	r2, [fp, #-24]
 	add	r3, r2, r3
 	mov	r2, #0
 	str	r2, [r3, #0]
 	ldr	r3, [fp, #-16]
-	add	r3, r3, #32
-	ldr	r3, [r3, #0]
+	ldr	r3, [r3, #32]
 	ldr	r2, [fp, #-20]
-	add	r2, r2, #4
-	ldr	r2, [r2, #0]
+	ldr r2, [r2, #4]
 	mul	r3, r2, r3
 	str	r3, [fp, #-8]
 	ldr	r3, [fp, #-12]
@@ -974,11 +882,9 @@ multMatrix4:
 	add	r2, r1, r2
 	str	r2, [r3, #0]
 	ldr	r3, [fp, #-16]
-	add	r3, r3, #36
-	ldr	r3, [r3, #0]
+	ldr	r3, [r3, #36]
 	ldr	r2, [fp, #-20]
-	add	r2, r2, #20
-	ldr	r2, [r2, #0]
+	ldr r2, [r2, #20]
 	mul	r3, r2, r3
 	str	r3, [fp, #-8]
 	ldr	r3, [fp, #-12]
@@ -995,11 +901,9 @@ multMatrix4:
 	add	r2, r1, r2
 	str	r2, [r3, #0]
 	ldr	r3, [fp, #-16]
-	add	r3, r3, #40
-	ldr	r3, [r3, #0]
+	ldr r3, [r3, #40]
 	ldr	r2, [fp, #-20]
-	add	r2, r2, #36
-	ldr	r2, [r2, #0]
+	ldr r2, [r2, #36]
 	mul	r3, r2, r3
 	str	r3, [fp, #-8]
 	ldr	r3, [fp, #-12]
@@ -1016,11 +920,9 @@ multMatrix4:
 	add	r2, r1, r2
 	str	r2, [r3, #0]
 	ldr	r3, [fp, #-16]
-	add	r3, r3, #44
-	ldr	r3, [r3, #0]
+	ldr r3, [r3, #44]
 	ldr	r2, [fp, #-20]
-	add	r2, r2, #52
-	ldr	r2, [r2, #0]
+	ldr r2, [r2, #52]
 	mul	r3, r2, r3
 	str	r3, [fp, #-8]
 	ldr	r3, [fp, #-12]
@@ -1038,18 +940,15 @@ multMatrix4:
 	str	r2, [r3, #0]
 	mov	r3, #10
 	str	r3, [fp, #-12]
-	ldr	r3, [fp, #-12]
 	mov	r3, r3, asl #2
 	ldr	r2, [fp, #-24]
 	add	r3, r2, r3
 	mov	r2, #0
 	str	r2, [r3, #0]
 	ldr	r3, [fp, #-16]
-	add	r3, r3, #32
-	ldr	r3, [r3, #0]
+	ldr	r3, [r3, #32]
 	ldr	r2, [fp, #-20]
-	add	r2, r2, #8
-	ldr	r2, [r2, #0]
+	ldr r2, [r2, #8]
 	mul	r3, r2, r3
 	str	r3, [fp, #-8]
 	ldr	r3, [fp, #-12]
@@ -1066,11 +965,9 @@ multMatrix4:
 	add	r2, r1, r2
 	str	r2, [r3, #0]
 	ldr	r3, [fp, #-16]
-	add	r3, r3, #36
-	ldr	r3, [r3, #0]
+	ldr	r3, [r3, #36]
 	ldr	r2, [fp, #-20]
-	add	r2, r2, #24
-	ldr	r2, [r2, #0]
+	ldr r2, [r2, #24]
 	mul	r3, r2, r3
 	str	r3, [fp, #-8]
 	ldr	r3, [fp, #-12]
@@ -1087,11 +984,9 @@ multMatrix4:
 	add	r2, r1, r2
 	str	r2, [r3, #0]
 	ldr	r3, [fp, #-16]
-	add	r3, r3, #40
-	ldr	r3, [r3, #0]
+	ldr r3, [r3, #40]
 	ldr	r2, [fp, #-20]
-	add	r2, r2, #40
-	ldr	r2, [r2, #0]
+	ldr r2, [r2, #40]
 	mul	r3, r2, r3
 	str	r3, [fp, #-8]
 	ldr	r3, [fp, #-12]
@@ -1108,11 +1003,9 @@ multMatrix4:
 	add	r2, r1, r2
 	str	r2, [r3, #0]
 	ldr	r3, [fp, #-16]
-	add	r3, r3, #44
-	ldr	r3, [r3, #0]
+	ldr r3, [r3, #44]
 	ldr	r2, [fp, #-20]
-	add	r2, r2, #56
-	ldr	r2, [r2, #0]
+	ldr r2, [r2, #56]
 	mul	r3, r2, r3
 	str	r3, [fp, #-8]
 	ldr	r3, [fp, #-12]
@@ -1130,18 +1023,15 @@ multMatrix4:
 	str	r2, [r3, #0]
 	mov	r3, #11
 	str	r3, [fp, #-12]
-	ldr	r3, [fp, #-12]
 	mov	r3, r3, asl #2
 	ldr	r2, [fp, #-24]
 	add	r3, r2, r3
 	mov	r2, #0
 	str	r2, [r3, #0]
 	ldr	r3, [fp, #-16]
-	add	r3, r3, #32
-	ldr	r3, [r3, #0]
+	ldr	r3, [r3, #32]
 	ldr	r2, [fp, #-20]
-	add	r2, r2, #12
-	ldr	r2, [r2, #0]
+	ldr r2, [r2, #12]
 	mul	r3, r2, r3
 	str	r3, [fp, #-8]
 	ldr	r3, [fp, #-12]
@@ -1158,11 +1048,9 @@ multMatrix4:
 	add	r2, r1, r2
 	str	r2, [r3, #0]
 	ldr	r3, [fp, #-16]
-	add	r3, r3, #36
-	ldr	r3, [r3, #0]
+	ldr	r3, [r3, #36]
 	ldr	r2, [fp, #-20]
-	add	r2, r2, #28
-	ldr	r2, [r2, #0]
+	ldr r2, [r2, #28]
 	mul	r3, r2, r3
 	str	r3, [fp, #-8]
 	ldr	r3, [fp, #-12]
@@ -1179,11 +1067,9 @@ multMatrix4:
 	add	r2, r1, r2
 	str	r2, [r3, #0]
 	ldr	r3, [fp, #-16]
-	add	r3, r3, #40
-	ldr	r3, [r3, #0]
+	ldr r3, [r3, #40]
 	ldr	r2, [fp, #-20]
-	add	r2, r2, #44
-	ldr	r2, [r2, #0]
+	ldr r2, [r2, #44]
 	mul	r3, r2, r3
 	str	r3, [fp, #-8]
 	ldr	r3, [fp, #-12]
@@ -1200,11 +1086,9 @@ multMatrix4:
 	add	r2, r1, r2
 	str	r2, [r3, #0]
 	ldr	r3, [fp, #-16]
-	add	r3, r3, #44
-	ldr	r3, [r3, #0]
+	ldr r3, [r3, #44]
 	ldr	r2, [fp, #-20]
-	add	r2, r2, #60
-	ldr	r2, [r2, #0]
+	ldr r2, [r2, #60]
 	mul	r3, r2, r3
 	str	r3, [fp, #-8]
 	ldr	r3, [fp, #-12]
@@ -1222,15 +1106,13 @@ multMatrix4:
 	str	r2, [r3, #0]
 	mov	r3, #12
 	str	r3, [fp, #-12]
-	ldr	r3, [fp, #-12]
 	mov	r3, r3, asl #2
 	ldr	r2, [fp, #-24]
 	add	r3, r2, r3
 	mov	r2, #0
 	str	r2, [r3, #0]
 	ldr	r3, [fp, #-16]
-	add	r3, r3, #48
-	ldr	r3, [r3, #0]
+	ldr r3, [r3, #48]
 	ldr	r2, [fp, #-20]
 	ldr	r2, [r2, #0]
 	mul	r3, r2, r3
@@ -1249,11 +1131,9 @@ multMatrix4:
 	add	r2, r1, r2
 	str	r2, [r3, #0]
 	ldr	r3, [fp, #-16]
-	add	r3, r3, #52
-	ldr	r3, [r3, #0]
+	ldr r3, [r3, #52]
 	ldr	r2, [fp, #-20]
-	add	r2, r2, #16
-	ldr	r2, [r2, #0]
+	ldr r2, [r2, #16]
 	mul	r3, r2, r3
 	str	r3, [fp, #-8]
 	ldr	r3, [fp, #-12]
@@ -1270,11 +1150,9 @@ multMatrix4:
 	add	r2, r1, r2
 	str	r2, [r3, #0]
 	ldr	r3, [fp, #-16]
-	add	r3, r3, #56
-	ldr	r3, [r3, #0]
+	ldr r3, [r3, #56]
 	ldr	r2, [fp, #-20]
-	add	r2, r2, #32
-	ldr	r2, [r2, #0]
+	ldr r2, [r2, #32]
 	mul	r3, r2, r3
 	str	r3, [fp, #-8]
 	ldr	r3, [fp, #-12]
@@ -1291,11 +1169,9 @@ multMatrix4:
 	add	r2, r1, r2
 	str	r2, [r3, #0]
 	ldr	r3, [fp, #-16]
-	add	r3, r3, #60
-	ldr	r3, [r3, #0]
+	ldr r3, [r3, #60]
 	ldr	r2, [fp, #-20]
-	add	r2, r2, #48
-	ldr	r2, [r2, #0]
+	ldr r2, [r2, #48]
 	mul	r3, r2, r3
 	str	r3, [fp, #-8]
 	ldr	r3, [fp, #-12]
@@ -1313,18 +1189,15 @@ multMatrix4:
 	str	r2, [r3, #0]
 	mov	r3, #13
 	str	r3, [fp, #-12]
-	ldr	r3, [fp, #-12]
 	mov	r3, r3, asl #2
 	ldr	r2, [fp, #-24]
 	add	r3, r2, r3
 	mov	r2, #0
 	str	r2, [r3, #0]
 	ldr	r3, [fp, #-16]
-	add	r3, r3, #48
-	ldr	r3, [r3, #0]
+	ldr r3, [r3, #48]
 	ldr	r2, [fp, #-20]
-	add	r2, r2, #4
-	ldr	r2, [r2, #0]
+	ldr r2, [r2, #4]
 	mul	r3, r2, r3
 	str	r3, [fp, #-8]
 	ldr	r3, [fp, #-12]
@@ -1341,11 +1214,9 @@ multMatrix4:
 	add	r2, r1, r2
 	str	r2, [r3, #0]
 	ldr	r3, [fp, #-16]
-	add	r3, r3, #52
-	ldr	r3, [r3, #0]
+	ldr r3, [r3, #52]
 	ldr	r2, [fp, #-20]
-	add	r2, r2, #20
-	ldr	r2, [r2, #0]
+	ldr r2, [r2, #20]
 	mul	r3, r2, r3
 	str	r3, [fp, #-8]
 	ldr	r3, [fp, #-12]
@@ -1362,11 +1233,9 @@ multMatrix4:
 	add	r2, r1, r2
 	str	r2, [r3, #0]
 	ldr	r3, [fp, #-16]
-	add	r3, r3, #56
-	ldr	r3, [r3, #0]
+	ldr r3, [r3, #56]
 	ldr	r2, [fp, #-20]
-	add	r2, r2, #36
-	ldr	r2, [r2, #0]
+	ldr r2, [r2, #36]
 	mul	r3, r2, r3
 	str	r3, [fp, #-8]
 	ldr	r3, [fp, #-12]
@@ -1383,11 +1252,9 @@ multMatrix4:
 	add	r2, r1, r2
 	str	r2, [r3, #0]
 	ldr	r3, [fp, #-16]
-	add	r3, r3, #60
-	ldr	r3, [r3, #0]
+	ldr r3, [r3, #60]
 	ldr	r2, [fp, #-20]
-	add	r2, r2, #52
-	ldr	r2, [r2, #0]
+	ldr r2, [r2, #52]
 	mul	r3, r2, r3
 	str	r3, [fp, #-8]
 	ldr	r3, [fp, #-12]
@@ -1405,18 +1272,15 @@ multMatrix4:
 	str	r2, [r3, #0]
 	mov	r3, #14
 	str	r3, [fp, #-12]
-	ldr	r3, [fp, #-12]
 	mov	r3, r3, asl #2
 	ldr	r2, [fp, #-24]
 	add	r3, r2, r3
 	mov	r2, #0
 	str	r2, [r3, #0]
 	ldr	r3, [fp, #-16]
-	add	r3, r3, #48
-	ldr	r3, [r3, #0]
+	ldr r3, [r3, #48]
 	ldr	r2, [fp, #-20]
-	add	r2, r2, #8
-	ldr	r2, [r2, #0]
+	ldr r2, [r2, #8]
 	mul	r3, r2, r3
 	str	r3, [fp, #-8]
 	ldr	r3, [fp, #-12]
@@ -1433,11 +1297,9 @@ multMatrix4:
 	add	r2, r1, r2
 	str	r2, [r3, #0]
 	ldr	r3, [fp, #-16]
-	add	r3, r3, #52
-	ldr	r3, [r3, #0]
+	ldr r3, [r3, #52]
 	ldr	r2, [fp, #-20]
-	add	r2, r2, #24
-	ldr	r2, [r2, #0]
+	ldr r2, [r2, #24]
 	mul	r3, r2, r3
 	str	r3, [fp, #-8]
 	ldr	r3, [fp, #-12]
@@ -1454,11 +1316,9 @@ multMatrix4:
 	add	r2, r1, r2
 	str	r2, [r3, #0]
 	ldr	r3, [fp, #-16]
-	add	r3, r3, #56
-	ldr	r3, [r3, #0]
+	ldr r3, [r3, #56]
 	ldr	r2, [fp, #-20]
-	add	r2, r2, #40
-	ldr	r2, [r2, #0]
+	ldr r2, [r2, #40]
 	mul	r3, r2, r3
 	str	r3, [fp, #-8]
 	ldr	r3, [fp, #-12]
@@ -1475,11 +1335,9 @@ multMatrix4:
 	add	r2, r1, r2
 	str	r2, [r3, #0]
 	ldr	r3, [fp, #-16]
-	add	r3, r3, #60
-	ldr	r3, [r3, #0]
+	ldr r3, [r3, #60]
 	ldr	r2, [fp, #-20]
-	add	r2, r2, #56
-	ldr	r2, [r2, #0]
+	ldr r2, [r2, #56]
 	mul	r3, r2, r3
 	str	r3, [fp, #-8]
 	ldr	r3, [fp, #-12]
@@ -1497,18 +1355,15 @@ multMatrix4:
 	str	r2, [r3, #0]
 	mov	r3, #15
 	str	r3, [fp, #-12]
-	ldr	r3, [fp, #-12]
 	mov	r3, r3, asl #2
 	ldr	r2, [fp, #-24]
 	add	r3, r2, r3
 	mov	r2, #0
 	str	r2, [r3, #0]
 	ldr	r3, [fp, #-16]
-	add	r3, r3, #48
-	ldr	r3, [r3, #0]
+	ldr r3, [r3, #48]
 	ldr	r2, [fp, #-20]
-	add	r2, r2, #12
-	ldr	r2, [r2, #0]
+	ldr r2, [r2, #12]
 	mul	r3, r2, r3
 	str	r3, [fp, #-8]
 	ldr	r3, [fp, #-12]
@@ -1525,11 +1380,9 @@ multMatrix4:
 	add	r2, r1, r2
 	str	r2, [r3, #0]
 	ldr	r3, [fp, #-16]
-	add	r3, r3, #52
-	ldr	r3, [r3, #0]
+	ldr r3, [r3, #52]
 	ldr	r2, [fp, #-20]
-	add	r2, r2, #28
-	ldr	r2, [r2, #0]
+	ldr r2, [r2, #28]
 	mul	r3, r2, r3
 	str	r3, [fp, #-8]
 	ldr	r3, [fp, #-12]
@@ -1546,11 +1399,9 @@ multMatrix4:
 	add	r2, r1, r2
 	str	r2, [r3, #0]
 	ldr	r3, [fp, #-16]
-	add	r3, r3, #56
-	ldr	r3, [r3, #0]
+	ldr r3, [r3, #56]
 	ldr	r2, [fp, #-20]
-	add	r2, r2, #44
-	ldr	r2, [r2, #0]
+	ldr r2, [r2, #44]
 	mul	r3, r2, r3
 	str	r3, [fp, #-8]
 	ldr	r3, [fp, #-12]
@@ -1567,11 +1418,9 @@ multMatrix4:
 	add	r2, r1, r2
 	str	r2, [r3, #0]
 	ldr	r3, [fp, #-16]
-	add	r3, r3, #60
-	ldr	r3, [r3, #0]
+	ldr r3, [r3, #60]
 	ldr	r2, [fp, #-20]
-	add	r2, r2, #60
-	ldr	r2, [r2, #0]
+	ldr r2, [r2, #60]
 	mul	r3, r2, r3
 	str	r3, [fp, #-8]
 	ldr	r3, [fp, #-12]
@@ -1587,7 +1436,7 @@ multMatrix4:
 	mov	r2, r2, asr #12
 	add	r2, r1, r2
 	str	r2, [r3, #0]
-	add	sp, fp, #0
+	mov	sp, fp
 	ldmfd	sp!, {fp}
 	bx	lr
 	.size	multMatrix4, .-multMatrix4
@@ -1615,7 +1464,6 @@ diagonalize:
 	bl	memset
 	mov	r3, #1
 	str	r3, [fp, #-140]
-	mov	r3, #1
 	str	r3, [fp, #-132]
 	mov	r3, #2
 	str	r3, [fp, #-120]
@@ -1629,7 +1477,6 @@ diagonalize:
 	str	r3, [fp, #-204]
 	mov	r3, #3
 	str	r3, [fp, #-200]
-	mov	r3, #3
 	str	r3, [fp, #-196]
 	mov	r3, #2
 	str	r3, [fp, #-192]
@@ -1639,39 +1486,22 @@ diagonalize:
 	str	r3, [fp, #-184]
 	mov	r3, #0
 	str	r3, [fp, #-32]
-	mov	r3, #0
 	str	r3, [fp, #-36]
-	mov	r3, #0
 	str	r3, [fp, #-40]
-	mov	r3, #0
 	str	r3, [fp, #-44]
-	mov	r3, #0
 	str	r3, [fp, #-48]
-	mov	r3, #0
 	str	r3, [fp, #-52]
-	mov	r3, #0
 	str	r3, [fp, #-56]
-	mov	r3, #0
 	str	r3, [fp, #-8]
-	mov	r3, #0
 	str	r3, [fp, #-12]
-	mov	r3, #0
 	str	r3, [fp, #-60]
-	mov	r3, #0
 	str	r3, [fp, #-64]
-	mov	r3, #0
 	str	r3, [fp, #-16]
-	mov	r3, #0
 	str	r3, [fp, #-20]
-	mov	r3, #0
 	str	r3, [fp, #-24]
-	mov	r3, #0
 	str	r3, [fp, #-28]
-	mov	r3, #0
 	str	r3, [fp, #-68]
-	mov	r3, #0
 	str	r3, [fp, #-72]
-	mov	r3, #0
 	str	r3, [fp, #-76]
 	ldr	r3, [fp, #-140]
 	str	r3, [fp, #-32]
@@ -1813,7 +1643,6 @@ diagonalize:
 	mov	r3, r0
 .L22:
 	str	r3, [fp, #-56]
-	ldr	r3, [fp, #-56]
 	cmp	r3, #2048
 	ble	.L23
 	ldr	r3, [fp, #-56]
@@ -1999,7 +1828,6 @@ diagonalize:
 	mov	r3, r0
 .L36:
 	str	r3, [fp, #-56]
-	ldr	r3, [fp, #-56]
 	cmp	r3, #2048
 	ble	.L37
 	ldr	r3, [fp, #-56]
@@ -2309,69 +2137,39 @@ diagonalize:
 	add	r3, r3, #6
 	str	r3, [fp, #-28]
 .L54:
-	mov	r3, #4096
-	str	r3, [fp, #-268]
 	mov	r3, #0
 	str	r3, [fp, #-264]
-	mov	r3, #0
 	str	r3, [fp, #-260]
-	mov	r3, #0
 	str	r3, [fp, #-256]
-	mov	r3, #0
 	str	r3, [fp, #-252]
-	mov	r3, #4096
-	str	r3, [fp, #-248]
-	mov	r3, #0
 	str	r3, [fp, #-244]
-	mov	r3, #0
 	str	r3, [fp, #-240]
-	mov	r3, #0
 	str	r3, [fp, #-236]
-	mov	r3, #0
 	str	r3, [fp, #-232]
-	mov	r3, #4096
-	str	r3, [fp, #-228]
-	mov	r3, #0
 	str	r3, [fp, #-224]
-	mov	r3, #0
 	str	r3, [fp, #-220]
-	mov	r3, #0
 	str	r3, [fp, #-216]
-	mov	r3, #0
 	str	r3, [fp, #-212]
-	mov	r3, #4096
-	str	r3, [fp, #-208]
-	mov	r3, #4096
-	str	r3, [fp, #-332]
-	mov	r3, #0
 	str	r3, [fp, #-328]
-	mov	r3, #0
 	str	r3, [fp, #-324]
-	mov	r3, #0
 	str	r3, [fp, #-320]
-	mov	r3, #0
 	str	r3, [fp, #-316]
-	mov	r3, #4096
-	str	r3, [fp, #-312]
-	mov	r3, #0
 	str	r3, [fp, #-308]
-	mov	r3, #0
 	str	r3, [fp, #-304]
-	mov	r3, #0
 	str	r3, [fp, #-300]
-	mov	r3, #0
 	str	r3, [fp, #-296]
-	mov	r3, #4096
-	str	r3, [fp, #-292]
-	mov	r3, #0
 	str	r3, [fp, #-288]
-	mov	r3, #0
 	str	r3, [fp, #-284]
-	mov	r3, #0
 	str	r3, [fp, #-280]
-	mov	r3, #0
 	str	r3, [fp, #-276]
 	mov	r3, #4096
+	str	r3, [fp, #-268]
+	str	r3, [fp, #-248]
+	str	r3, [fp, #-228]
+	str	r3, [fp, #-208]
+	str	r3, [fp, #-332]
+	str	r3, [fp, #-312]
+	str	r3, [fp, #-292]
 	str	r3, [fp, #-272]
 	ldr	r2, [fp, #-32]
 	ldr	r1, .L1274
@@ -2615,7 +2413,6 @@ diagonalize:
 	mov	r3, r0
 .L64:
 	str	r3, [fp, #-56]
-	ldr	r3, [fp, #-56]
 	cmp	r3, #2048
 	ble	.L65
 	ldr	r3, [fp, #-56]
@@ -2811,7 +2608,6 @@ diagonalize:
 	mov	r3, r0
 .L78:
 	str	r3, [fp, #-56]
-	ldr	r3, [fp, #-56]
 	cmp	r3, #2048
 	ble	.L79
 	ldr	r3, [fp, #-56]
@@ -3121,69 +2917,39 @@ diagonalize:
 	add	r3, r3, #6
 	str	r3, [fp, #-28]
 .L96:
-	mov	r3, #4096
-	str	r3, [fp, #-268]
-	mov	r3, #0
+mov	r3, #0
 	str	r3, [fp, #-264]
-	mov	r3, #0
 	str	r3, [fp, #-260]
-	mov	r3, #0
 	str	r3, [fp, #-256]
-	mov	r3, #0
 	str	r3, [fp, #-252]
-	mov	r3, #4096
-	str	r3, [fp, #-248]
-	mov	r3, #0
 	str	r3, [fp, #-244]
-	mov	r3, #0
 	str	r3, [fp, #-240]
-	mov	r3, #0
 	str	r3, [fp, #-236]
-	mov	r3, #0
 	str	r3, [fp, #-232]
-	mov	r3, #4096
-	str	r3, [fp, #-228]
-	mov	r3, #0
 	str	r3, [fp, #-224]
-	mov	r3, #0
 	str	r3, [fp, #-220]
-	mov	r3, #0
 	str	r3, [fp, #-216]
-	mov	r3, #0
 	str	r3, [fp, #-212]
-	mov	r3, #4096
-	str	r3, [fp, #-208]
-	mov	r3, #4096
-	str	r3, [fp, #-332]
-	mov	r3, #0
 	str	r3, [fp, #-328]
-	mov	r3, #0
 	str	r3, [fp, #-324]
-	mov	r3, #0
 	str	r3, [fp, #-320]
-	mov	r3, #0
 	str	r3, [fp, #-316]
-	mov	r3, #4096
-	str	r3, [fp, #-312]
-	mov	r3, #0
 	str	r3, [fp, #-308]
-	mov	r3, #0
 	str	r3, [fp, #-304]
-	mov	r3, #0
 	str	r3, [fp, #-300]
-	mov	r3, #0
 	str	r3, [fp, #-296]
-	mov	r3, #4096
-	str	r3, [fp, #-292]
-	mov	r3, #0
 	str	r3, [fp, #-288]
-	mov	r3, #0
 	str	r3, [fp, #-284]
-	mov	r3, #0
 	str	r3, [fp, #-280]
-	mov	r3, #0
 	str	r3, [fp, #-276]
 	mov	r3, #4096
+	str	r3, [fp, #-268]
+	str	r3, [fp, #-248]
+	str	r3, [fp, #-228]
+	str	r3, [fp, #-208]
+	str	r3, [fp, #-332]
+	str	r3, [fp, #-312]
+	str	r3, [fp, #-292]
 	str	r3, [fp, #-272]
 	ldr	r2, [fp, #-32]
 	ldr	r1, .L1274
@@ -3427,7 +3193,6 @@ diagonalize:
 	mov	r3, r0
 .L106:
 	str	r3, [fp, #-56]
-	ldr	r3, [fp, #-56]
 	cmp	r3, #2048
 	ble	.L107
 	ldr	r3, [fp, #-56]
@@ -3613,7 +3378,6 @@ diagonalize:
 	mov	r3, r0
 .L120:
 	str	r3, [fp, #-56]
-	ldr	r3, [fp, #-56]
 	cmp	r3, #2048
 	ble	.L121
 	ldr	r3, [fp, #-56]
@@ -3923,71 +3687,40 @@ diagonalize:
 	add	r3, r3, #6
 	str	r3, [fp, #-28]
 .L138:
-	mov	r3, #4096
-	str	r3, [fp, #-268]
-	mov	r3, #0
+mov	r3, #0
 	str	r3, [fp, #-264]
-	mov	r3, #0
 	str	r3, [fp, #-260]
-	mov	r3, #0
 	str	r3, [fp, #-256]
-	mov	r3, #0
 	str	r3, [fp, #-252]
-	mov	r3, #4096
-	str	r3, [fp, #-248]
-	mov	r3, #0
 	str	r3, [fp, #-244]
-	mov	r3, #0
 	str	r3, [fp, #-240]
-	mov	r3, #0
 	str	r3, [fp, #-236]
-	mov	r3, #0
 	str	r3, [fp, #-232]
-	mov	r3, #4096
-	str	r3, [fp, #-228]
-	mov	r3, #0
 	str	r3, [fp, #-224]
-	mov	r3, #0
 	str	r3, [fp, #-220]
-	mov	r3, #0
 	str	r3, [fp, #-216]
-	mov	r3, #0
 	str	r3, [fp, #-212]
-	mov	r3, #4096
-	str	r3, [fp, #-208]
-	mov	r3, #4096
-	str	r3, [fp, #-332]
-	mov	r3, #0
 	str	r3, [fp, #-328]
-	mov	r3, #0
 	str	r3, [fp, #-324]
-	mov	r3, #0
 	str	r3, [fp, #-320]
-	mov	r3, #0
 	str	r3, [fp, #-316]
-	mov	r3, #4096
-	str	r3, [fp, #-312]
-	mov	r3, #0
 	str	r3, [fp, #-308]
-	mov	r3, #0
 	str	r3, [fp, #-304]
-	mov	r3, #0
 	str	r3, [fp, #-300]
-	mov	r3, #0
 	str	r3, [fp, #-296]
-	mov	r3, #4096
-	str	r3, [fp, #-292]
-	mov	r3, #0
 	str	r3, [fp, #-288]
-	mov	r3, #0
 	str	r3, [fp, #-284]
-	mov	r3, #0
 	str	r3, [fp, #-280]
-	mov	r3, #0
 	str	r3, [fp, #-276]
 	mov	r3, #4096
+	str	r3, [fp, #-268]
+	str	r3, [fp, #-248]
+	str	r3, [fp, #-228]
+	str	r3, [fp, #-208]
+	str	r3, [fp, #-332]
+	str	r3, [fp, #-312]
+	str	r3, [fp, #-292]
 	str	r3, [fp, #-272]
-	ldr	r2, [fp, #-32]
 	ldr	r1, .L1276+16
 	mov	r3, r2
 	mov	r3, r3, asl #2
@@ -4229,7 +3962,6 @@ diagonalize:
 	mov	r3, r0
 .L148:
 	str	r3, [fp, #-56]
-	ldr	r3, [fp, #-56]
 	cmp	r3, #2048
 	ble	.L149
 	ldr	r3, [fp, #-56]
@@ -4415,7 +4147,6 @@ diagonalize:
 	mov	r3, r0
 .L162:
 	str	r3, [fp, #-56]
-	ldr	r3, [fp, #-56]
 	cmp	r3, #2048
 	ble	.L163
 	ldr	r3, [fp, #-56]
@@ -4735,69 +4466,39 @@ diagonalize:
 	add	r3, r3, #6
 	str	r3, [fp, #-28]
 .L180:
-	mov	r3, #4096
-	str	r3, [fp, #-268]
-	mov	r3, #0
+mov	r3, #0
 	str	r3, [fp, #-264]
-	mov	r3, #0
 	str	r3, [fp, #-260]
-	mov	r3, #0
 	str	r3, [fp, #-256]
-	mov	r3, #0
 	str	r3, [fp, #-252]
-	mov	r3, #4096
-	str	r3, [fp, #-248]
-	mov	r3, #0
 	str	r3, [fp, #-244]
-	mov	r3, #0
 	str	r3, [fp, #-240]
-	mov	r3, #0
 	str	r3, [fp, #-236]
-	mov	r3, #0
 	str	r3, [fp, #-232]
-	mov	r3, #4096
-	str	r3, [fp, #-228]
-	mov	r3, #0
 	str	r3, [fp, #-224]
-	mov	r3, #0
 	str	r3, [fp, #-220]
-	mov	r3, #0
 	str	r3, [fp, #-216]
-	mov	r3, #0
 	str	r3, [fp, #-212]
-	mov	r3, #4096
-	str	r3, [fp, #-208]
-	mov	r3, #4096
-	str	r3, [fp, #-332]
-	mov	r3, #0
 	str	r3, [fp, #-328]
-	mov	r3, #0
 	str	r3, [fp, #-324]
-	mov	r3, #0
 	str	r3, [fp, #-320]
-	mov	r3, #0
 	str	r3, [fp, #-316]
-	mov	r3, #4096
-	str	r3, [fp, #-312]
-	mov	r3, #0
 	str	r3, [fp, #-308]
-	mov	r3, #0
 	str	r3, [fp, #-304]
-	mov	r3, #0
 	str	r3, [fp, #-300]
-	mov	r3, #0
 	str	r3, [fp, #-296]
-	mov	r3, #4096
-	str	r3, [fp, #-292]
-	mov	r3, #0
 	str	r3, [fp, #-288]
-	mov	r3, #0
 	str	r3, [fp, #-284]
-	mov	r3, #0
 	str	r3, [fp, #-280]
-	mov	r3, #0
 	str	r3, [fp, #-276]
 	mov	r3, #4096
+	str	r3, [fp, #-268]
+	str	r3, [fp, #-248]
+	str	r3, [fp, #-228]
+	str	r3, [fp, #-208]
+	str	r3, [fp, #-332]
+	str	r3, [fp, #-312]
+	str	r3, [fp, #-292]
 	str	r3, [fp, #-272]
 	ldr	r2, [fp, #-32]
 	ldr	r1, .L1276+16
@@ -5041,7 +4742,6 @@ diagonalize:
 	mov	r3, r0
 .L190:
 	str	r3, [fp, #-56]
-	ldr	r3, [fp, #-56]
 	cmp	r3, #2048
 	ble	.L191
 	ldr	r3, [fp, #-56]
@@ -5227,7 +4927,6 @@ diagonalize:
 	mov	r3, r0
 .L204:
 	str	r3, [fp, #-56]
-	ldr	r3, [fp, #-56]
 	cmp	r3, #2048
 	ble	.L205
 	ldr	r3, [fp, #-56]
@@ -5537,69 +5236,39 @@ diagonalize:
 	add	r3, r3, #6
 	str	r3, [fp, #-28]
 .L222:
-	mov	r3, #4096
-	str	r3, [fp, #-268]
-	mov	r3, #0
+mov	r3, #0
 	str	r3, [fp, #-264]
-	mov	r3, #0
 	str	r3, [fp, #-260]
-	mov	r3, #0
 	str	r3, [fp, #-256]
-	mov	r3, #0
 	str	r3, [fp, #-252]
-	mov	r3, #4096
-	str	r3, [fp, #-248]
-	mov	r3, #0
 	str	r3, [fp, #-244]
-	mov	r3, #0
 	str	r3, [fp, #-240]
-	mov	r3, #0
 	str	r3, [fp, #-236]
-	mov	r3, #0
 	str	r3, [fp, #-232]
-	mov	r3, #4096
-	str	r3, [fp, #-228]
-	mov	r3, #0
 	str	r3, [fp, #-224]
-	mov	r3, #0
 	str	r3, [fp, #-220]
-	mov	r3, #0
 	str	r3, [fp, #-216]
-	mov	r3, #0
 	str	r3, [fp, #-212]
-	mov	r3, #4096
-	str	r3, [fp, #-208]
-	mov	r3, #4096
-	str	r3, [fp, #-332]
-	mov	r3, #0
 	str	r3, [fp, #-328]
-	mov	r3, #0
 	str	r3, [fp, #-324]
-	mov	r3, #0
 	str	r3, [fp, #-320]
-	mov	r3, #0
 	str	r3, [fp, #-316]
-	mov	r3, #4096
-	str	r3, [fp, #-312]
-	mov	r3, #0
 	str	r3, [fp, #-308]
-	mov	r3, #0
 	str	r3, [fp, #-304]
-	mov	r3, #0
 	str	r3, [fp, #-300]
-	mov	r3, #0
 	str	r3, [fp, #-296]
-	mov	r3, #4096
-	str	r3, [fp, #-292]
-	mov	r3, #0
 	str	r3, [fp, #-288]
-	mov	r3, #0
 	str	r3, [fp, #-284]
-	mov	r3, #0
 	str	r3, [fp, #-280]
-	mov	r3, #0
 	str	r3, [fp, #-276]
 	mov	r3, #4096
+	str	r3, [fp, #-268]
+	str	r3, [fp, #-248]
+	str	r3, [fp, #-228]
+	str	r3, [fp, #-208]
+	str	r3, [fp, #-332]
+	str	r3, [fp, #-312]
+	str	r3, [fp, #-292]
 	str	r3, [fp, #-272]
 	ldr	r2, [fp, #-32]
 	ldr	r1, .L1276+16
@@ -5843,7 +5512,6 @@ diagonalize:
 	mov	r3, r0
 .L232:
 	str	r3, [fp, #-56]
-	ldr	r3, [fp, #-56]
 	cmp	r3, #2048
 	ble	.L233
 	ldr	r3, [fp, #-56]
@@ -6029,7 +5697,6 @@ diagonalize:
 	mov	r3, r0
 .L246:
 	str	r3, [fp, #-56]
-	ldr	r3, [fp, #-56]
 	cmp	r3, #2048
 	ble	.L247
 	ldr	r3, [fp, #-56]
@@ -6339,69 +6006,39 @@ diagonalize:
 	add	r3, r3, #6
 	str	r3, [fp, #-28]
 .L264:
-	mov	r3, #4096
-	str	r3, [fp, #-268]
 	mov	r3, #0
 	str	r3, [fp, #-264]
-	mov	r3, #0
 	str	r3, [fp, #-260]
-	mov	r3, #0
 	str	r3, [fp, #-256]
-	mov	r3, #0
 	str	r3, [fp, #-252]
-	mov	r3, #4096
-	str	r3, [fp, #-248]
-	mov	r3, #0
 	str	r3, [fp, #-244]
-	mov	r3, #0
 	str	r3, [fp, #-240]
-	mov	r3, #0
 	str	r3, [fp, #-236]
-	mov	r3, #0
 	str	r3, [fp, #-232]
-	mov	r3, #4096
-	str	r3, [fp, #-228]
-	mov	r3, #0
 	str	r3, [fp, #-224]
-	mov	r3, #0
 	str	r3, [fp, #-220]
-	mov	r3, #0
 	str	r3, [fp, #-216]
-	mov	r3, #0
 	str	r3, [fp, #-212]
-	mov	r3, #4096
-	str	r3, [fp, #-208]
-	mov	r3, #4096
-	str	r3, [fp, #-332]
-	mov	r3, #0
 	str	r3, [fp, #-328]
-	mov	r3, #0
 	str	r3, [fp, #-324]
-	mov	r3, #0
 	str	r3, [fp, #-320]
-	mov	r3, #0
 	str	r3, [fp, #-316]
-	mov	r3, #4096
-	str	r3, [fp, #-312]
-	mov	r3, #0
 	str	r3, [fp, #-308]
-	mov	r3, #0
 	str	r3, [fp, #-304]
-	mov	r3, #0
 	str	r3, [fp, #-300]
-	mov	r3, #0
 	str	r3, [fp, #-296]
-	mov	r3, #4096
-	str	r3, [fp, #-292]
-	mov	r3, #0
 	str	r3, [fp, #-288]
-	mov	r3, #0
 	str	r3, [fp, #-284]
-	mov	r3, #0
 	str	r3, [fp, #-280]
-	mov	r3, #0
 	str	r3, [fp, #-276]
 	mov	r3, #4096
+	str	r3, [fp, #-268]
+	str	r3, [fp, #-248]
+	str	r3, [fp, #-228]
+	str	r3, [fp, #-208]
+	str	r3, [fp, #-332]
+	str	r3, [fp, #-312]
+	str	r3, [fp, #-292]
 	str	r3, [fp, #-272]
 	ldr	r2, [fp, #-32]
 	ldr	r1, .L1278+20
@@ -6645,7 +6282,6 @@ diagonalize:
 	mov	r3, r0
 .L274:
 	str	r3, [fp, #-56]
-	ldr	r3, [fp, #-56]
 	cmp	r3, #2048
 	ble	.L275
 	ldr	r3, [fp, #-56]
@@ -6831,7 +6467,6 @@ diagonalize:
 	mov	r3, r0
 .L288:
 	str	r3, [fp, #-56]
-	ldr	r3, [fp, #-56]
 	cmp	r3, #2048
 	ble	.L289
 	ldr	r3, [fp, #-56]
@@ -7151,70 +6786,41 @@ diagonalize:
 	add	r3, r3, #6
 	str	r3, [fp, #-28]
 .L306:
-	mov	r3, #4096
-	str	r3, [fp, #-268]
 	mov	r3, #0
 	str	r3, [fp, #-264]
-	mov	r3, #0
 	str	r3, [fp, #-260]
-	mov	r3, #0
 	str	r3, [fp, #-256]
-	mov	r3, #0
 	str	r3, [fp, #-252]
-	mov	r3, #4096
-	str	r3, [fp, #-248]
-	mov	r3, #0
 	str	r3, [fp, #-244]
-	mov	r3, #0
 	str	r3, [fp, #-240]
-	mov	r3, #0
 	str	r3, [fp, #-236]
-	mov	r3, #0
 	str	r3, [fp, #-232]
-	mov	r3, #4096
-	str	r3, [fp, #-228]
-	mov	r3, #0
 	str	r3, [fp, #-224]
-	mov	r3, #0
 	str	r3, [fp, #-220]
-	mov	r3, #0
 	str	r3, [fp, #-216]
-	mov	r3, #0
 	str	r3, [fp, #-212]
-	mov	r3, #4096
-	str	r3, [fp, #-208]
-	mov	r3, #4096
-	str	r3, [fp, #-332]
-	mov	r3, #0
 	str	r3, [fp, #-328]
-	mov	r3, #0
 	str	r3, [fp, #-324]
-	mov	r3, #0
 	str	r3, [fp, #-320]
-	mov	r3, #0
 	str	r3, [fp, #-316]
-	mov	r3, #4096
-	str	r3, [fp, #-312]
-	mov	r3, #0
 	str	r3, [fp, #-308]
-	mov	r3, #0
 	str	r3, [fp, #-304]
-	mov	r3, #0
 	str	r3, [fp, #-300]
-	mov	r3, #0
 	str	r3, [fp, #-296]
-	mov	r3, #4096
-	str	r3, [fp, #-292]
-	mov	r3, #0
 	str	r3, [fp, #-288]
-	mov	r3, #0
 	str	r3, [fp, #-284]
-	mov	r3, #0
 	str	r3, [fp, #-280]
-	mov	r3, #0
 	str	r3, [fp, #-276]
 	mov	r3, #4096
+	str	r3, [fp, #-268]
+	str	r3, [fp, #-248]
+	str	r3, [fp, #-228]
+	str	r3, [fp, #-208]
+	str	r3, [fp, #-332]
+	str	r3, [fp, #-312]
+	str	r3, [fp, #-292]
 	str	r3, [fp, #-272]
+	
 	ldr	r2, [fp, #-32]
 	ldr	r1, .L1278+20
 	mov	r3, r2
@@ -7457,7 +7063,6 @@ diagonalize:
 	mov	r3, r0
 .L316:
 	str	r3, [fp, #-56]
-	ldr	r3, [fp, #-56]
 	cmp	r3, #2048
 	ble	.L317
 	ldr	r3, [fp, #-56]
@@ -7643,7 +7248,6 @@ diagonalize:
 	mov	r3, r0
 .L330:
 	str	r3, [fp, #-56]
-	ldr	r3, [fp, #-56]
 	cmp	r3, #2048
 	ble	.L331
 	ldr	r3, [fp, #-56]
@@ -7953,69 +7557,39 @@ diagonalize:
 	add	r3, r3, #6
 	str	r3, [fp, #-28]
 .L348:
-	mov	r3, #4096
-	str	r3, [fp, #-268]
-	mov	r3, #0
+mov	r3, #0
 	str	r3, [fp, #-264]
-	mov	r3, #0
 	str	r3, [fp, #-260]
-	mov	r3, #0
 	str	r3, [fp, #-256]
-	mov	r3, #0
 	str	r3, [fp, #-252]
-	mov	r3, #4096
-	str	r3, [fp, #-248]
-	mov	r3, #0
 	str	r3, [fp, #-244]
-	mov	r3, #0
 	str	r3, [fp, #-240]
-	mov	r3, #0
 	str	r3, [fp, #-236]
-	mov	r3, #0
 	str	r3, [fp, #-232]
-	mov	r3, #4096
-	str	r3, [fp, #-228]
-	mov	r3, #0
 	str	r3, [fp, #-224]
-	mov	r3, #0
 	str	r3, [fp, #-220]
-	mov	r3, #0
 	str	r3, [fp, #-216]
-	mov	r3, #0
 	str	r3, [fp, #-212]
-	mov	r3, #4096
-	str	r3, [fp, #-208]
-	mov	r3, #4096
-	str	r3, [fp, #-332]
-	mov	r3, #0
 	str	r3, [fp, #-328]
-	mov	r3, #0
 	str	r3, [fp, #-324]
-	mov	r3, #0
 	str	r3, [fp, #-320]
-	mov	r3, #0
 	str	r3, [fp, #-316]
-	mov	r3, #4096
-	str	r3, [fp, #-312]
-	mov	r3, #0
 	str	r3, [fp, #-308]
-	mov	r3, #0
 	str	r3, [fp, #-304]
-	mov	r3, #0
 	str	r3, [fp, #-300]
-	mov	r3, #0
 	str	r3, [fp, #-296]
-	mov	r3, #4096
-	str	r3, [fp, #-292]
-	mov	r3, #0
 	str	r3, [fp, #-288]
-	mov	r3, #0
 	str	r3, [fp, #-284]
-	mov	r3, #0
 	str	r3, [fp, #-280]
-	mov	r3, #0
 	str	r3, [fp, #-276]
 	mov	r3, #4096
+	str	r3, [fp, #-268]
+	str	r3, [fp, #-248]
+	str	r3, [fp, #-228]
+	str	r3, [fp, #-208]
+	str	r3, [fp, #-332]
+	str	r3, [fp, #-312]
+	str	r3, [fp, #-292]
 	str	r3, [fp, #-272]
 	ldr	r2, [fp, #-32]
 	ldr	r1, .L1278+20
@@ -8259,7 +7833,6 @@ diagonalize:
 	mov	r3, r0
 .L358:
 	str	r3, [fp, #-56]
-	ldr	r3, [fp, #-56]
 	cmp	r3, #2048
 	ble	.L359
 	ldr	r3, [fp, #-56]
@@ -8445,7 +8018,6 @@ diagonalize:
 	mov	r3, r0
 .L372:
 	str	r3, [fp, #-56]
-	ldr	r3, [fp, #-56]
 	cmp	r3, #2048
 	ble	.L373
 	ldr	r3, [fp, #-56]
@@ -8755,69 +8327,39 @@ diagonalize:
 	add	r3, r3, #6
 	str	r3, [fp, #-28]
 .L390:
-	mov	r3, #4096
-	str	r3, [fp, #-268]
 	mov	r3, #0
 	str	r3, [fp, #-264]
-	mov	r3, #0
 	str	r3, [fp, #-260]
-	mov	r3, #0
 	str	r3, [fp, #-256]
-	mov	r3, #0
 	str	r3, [fp, #-252]
-	mov	r3, #4096
-	str	r3, [fp, #-248]
-	mov	r3, #0
 	str	r3, [fp, #-244]
-	mov	r3, #0
 	str	r3, [fp, #-240]
-	mov	r3, #0
 	str	r3, [fp, #-236]
-	mov	r3, #0
 	str	r3, [fp, #-232]
-	mov	r3, #4096
-	str	r3, [fp, #-228]
-	mov	r3, #0
 	str	r3, [fp, #-224]
-	mov	r3, #0
 	str	r3, [fp, #-220]
-	mov	r3, #0
 	str	r3, [fp, #-216]
-	mov	r3, #0
 	str	r3, [fp, #-212]
-	mov	r3, #4096
-	str	r3, [fp, #-208]
-	mov	r3, #4096
-	str	r3, [fp, #-332]
-	mov	r3, #0
 	str	r3, [fp, #-328]
-	mov	r3, #0
 	str	r3, [fp, #-324]
-	mov	r3, #0
 	str	r3, [fp, #-320]
-	mov	r3, #0
 	str	r3, [fp, #-316]
-	mov	r3, #4096
-	str	r3, [fp, #-312]
-	mov	r3, #0
 	str	r3, [fp, #-308]
-	mov	r3, #0
 	str	r3, [fp, #-304]
-	mov	r3, #0
 	str	r3, [fp, #-300]
-	mov	r3, #0
 	str	r3, [fp, #-296]
-	mov	r3, #4096
-	str	r3, [fp, #-292]
-	mov	r3, #0
 	str	r3, [fp, #-288]
-	mov	r3, #0
 	str	r3, [fp, #-284]
-	mov	r3, #0
 	str	r3, [fp, #-280]
-	mov	r3, #0
 	str	r3, [fp, #-276]
 	mov	r3, #4096
+	str	r3, [fp, #-268]
+	str	r3, [fp, #-248]
+	str	r3, [fp, #-228]
+	str	r3, [fp, #-208]
+	str	r3, [fp, #-332]
+	str	r3, [fp, #-312]
+	str	r3, [fp, #-292]
 	str	r3, [fp, #-272]
 	ldr	r2, [fp, #-32]
 	ldr	r1, .L1280+8
@@ -9061,7 +8603,6 @@ diagonalize:
 	mov	r3, r0
 .L400:
 	str	r3, [fp, #-56]
-	ldr	r3, [fp, #-56]
 	cmp	r3, #2048
 	ble	.L401
 	ldr	r3, [fp, #-56]
@@ -9257,7 +8798,6 @@ diagonalize:
 	mov	r3, r0
 .L414:
 	str	r3, [fp, #-56]
-	ldr	r3, [fp, #-56]
 	cmp	r3, #2048
 	ble	.L415
 	ldr	r3, [fp, #-56]
@@ -9571,63 +9111,44 @@ diagonalize:
 	str	r3, [fp, #-268]
 	mov	r3, #0
 	str	r3, [fp, #-264]
-	mov	r3, #0
 	str	r3, [fp, #-260]
-	mov	r3, #0
 	str	r3, [fp, #-256]
-	mov	r3, #0
 	str	r3, [fp, #-252]
 	mov	r3, #4096
 	str	r3, [fp, #-248]
 	mov	r3, #0
 	str	r3, [fp, #-244]
-	mov	r3, #0
 	str	r3, [fp, #-240]
-	mov	r3, #0
 	str	r3, [fp, #-236]
-	mov	r3, #0
 	str	r3, [fp, #-232]
 	mov	r3, #4096
 	str	r3, [fp, #-228]
 	mov	r3, #0
 	str	r3, [fp, #-224]
-	mov	r3, #0
 	str	r3, [fp, #-220]
-	mov	r3, #0
 	str	r3, [fp, #-216]
-	mov	r3, #0
 	str	r3, [fp, #-212]
 	mov	r3, #4096
 	str	r3, [fp, #-208]
-	mov	r3, #4096
 	str	r3, [fp, #-332]
 	mov	r3, #0
 	str	r3, [fp, #-328]
-	mov	r3, #0
 	str	r3, [fp, #-324]
-	mov	r3, #0
 	str	r3, [fp, #-320]
-	mov	r3, #0
 	str	r3, [fp, #-316]
 	mov	r3, #4096
 	str	r3, [fp, #-312]
 	mov	r3, #0
 	str	r3, [fp, #-308]
-	mov	r3, #0
 	str	r3, [fp, #-304]
-	mov	r3, #0
 	str	r3, [fp, #-300]
-	mov	r3, #0
 	str	r3, [fp, #-296]
 	mov	r3, #4096
 	str	r3, [fp, #-292]
 	mov	r3, #0
 	str	r3, [fp, #-288]
-	mov	r3, #0
 	str	r3, [fp, #-284]
-	mov	r3, #0
 	str	r3, [fp, #-280]
-	mov	r3, #0
 	str	r3, [fp, #-276]
 	mov	r3, #4096
 	str	r3, [fp, #-272]
@@ -9873,7 +9394,6 @@ diagonalize:
 	mov	r3, r0
 .L442:
 	str	r3, [fp, #-56]
-	ldr	r3, [fp, #-56]
 	cmp	r3, #2048
 	ble	.L443
 	ldr	r3, [fp, #-56]
@@ -10059,7 +9579,6 @@ diagonalize:
 	mov	r3, r0
 .L456:
 	str	r3, [fp, #-56]
-	ldr	r3, [fp, #-56]
 	cmp	r3, #2048
 	ble	.L457
 	ldr	r3, [fp, #-56]
@@ -10373,63 +9892,44 @@ diagonalize:
 	str	r3, [fp, #-268]
 	mov	r3, #0
 	str	r3, [fp, #-264]
-	mov	r3, #0
 	str	r3, [fp, #-260]
-	mov	r3, #0
 	str	r3, [fp, #-256]
-	mov	r3, #0
 	str	r3, [fp, #-252]
 	mov	r3, #4096
 	str	r3, [fp, #-248]
 	mov	r3, #0
 	str	r3, [fp, #-244]
-	mov	r3, #0
 	str	r3, [fp, #-240]
-	mov	r3, #0
 	str	r3, [fp, #-236]
-	mov	r3, #0
 	str	r3, [fp, #-232]
 	mov	r3, #4096
 	str	r3, [fp, #-228]
 	mov	r3, #0
 	str	r3, [fp, #-224]
-	mov	r3, #0
 	str	r3, [fp, #-220]
-	mov	r3, #0
 	str	r3, [fp, #-216]
-	mov	r3, #0
 	str	r3, [fp, #-212]
 	mov	r3, #4096
 	str	r3, [fp, #-208]
-	mov	r3, #4096
 	str	r3, [fp, #-332]
 	mov	r3, #0
 	str	r3, [fp, #-328]
-	mov	r3, #0
 	str	r3, [fp, #-324]
-	mov	r3, #0
 	str	r3, [fp, #-320]
-	mov	r3, #0
 	str	r3, [fp, #-316]
 	mov	r3, #4096
 	str	r3, [fp, #-312]
 	mov	r3, #0
 	str	r3, [fp, #-308]
-	mov	r3, #0
 	str	r3, [fp, #-304]
-	mov	r3, #0
 	str	r3, [fp, #-300]
-	mov	r3, #0
 	str	r3, [fp, #-296]
 	mov	r3, #4096
 	str	r3, [fp, #-292]
 	mov	r3, #0
 	str	r3, [fp, #-288]
-	mov	r3, #0
 	str	r3, [fp, #-284]
-	mov	r3, #0
 	str	r3, [fp, #-280]
-	mov	r3, #0
 	str	r3, [fp, #-276]
 	mov	r3, #4096
 	str	r3, [fp, #-272]
@@ -10675,7 +10175,6 @@ diagonalize:
 	mov	r3, r0
 .L484:
 	str	r3, [fp, #-56]
-	ldr	r3, [fp, #-56]
 	cmp	r3, #2048
 	ble	.L485
 	ldr	r3, [fp, #-56]
@@ -10861,7 +10360,6 @@ diagonalize:
 	mov	r3, r0
 .L498:
 	str	r3, [fp, #-56]
-	ldr	r3, [fp, #-56]
 	cmp	r3, #2048
 	ble	.L499
 	ldr	r3, [fp, #-56]
@@ -11185,63 +10683,44 @@ diagonalize:
 	str	r3, [fp, #-268]
 	mov	r3, #0
 	str	r3, [fp, #-264]
-	mov	r3, #0
 	str	r3, [fp, #-260]
-	mov	r3, #0
 	str	r3, [fp, #-256]
-	mov	r3, #0
 	str	r3, [fp, #-252]
 	mov	r3, #4096
 	str	r3, [fp, #-248]
 	mov	r3, #0
 	str	r3, [fp, #-244]
-	mov	r3, #0
 	str	r3, [fp, #-240]
-	mov	r3, #0
 	str	r3, [fp, #-236]
-	mov	r3, #0
 	str	r3, [fp, #-232]
 	mov	r3, #4096
 	str	r3, [fp, #-228]
 	mov	r3, #0
 	str	r3, [fp, #-224]
-	mov	r3, #0
 	str	r3, [fp, #-220]
-	mov	r3, #0
 	str	r3, [fp, #-216]
-	mov	r3, #0
 	str	r3, [fp, #-212]
 	mov	r3, #4096
 	str	r3, [fp, #-208]
-	mov	r3, #4096
 	str	r3, [fp, #-332]
 	mov	r3, #0
 	str	r3, [fp, #-328]
-	mov	r3, #0
 	str	r3, [fp, #-324]
-	mov	r3, #0
 	str	r3, [fp, #-320]
-	mov	r3, #0
 	str	r3, [fp, #-316]
 	mov	r3, #4096
 	str	r3, [fp, #-312]
 	mov	r3, #0
 	str	r3, [fp, #-308]
-	mov	r3, #0
 	str	r3, [fp, #-304]
-	mov	r3, #0
 	str	r3, [fp, #-300]
-	mov	r3, #0
 	str	r3, [fp, #-296]
 	mov	r3, #4096
 	str	r3, [fp, #-292]
 	mov	r3, #0
 	str	r3, [fp, #-288]
-	mov	r3, #0
 	str	r3, [fp, #-284]
-	mov	r3, #0
 	str	r3, [fp, #-280]
-	mov	r3, #0
 	str	r3, [fp, #-276]
 	mov	r3, #4096
 	str	r3, [fp, #-272]
@@ -11487,7 +10966,6 @@ diagonalize:
 	mov	r3, r0
 .L526:
 	str	r3, [fp, #-56]
-	ldr	r3, [fp, #-56]
 	cmp	r3, #2048
 	ble	.L527
 	ldr	r3, [fp, #-56]
@@ -11673,7 +11151,6 @@ diagonalize:
 	mov	r3, r0
 .L540:
 	str	r3, [fp, #-56]
-	ldr	r3, [fp, #-56]
 	cmp	r3, #2048
 	ble	.L541
 	ldr	r3, [fp, #-56]
@@ -11987,63 +11464,44 @@ diagonalize:
 	str	r3, [fp, #-268]
 	mov	r3, #0
 	str	r3, [fp, #-264]
-	mov	r3, #0
 	str	r3, [fp, #-260]
-	mov	r3, #0
 	str	r3, [fp, #-256]
-	mov	r3, #0
 	str	r3, [fp, #-252]
 	mov	r3, #4096
 	str	r3, [fp, #-248]
 	mov	r3, #0
 	str	r3, [fp, #-244]
-	mov	r3, #0
 	str	r3, [fp, #-240]
-	mov	r3, #0
 	str	r3, [fp, #-236]
-	mov	r3, #0
 	str	r3, [fp, #-232]
 	mov	r3, #4096
 	str	r3, [fp, #-228]
 	mov	r3, #0
 	str	r3, [fp, #-224]
-	mov	r3, #0
 	str	r3, [fp, #-220]
-	mov	r3, #0
 	str	r3, [fp, #-216]
-	mov	r3, #0
 	str	r3, [fp, #-212]
 	mov	r3, #4096
 	str	r3, [fp, #-208]
-	mov	r3, #4096
 	str	r3, [fp, #-332]
 	mov	r3, #0
 	str	r3, [fp, #-328]
-	mov	r3, #0
 	str	r3, [fp, #-324]
-	mov	r3, #0
 	str	r3, [fp, #-320]
-	mov	r3, #0
 	str	r3, [fp, #-316]
 	mov	r3, #4096
 	str	r3, [fp, #-312]
 	mov	r3, #0
 	str	r3, [fp, #-308]
-	mov	r3, #0
 	str	r3, [fp, #-304]
-	mov	r3, #0
 	str	r3, [fp, #-300]
-	mov	r3, #0
 	str	r3, [fp, #-296]
 	mov	r3, #4096
 	str	r3, [fp, #-292]
 	mov	r3, #0
 	str	r3, [fp, #-288]
-	mov	r3, #0
 	str	r3, [fp, #-284]
-	mov	r3, #0
 	str	r3, [fp, #-280]
-	mov	r3, #0
 	str	r3, [fp, #-276]
 	mov	r3, #4096
 	str	r3, [fp, #-272]
@@ -12289,7 +11747,6 @@ diagonalize:
 	mov	r3, r0
 .L568:
 	str	r3, [fp, #-56]
-	ldr	r3, [fp, #-56]
 	cmp	r3, #2048
 	ble	.L569
 	ldr	r3, [fp, #-56]
@@ -12475,7 +11932,6 @@ diagonalize:
 	mov	r3, r0
 .L582:
 	str	r3, [fp, #-56]
-	ldr	r3, [fp, #-56]
 	cmp	r3, #2048
 	ble	.L583
 	ldr	r3, [fp, #-56]
@@ -12789,63 +12245,44 @@ diagonalize:
 	str	r3, [fp, #-268]
 	mov	r3, #0
 	str	r3, [fp, #-264]
-	mov	r3, #0
 	str	r3, [fp, #-260]
-	mov	r3, #0
 	str	r3, [fp, #-256]
-	mov	r3, #0
 	str	r3, [fp, #-252]
 	mov	r3, #4096
 	str	r3, [fp, #-248]
 	mov	r3, #0
 	str	r3, [fp, #-244]
-	mov	r3, #0
 	str	r3, [fp, #-240]
-	mov	r3, #0
 	str	r3, [fp, #-236]
-	mov	r3, #0
 	str	r3, [fp, #-232]
 	mov	r3, #4096
 	str	r3, [fp, #-228]
 	mov	r3, #0
 	str	r3, [fp, #-224]
-	mov	r3, #0
 	str	r3, [fp, #-220]
-	mov	r3, #0
 	str	r3, [fp, #-216]
-	mov	r3, #0
 	str	r3, [fp, #-212]
 	mov	r3, #4096
 	str	r3, [fp, #-208]
-	mov	r3, #4096
 	str	r3, [fp, #-332]
 	mov	r3, #0
 	str	r3, [fp, #-328]
-	mov	r3, #0
 	str	r3, [fp, #-324]
-	mov	r3, #0
 	str	r3, [fp, #-320]
-	mov	r3, #0
 	str	r3, [fp, #-316]
 	mov	r3, #4096
 	str	r3, [fp, #-312]
 	mov	r3, #0
 	str	r3, [fp, #-308]
-	mov	r3, #0
 	str	r3, [fp, #-304]
-	mov	r3, #0
 	str	r3, [fp, #-300]
-	mov	r3, #0
 	str	r3, [fp, #-296]
 	mov	r3, #4096
 	str	r3, [fp, #-292]
 	mov	r3, #0
 	str	r3, [fp, #-288]
-	mov	r3, #0
 	str	r3, [fp, #-284]
-	mov	r3, #0
 	str	r3, [fp, #-280]
-	mov	r3, #0
 	str	r3, [fp, #-276]
 	mov	r3, #4096
 	str	r3, [fp, #-272]
@@ -13091,7 +12528,6 @@ diagonalize:
 	mov	r3, r0
 .L610:
 	str	r3, [fp, #-56]
-	ldr	r3, [fp, #-56]
 	cmp	r3, #2048
 	ble	.L611
 	ldr	r3, [fp, #-56]
@@ -13277,7 +12713,6 @@ diagonalize:
 	mov	r3, r0
 .L624:
 	str	r3, [fp, #-56]
-	ldr	r3, [fp, #-56]
 	cmp	r3, #2048
 	ble	.L625
 	ldr	r3, [fp, #-56]
@@ -13601,63 +13036,44 @@ diagonalize:
 	str	r3, [fp, #-268]
 	mov	r3, #0
 	str	r3, [fp, #-264]
-	mov	r3, #0
 	str	r3, [fp, #-260]
-	mov	r3, #0
 	str	r3, [fp, #-256]
-	mov	r3, #0
 	str	r3, [fp, #-252]
 	mov	r3, #4096
 	str	r3, [fp, #-248]
 	mov	r3, #0
 	str	r3, [fp, #-244]
-	mov	r3, #0
 	str	r3, [fp, #-240]
-	mov	r3, #0
 	str	r3, [fp, #-236]
-	mov	r3, #0
 	str	r3, [fp, #-232]
 	mov	r3, #4096
 	str	r3, [fp, #-228]
 	mov	r3, #0
 	str	r3, [fp, #-224]
-	mov	r3, #0
 	str	r3, [fp, #-220]
-	mov	r3, #0
 	str	r3, [fp, #-216]
-	mov	r3, #0
 	str	r3, [fp, #-212]
 	mov	r3, #4096
 	str	r3, [fp, #-208]
-	mov	r3, #4096
 	str	r3, [fp, #-332]
 	mov	r3, #0
 	str	r3, [fp, #-328]
-	mov	r3, #0
 	str	r3, [fp, #-324]
-	mov	r3, #0
 	str	r3, [fp, #-320]
-	mov	r3, #0
 	str	r3, [fp, #-316]
 	mov	r3, #4096
 	str	r3, [fp, #-312]
 	mov	r3, #0
 	str	r3, [fp, #-308]
-	mov	r3, #0
 	str	r3, [fp, #-304]
-	mov	r3, #0
 	str	r3, [fp, #-300]
-	mov	r3, #0
 	str	r3, [fp, #-296]
 	mov	r3, #4096
 	str	r3, [fp, #-292]
 	mov	r3, #0
 	str	r3, [fp, #-288]
-	mov	r3, #0
 	str	r3, [fp, #-284]
-	mov	r3, #0
 	str	r3, [fp, #-280]
-	mov	r3, #0
 	str	r3, [fp, #-276]
 	mov	r3, #4096
 	str	r3, [fp, #-272]
@@ -13903,7 +13319,6 @@ diagonalize:
 	mov	r3, r0
 .L652:
 	str	r3, [fp, #-56]
-	ldr	r3, [fp, #-56]
 	cmp	r3, #2048
 	ble	.L653
 	ldr	r3, [fp, #-56]
@@ -14089,7 +13504,6 @@ diagonalize:
 	mov	r3, r0
 .L666:
 	str	r3, [fp, #-56]
-	ldr	r3, [fp, #-56]
 	cmp	r3, #2048
 	ble	.L667
 	ldr	r3, [fp, #-56]
@@ -14403,63 +13817,44 @@ diagonalize:
 	str	r3, [fp, #-268]
 	mov	r3, #0
 	str	r3, [fp, #-264]
-	mov	r3, #0
 	str	r3, [fp, #-260]
-	mov	r3, #0
 	str	r3, [fp, #-256]
-	mov	r3, #0
 	str	r3, [fp, #-252]
 	mov	r3, #4096
 	str	r3, [fp, #-248]
 	mov	r3, #0
 	str	r3, [fp, #-244]
-	mov	r3, #0
 	str	r3, [fp, #-240]
-	mov	r3, #0
 	str	r3, [fp, #-236]
-	mov	r3, #0
 	str	r3, [fp, #-232]
 	mov	r3, #4096
 	str	r3, [fp, #-228]
 	mov	r3, #0
 	str	r3, [fp, #-224]
-	mov	r3, #0
 	str	r3, [fp, #-220]
-	mov	r3, #0
 	str	r3, [fp, #-216]
-	mov	r3, #0
 	str	r3, [fp, #-212]
 	mov	r3, #4096
 	str	r3, [fp, #-208]
-	mov	r3, #4096
 	str	r3, [fp, #-332]
 	mov	r3, #0
 	str	r3, [fp, #-328]
-	mov	r3, #0
 	str	r3, [fp, #-324]
-	mov	r3, #0
 	str	r3, [fp, #-320]
-	mov	r3, #0
 	str	r3, [fp, #-316]
 	mov	r3, #4096
 	str	r3, [fp, #-312]
 	mov	r3, #0
 	str	r3, [fp, #-308]
-	mov	r3, #0
 	str	r3, [fp, #-304]
-	mov	r3, #0
 	str	r3, [fp, #-300]
-	mov	r3, #0
 	str	r3, [fp, #-296]
 	mov	r3, #4096
 	str	r3, [fp, #-292]
 	mov	r3, #0
 	str	r3, [fp, #-288]
-	mov	r3, #0
 	str	r3, [fp, #-284]
-	mov	r3, #0
 	str	r3, [fp, #-280]
-	mov	r3, #0
 	str	r3, [fp, #-276]
 	mov	r3, #4096
 	str	r3, [fp, #-272]
@@ -14705,7 +14100,6 @@ diagonalize:
 	mov	r3, r0
 .L694:
 	str	r3, [fp, #-56]
-	ldr	r3, [fp, #-56]
 	cmp	r3, #2048
 	ble	.L695
 	ldr	r3, [fp, #-56]
@@ -14891,7 +14285,6 @@ diagonalize:
 	mov	r3, r0
 .L708:
 	str	r3, [fp, #-56]
-	ldr	r3, [fp, #-56]
 	cmp	r3, #2048
 	ble	.L709
 	ldr	r3, [fp, #-56]
@@ -15205,63 +14598,44 @@ diagonalize:
 	str	r3, [fp, #-268]
 	mov	r3, #0
 	str	r3, [fp, #-264]
-	mov	r3, #0
 	str	r3, [fp, #-260]
-	mov	r3, #0
 	str	r3, [fp, #-256]
-	mov	r3, #0
 	str	r3, [fp, #-252]
 	mov	r3, #4096
 	str	r3, [fp, #-248]
 	mov	r3, #0
 	str	r3, [fp, #-244]
-	mov	r3, #0
 	str	r3, [fp, #-240]
-	mov	r3, #0
 	str	r3, [fp, #-236]
-	mov	r3, #0
 	str	r3, [fp, #-232]
 	mov	r3, #4096
 	str	r3, [fp, #-228]
 	mov	r3, #0
 	str	r3, [fp, #-224]
-	mov	r3, #0
 	str	r3, [fp, #-220]
-	mov	r3, #0
 	str	r3, [fp, #-216]
-	mov	r3, #0
 	str	r3, [fp, #-212]
 	mov	r3, #4096
 	str	r3, [fp, #-208]
-	mov	r3, #4096
 	str	r3, [fp, #-332]
 	mov	r3, #0
 	str	r3, [fp, #-328]
-	mov	r3, #0
 	str	r3, [fp, #-324]
-	mov	r3, #0
 	str	r3, [fp, #-320]
-	mov	r3, #0
 	str	r3, [fp, #-316]
 	mov	r3, #4096
 	str	r3, [fp, #-312]
 	mov	r3, #0
 	str	r3, [fp, #-308]
-	mov	r3, #0
 	str	r3, [fp, #-304]
-	mov	r3, #0
 	str	r3, [fp, #-300]
-	mov	r3, #0
 	str	r3, [fp, #-296]
 	mov	r3, #4096
 	str	r3, [fp, #-292]
 	mov	r3, #0
 	str	r3, [fp, #-288]
-	mov	r3, #0
 	str	r3, [fp, #-284]
-	mov	r3, #0
 	str	r3, [fp, #-280]
-	mov	r3, #0
 	str	r3, [fp, #-276]
 	mov	r3, #4096
 	str	r3, [fp, #-272]
@@ -15507,7 +14881,6 @@ diagonalize:
 	mov	r3, r0
 .L736:
 	str	r3, [fp, #-56]
-	ldr	r3, [fp, #-56]
 	cmp	r3, #2048
 	ble	.L737
 	ldr	r3, [fp, #-56]
@@ -15703,7 +15076,6 @@ diagonalize:
 	mov	r3, r0
 .L750:
 	str	r3, [fp, #-56]
-	ldr	r3, [fp, #-56]
 	cmp	r3, #2048
 	ble	.L751
 	ldr	r3, [fp, #-56]
@@ -16013,69 +15385,39 @@ diagonalize:
 	add	r3, r3, #6
 	str	r3, [fp, #-28]
 .L768:
-	mov	r3, #4096
-	str	r3, [fp, #-268]
 	mov	r3, #0
 	str	r3, [fp, #-264]
-	mov	r3, #0
 	str	r3, [fp, #-260]
-	mov	r3, #0
 	str	r3, [fp, #-256]
-	mov	r3, #0
 	str	r3, [fp, #-252]
-	mov	r3, #4096
-	str	r3, [fp, #-248]
-	mov	r3, #0
 	str	r3, [fp, #-244]
-	mov	r3, #0
 	str	r3, [fp, #-240]
-	mov	r3, #0
 	str	r3, [fp, #-236]
-	mov	r3, #0
 	str	r3, [fp, #-232]
-	mov	r3, #4096
-	str	r3, [fp, #-228]
-	mov	r3, #0
 	str	r3, [fp, #-224]
-	mov	r3, #0
 	str	r3, [fp, #-220]
-	mov	r3, #0
 	str	r3, [fp, #-216]
-	mov	r3, #0
 	str	r3, [fp, #-212]
-	mov	r3, #4096
-	str	r3, [fp, #-208]
-	mov	r3, #4096
-	str	r3, [fp, #-332]
-	mov	r3, #0
 	str	r3, [fp, #-328]
-	mov	r3, #0
 	str	r3, [fp, #-324]
-	mov	r3, #0
 	str	r3, [fp, #-320]
-	mov	r3, #0
 	str	r3, [fp, #-316]
-	mov	r3, #4096
-	str	r3, [fp, #-312]
-	mov	r3, #0
 	str	r3, [fp, #-308]
-	mov	r3, #0
 	str	r3, [fp, #-304]
-	mov	r3, #0
 	str	r3, [fp, #-300]
-	mov	r3, #0
 	str	r3, [fp, #-296]
-	mov	r3, #4096
-	str	r3, [fp, #-292]
-	mov	r3, #0
 	str	r3, [fp, #-288]
-	mov	r3, #0
 	str	r3, [fp, #-284]
-	mov	r3, #0
 	str	r3, [fp, #-280]
-	mov	r3, #0
 	str	r3, [fp, #-276]
 	mov	r3, #4096
+	str	r3, [fp, #-268]
+	str	r3, [fp, #-248]
+	str	r3, [fp, #-228]
+	str	r3, [fp, #-208]
+	str	r3, [fp, #-332]
+	str	r3, [fp, #-312]
+	str	r3, [fp, #-292]
 	str	r3, [fp, #-272]
 	ldr	r2, [fp, #-32]
 	ldr	r1, .L1286+8
@@ -16319,7 +15661,6 @@ diagonalize:
 	mov	r3, r0
 .L778:
 	str	r3, [fp, #-56]
-	ldr	r3, [fp, #-56]
 	cmp	r3, #2048
 	ble	.L779
 	ldr	r3, [fp, #-56]
@@ -16505,7 +15846,6 @@ diagonalize:
 	mov	r3, r0
 .L792:
 	str	r3, [fp, #-56]
-	ldr	r3, [fp, #-56]
 	cmp	r3, #2048
 	ble	.L793
 	ldr	r3, [fp, #-56]
@@ -16815,69 +16155,39 @@ diagonalize:
 	add	r3, r3, #6
 	str	r3, [fp, #-28]
 .L810:
-	mov	r3, #4096
-	str	r3, [fp, #-268]
 	mov	r3, #0
 	str	r3, [fp, #-264]
-	mov	r3, #0
 	str	r3, [fp, #-260]
-	mov	r3, #0
 	str	r3, [fp, #-256]
-	mov	r3, #0
 	str	r3, [fp, #-252]
-	mov	r3, #4096
-	str	r3, [fp, #-248]
-	mov	r3, #0
 	str	r3, [fp, #-244]
-	mov	r3, #0
 	str	r3, [fp, #-240]
-	mov	r3, #0
 	str	r3, [fp, #-236]
-	mov	r3, #0
 	str	r3, [fp, #-232]
-	mov	r3, #4096
-	str	r3, [fp, #-228]
-	mov	r3, #0
 	str	r3, [fp, #-224]
-	mov	r3, #0
 	str	r3, [fp, #-220]
-	mov	r3, #0
 	str	r3, [fp, #-216]
-	mov	r3, #0
 	str	r3, [fp, #-212]
-	mov	r3, #4096
-	str	r3, [fp, #-208]
-	mov	r3, #4096
-	str	r3, [fp, #-332]
-	mov	r3, #0
 	str	r3, [fp, #-328]
-	mov	r3, #0
 	str	r3, [fp, #-324]
-	mov	r3, #0
 	str	r3, [fp, #-320]
-	mov	r3, #0
 	str	r3, [fp, #-316]
-	mov	r3, #4096
-	str	r3, [fp, #-312]
-	mov	r3, #0
 	str	r3, [fp, #-308]
-	mov	r3, #0
 	str	r3, [fp, #-304]
-	mov	r3, #0
 	str	r3, [fp, #-300]
-	mov	r3, #0
 	str	r3, [fp, #-296]
-	mov	r3, #4096
-	str	r3, [fp, #-292]
-	mov	r3, #0
 	str	r3, [fp, #-288]
-	mov	r3, #0
 	str	r3, [fp, #-284]
-	mov	r3, #0
 	str	r3, [fp, #-280]
-	mov	r3, #0
 	str	r3, [fp, #-276]
 	mov	r3, #4096
+	str	r3, [fp, #-268]
+	str	r3, [fp, #-248]
+	str	r3, [fp, #-228]
+	str	r3, [fp, #-208]
+	str	r3, [fp, #-332]
+	str	r3, [fp, #-312]
+	str	r3, [fp, #-292]
 	str	r3, [fp, #-272]
 	ldr	r2, [fp, #-32]
 	ldr	r1, .L1288+16
@@ -17121,7 +16431,6 @@ diagonalize:
 	mov	r3, r0
 .L820:
 	str	r3, [fp, #-56]
-	ldr	r3, [fp, #-56]
 	cmp	r3, #2048
 	ble	.L821
 	ldr	r3, [fp, #-56]
@@ -17307,7 +16616,6 @@ diagonalize:
 	mov	r3, r0
 .L834:
 	str	r3, [fp, #-56]
-	ldr	r3, [fp, #-56]
 	cmp	r3, #2048
 	ble	.L835
 	ldr	r3, [fp, #-56]
@@ -17627,69 +16935,39 @@ diagonalize:
 	add	r3, r3, #6
 	str	r3, [fp, #-28]
 .L852:
-	mov	r3, #4096
-	str	r3, [fp, #-268]
 	mov	r3, #0
 	str	r3, [fp, #-264]
-	mov	r3, #0
 	str	r3, [fp, #-260]
-	mov	r3, #0
 	str	r3, [fp, #-256]
-	mov	r3, #0
 	str	r3, [fp, #-252]
-	mov	r3, #4096
-	str	r3, [fp, #-248]
-	mov	r3, #0
 	str	r3, [fp, #-244]
-	mov	r3, #0
 	str	r3, [fp, #-240]
-	mov	r3, #0
 	str	r3, [fp, #-236]
-	mov	r3, #0
 	str	r3, [fp, #-232]
-	mov	r3, #4096
-	str	r3, [fp, #-228]
-	mov	r3, #0
 	str	r3, [fp, #-224]
-	mov	r3, #0
 	str	r3, [fp, #-220]
-	mov	r3, #0
 	str	r3, [fp, #-216]
-	mov	r3, #0
 	str	r3, [fp, #-212]
-	mov	r3, #4096
-	str	r3, [fp, #-208]
-	mov	r3, #4096
-	str	r3, [fp, #-332]
-	mov	r3, #0
 	str	r3, [fp, #-328]
-	mov	r3, #0
 	str	r3, [fp, #-324]
-	mov	r3, #0
 	str	r3, [fp, #-320]
-	mov	r3, #0
 	str	r3, [fp, #-316]
-	mov	r3, #4096
-	str	r3, [fp, #-312]
-	mov	r3, #0
 	str	r3, [fp, #-308]
-	mov	r3, #0
 	str	r3, [fp, #-304]
-	mov	r3, #0
 	str	r3, [fp, #-300]
-	mov	r3, #0
 	str	r3, [fp, #-296]
-	mov	r3, #4096
-	str	r3, [fp, #-292]
-	mov	r3, #0
 	str	r3, [fp, #-288]
-	mov	r3, #0
 	str	r3, [fp, #-284]
-	mov	r3, #0
 	str	r3, [fp, #-280]
-	mov	r3, #0
 	str	r3, [fp, #-276]
 	mov	r3, #4096
+	str	r3, [fp, #-268]
+	str	r3, [fp, #-248]
+	str	r3, [fp, #-228]
+	str	r3, [fp, #-208]
+	str	r3, [fp, #-332]
+	str	r3, [fp, #-312]
+	str	r3, [fp, #-292]
 	str	r3, [fp, #-272]
 	ldr	r2, [fp, #-32]
 	ldr	r1, .L1288+16
@@ -17933,7 +17211,6 @@ diagonalize:
 	mov	r3, r0
 .L862:
 	str	r3, [fp, #-56]
-	ldr	r3, [fp, #-56]
 	cmp	r3, #2048
 	ble	.L863
 	ldr	r3, [fp, #-56]
@@ -18119,7 +17396,6 @@ diagonalize:
 	mov	r3, r0
 .L876:
 	str	r3, [fp, #-56]
-	ldr	r3, [fp, #-56]
 	cmp	r3, #2048
 	ble	.L877
 	ldr	r3, [fp, #-56]
@@ -18429,69 +17705,39 @@ diagonalize:
 	add	r3, r3, #6
 	str	r3, [fp, #-28]
 .L894:
-	mov	r3, #4096
-	str	r3, [fp, #-268]
 	mov	r3, #0
 	str	r3, [fp, #-264]
-	mov	r3, #0
 	str	r3, [fp, #-260]
-	mov	r3, #0
 	str	r3, [fp, #-256]
-	mov	r3, #0
 	str	r3, [fp, #-252]
-	mov	r3, #4096
-	str	r3, [fp, #-248]
-	mov	r3, #0
 	str	r3, [fp, #-244]
-	mov	r3, #0
 	str	r3, [fp, #-240]
-	mov	r3, #0
 	str	r3, [fp, #-236]
-	mov	r3, #0
 	str	r3, [fp, #-232]
-	mov	r3, #4096
-	str	r3, [fp, #-228]
-	mov	r3, #0
 	str	r3, [fp, #-224]
-	mov	r3, #0
 	str	r3, [fp, #-220]
-	mov	r3, #0
 	str	r3, [fp, #-216]
-	mov	r3, #0
 	str	r3, [fp, #-212]
-	mov	r3, #4096
-	str	r3, [fp, #-208]
-	mov	r3, #4096
-	str	r3, [fp, #-332]
-	mov	r3, #0
 	str	r3, [fp, #-328]
-	mov	r3, #0
 	str	r3, [fp, #-324]
-	mov	r3, #0
 	str	r3, [fp, #-320]
-	mov	r3, #0
 	str	r3, [fp, #-316]
-	mov	r3, #4096
-	str	r3, [fp, #-312]
-	mov	r3, #0
 	str	r3, [fp, #-308]
-	mov	r3, #0
 	str	r3, [fp, #-304]
-	mov	r3, #0
 	str	r3, [fp, #-300]
-	mov	r3, #0
 	str	r3, [fp, #-296]
-	mov	r3, #4096
-	str	r3, [fp, #-292]
-	mov	r3, #0
 	str	r3, [fp, #-288]
-	mov	r3, #0
 	str	r3, [fp, #-284]
-	mov	r3, #0
 	str	r3, [fp, #-280]
-	mov	r3, #0
 	str	r3, [fp, #-276]
 	mov	r3, #4096
+	str	r3, [fp, #-268]
+	str	r3, [fp, #-248]
+	str	r3, [fp, #-228]
+	str	r3, [fp, #-208]
+	str	r3, [fp, #-332]
+	str	r3, [fp, #-312]
+	str	r3, [fp, #-292]
 	str	r3, [fp, #-272]
 	ldr	r2, [fp, #-32]
 	ldr	r1, .L1288+16
@@ -18735,7 +17981,6 @@ diagonalize:
 	mov	r3, r0
 .L904:
 	str	r3, [fp, #-56]
-	ldr	r3, [fp, #-56]
 	cmp	r3, #2048
 	ble	.L905
 	ldr	r3, [fp, #-56]
@@ -18921,7 +18166,6 @@ diagonalize:
 	mov	r3, r0
 .L918:
 	str	r3, [fp, #-56]
-	ldr	r3, [fp, #-56]
 	cmp	r3, #2048
 	ble	.L919
 	ldr	r3, [fp, #-56]
@@ -19231,69 +18475,40 @@ diagonalize:
 	add	r3, r3, #6
 	str	r3, [fp, #-28]
 .L936:
-	mov	r3, #4096
-	str	r3, [fp, #-268]
 	mov	r3, #0
 	str	r3, [fp, #-264]
-	mov	r3, #0
 	str	r3, [fp, #-260]
-	mov	r3, #0
 	str	r3, [fp, #-256]
-	mov	r3, #0
 	str	r3, [fp, #-252]
-	mov	r3, #4096
-	str	r3, [fp, #-248]
-	mov	r3, #0
 	str	r3, [fp, #-244]
-	mov	r3, #0
 	str	r3, [fp, #-240]
-	mov	r3, #0
 	str	r3, [fp, #-236]
-	mov	r3, #0
 	str	r3, [fp, #-232]
-	mov	r3, #4096
-	str	r3, [fp, #-228]
-	mov	r3, #0
 	str	r3, [fp, #-224]
-	mov	r3, #0
 	str	r3, [fp, #-220]
-	mov	r3, #0
 	str	r3, [fp, #-216]
-	mov	r3, #0
 	str	r3, [fp, #-212]
-	mov	r3, #4096
-	str	r3, [fp, #-208]
-	mov	r3, #4096
-	str	r3, [fp, #-332]
-	mov	r3, #0
 	str	r3, [fp, #-328]
-	mov	r3, #0
 	str	r3, [fp, #-324]
-	mov	r3, #0
 	str	r3, [fp, #-320]
-	mov	r3, #0
 	str	r3, [fp, #-316]
-	mov	r3, #4096
-	str	r3, [fp, #-312]
-	mov	r3, #0
 	str	r3, [fp, #-308]
-	mov	r3, #0
 	str	r3, [fp, #-304]
-	mov	r3, #0
 	str	r3, [fp, #-300]
-	mov	r3, #0
 	str	r3, [fp, #-296]
-	mov	r3, #4096
-	str	r3, [fp, #-292]
-	mov	r3, #0
 	str	r3, [fp, #-288]
-	mov	r3, #0
 	str	r3, [fp, #-284]
-	mov	r3, #0
 	str	r3, [fp, #-280]
-	mov	r3, #0
 	str	r3, [fp, #-276]
 	mov	r3, #4096
+	str	r3, [fp, #-268]
+	str	r3, [fp, #-248]
+	str	r3, [fp, #-228]
+	str	r3, [fp, #-208]
+	str	r3, [fp, #-332]
+	str	r3, [fp, #-312]
+	str	r3, [fp, #-292]
+
 	str	r3, [fp, #-272]
 	ldr	r2, [fp, #-32]
 	ldr	r1, .L1290+20
@@ -19537,7 +18752,6 @@ diagonalize:
 	mov	r3, r0
 .L946:
 	str	r3, [fp, #-56]
-	ldr	r3, [fp, #-56]
 	cmp	r3, #2048
 	ble	.L947
 	ldr	r3, [fp, #-56]
@@ -19723,7 +18937,6 @@ diagonalize:
 	mov	r3, r0
 .L960:
 	str	r3, [fp, #-56]
-	ldr	r3, [fp, #-56]
 	cmp	r3, #2048
 	ble	.L961
 	ldr	r3, [fp, #-56]
@@ -20043,69 +19256,41 @@ diagonalize:
 	add	r3, r3, #6
 	str	r3, [fp, #-28]
 .L978:
-	mov	r3, #4096
-	str	r3, [fp, #-268]
 	mov	r3, #0
 	str	r3, [fp, #-264]
-	mov	r3, #0
 	str	r3, [fp, #-260]
-	mov	r3, #0
 	str	r3, [fp, #-256]
-	mov	r3, #0
 	str	r3, [fp, #-252]
-	mov	r3, #4096
-	str	r3, [fp, #-248]
-	mov	r3, #0
 	str	r3, [fp, #-244]
-	mov	r3, #0
 	str	r3, [fp, #-240]
-	mov	r3, #0
 	str	r3, [fp, #-236]
-	mov	r3, #0
 	str	r3, [fp, #-232]
-	mov	r3, #4096
-	str	r3, [fp, #-228]
-	mov	r3, #0
 	str	r3, [fp, #-224]
-	mov	r3, #0
 	str	r3, [fp, #-220]
-	mov	r3, #0
 	str	r3, [fp, #-216]
-	mov	r3, #0
 	str	r3, [fp, #-212]
-	mov	r3, #4096
-	str	r3, [fp, #-208]
-	mov	r3, #4096
-	str	r3, [fp, #-332]
-	mov	r3, #0
 	str	r3, [fp, #-328]
-	mov	r3, #0
 	str	r3, [fp, #-324]
-	mov	r3, #0
 	str	r3, [fp, #-320]
-	mov	r3, #0
 	str	r3, [fp, #-316]
-	mov	r3, #4096
-	str	r3, [fp, #-312]
-	mov	r3, #0
 	str	r3, [fp, #-308]
-	mov	r3, #0
 	str	r3, [fp, #-304]
-	mov	r3, #0
 	str	r3, [fp, #-300]
-	mov	r3, #0
 	str	r3, [fp, #-296]
-	mov	r3, #4096
-	str	r3, [fp, #-292]
-	mov	r3, #0
 	str	r3, [fp, #-288]
-	mov	r3, #0
 	str	r3, [fp, #-284]
-	mov	r3, #0
 	str	r3, [fp, #-280]
-	mov	r3, #0
 	str	r3, [fp, #-276]
 	mov	r3, #4096
+	str	r3, [fp, #-268]
+	str	r3, [fp, #-248]
+	str	r3, [fp, #-228]
+	str	r3, [fp, #-208]
+	str	r3, [fp, #-332]
+	str	r3, [fp, #-312]
+	str	r3, [fp, #-292]
+
+	
 	str	r3, [fp, #-272]
 	ldr	r2, [fp, #-32]
 	ldr	r1, .L1290+20
@@ -20349,7 +19534,6 @@ diagonalize:
 	mov	r3, r0
 .L988:
 	str	r3, [fp, #-56]
-	ldr	r3, [fp, #-56]
 	cmp	r3, #2048
 	ble	.L989
 	ldr	r3, [fp, #-56]
@@ -20535,7 +19719,6 @@ diagonalize:
 	mov	r3, r0
 .L1002:
 	str	r3, [fp, #-56]
-	ldr	r3, [fp, #-56]
 	cmp	r3, #2048
 	ble	.L1003
 	ldr	r3, [fp, #-56]
@@ -20845,69 +20028,39 @@ diagonalize:
 	add	r3, r3, #6
 	str	r3, [fp, #-28]
 .L1020:
-	mov	r3, #4096
-	str	r3, [fp, #-268]
 	mov	r3, #0
 	str	r3, [fp, #-264]
-	mov	r3, #0
 	str	r3, [fp, #-260]
-	mov	r3, #0
 	str	r3, [fp, #-256]
-	mov	r3, #0
 	str	r3, [fp, #-252]
-	mov	r3, #4096
-	str	r3, [fp, #-248]
-	mov	r3, #0
 	str	r3, [fp, #-244]
-	mov	r3, #0
 	str	r3, [fp, #-240]
-	mov	r3, #0
 	str	r3, [fp, #-236]
-	mov	r3, #0
 	str	r3, [fp, #-232]
-	mov	r3, #4096
-	str	r3, [fp, #-228]
-	mov	r3, #0
 	str	r3, [fp, #-224]
-	mov	r3, #0
 	str	r3, [fp, #-220]
-	mov	r3, #0
 	str	r3, [fp, #-216]
-	mov	r3, #0
 	str	r3, [fp, #-212]
-	mov	r3, #4096
-	str	r3, [fp, #-208]
-	mov	r3, #4096
-	str	r3, [fp, #-332]
-	mov	r3, #0
 	str	r3, [fp, #-328]
-	mov	r3, #0
 	str	r3, [fp, #-324]
-	mov	r3, #0
 	str	r3, [fp, #-320]
-	mov	r3, #0
 	str	r3, [fp, #-316]
-	mov	r3, #4096
-	str	r3, [fp, #-312]
-	mov	r3, #0
 	str	r3, [fp, #-308]
-	mov	r3, #0
 	str	r3, [fp, #-304]
-	mov	r3, #0
 	str	r3, [fp, #-300]
-	mov	r3, #0
 	str	r3, [fp, #-296]
-	mov	r3, #4096
-	str	r3, [fp, #-292]
-	mov	r3, #0
 	str	r3, [fp, #-288]
-	mov	r3, #0
 	str	r3, [fp, #-284]
-	mov	r3, #0
 	str	r3, [fp, #-280]
-	mov	r3, #0
 	str	r3, [fp, #-276]
 	mov	r3, #4096
+	str	r3, [fp, #-268]
+	str	r3, [fp, #-248]
+	str	r3, [fp, #-228]
+	str	r3, [fp, #-208]
+	str	r3, [fp, #-332]
+	str	r3, [fp, #-312]
+	str	r3, [fp, #-292]
 	str	r3, [fp, #-272]
 	ldr	r2, [fp, #-32]
 	ldr	r1, .L1290+20
@@ -21151,7 +20304,6 @@ diagonalize:
 	mov	r3, r0
 .L1030:
 	str	r3, [fp, #-56]
-	ldr	r3, [fp, #-56]
 	cmp	r3, #2048
 	ble	.L1031
 	ldr	r3, [fp, #-56]
@@ -21337,7 +20489,6 @@ diagonalize:
 	mov	r3, r0
 .L1044:
 	str	r3, [fp, #-56]
-	ldr	r3, [fp, #-56]
 	cmp	r3, #2048
 	ble	.L1045
 	ldr	r3, [fp, #-56]
@@ -21647,69 +20798,39 @@ diagonalize:
 	add	r3, r3, #6
 	str	r3, [fp, #-28]
 .L1062:
-	mov	r3, #4096
-	str	r3, [fp, #-268]
 	mov	r3, #0
 	str	r3, [fp, #-264]
-	mov	r3, #0
 	str	r3, [fp, #-260]
-	mov	r3, #0
 	str	r3, [fp, #-256]
-	mov	r3, #0
 	str	r3, [fp, #-252]
-	mov	r3, #4096
-	str	r3, [fp, #-248]
-	mov	r3, #0
 	str	r3, [fp, #-244]
-	mov	r3, #0
 	str	r3, [fp, #-240]
-	mov	r3, #0
 	str	r3, [fp, #-236]
-	mov	r3, #0
 	str	r3, [fp, #-232]
-	mov	r3, #4096
-	str	r3, [fp, #-228]
-	mov	r3, #0
 	str	r3, [fp, #-224]
-	mov	r3, #0
 	str	r3, [fp, #-220]
-	mov	r3, #0
 	str	r3, [fp, #-216]
-	mov	r3, #0
 	str	r3, [fp, #-212]
-	mov	r3, #4096
-	str	r3, [fp, #-208]
-	mov	r3, #4096
-	str	r3, [fp, #-332]
-	mov	r3, #0
 	str	r3, [fp, #-328]
-	mov	r3, #0
 	str	r3, [fp, #-324]
-	mov	r3, #0
 	str	r3, [fp, #-320]
-	mov	r3, #0
 	str	r3, [fp, #-316]
-	mov	r3, #4096
-	str	r3, [fp, #-312]
-	mov	r3, #0
 	str	r3, [fp, #-308]
-	mov	r3, #0
 	str	r3, [fp, #-304]
-	mov	r3, #0
 	str	r3, [fp, #-300]
-	mov	r3, #0
 	str	r3, [fp, #-296]
-	mov	r3, #4096
-	str	r3, [fp, #-292]
-	mov	r3, #0
 	str	r3, [fp, #-288]
-	mov	r3, #0
 	str	r3, [fp, #-284]
-	mov	r3, #0
 	str	r3, [fp, #-280]
-	mov	r3, #0
 	str	r3, [fp, #-276]
 	mov	r3, #4096
+	str	r3, [fp, #-268]
+	str	r3, [fp, #-248]
+	str	r3, [fp, #-228]
+	str	r3, [fp, #-208]
+	str	r3, [fp, #-332]
+	str	r3, [fp, #-312]
+	str	r3, [fp, #-292]
 	str	r3, [fp, #-272]
 	ldr	r2, [fp, #-32]
 	ldr	r1, .L1292+8
@@ -21953,7 +21074,6 @@ diagonalize:
 	mov	r3, r0
 .L1072:
 	str	r3, [fp, #-56]
-	ldr	r3, [fp, #-56]
 	cmp	r3, #2048
 	ble	.L1073
 	ldr	r3, [fp, #-56]
@@ -22149,7 +21269,6 @@ diagonalize:
 	mov	r3, r0
 .L1086:
 	str	r3, [fp, #-56]
-	ldr	r3, [fp, #-56]
 	cmp	r3, #2048
 	ble	.L1087
 	ldr	r3, [fp, #-56]
@@ -22459,69 +21578,39 @@ diagonalize:
 	add	r3, r3, #6
 	str	r3, [fp, #-28]
 .L1104:
-	mov	r3, #4096
-	str	r3, [fp, #-268]
 	mov	r3, #0
 	str	r3, [fp, #-264]
-	mov	r3, #0
 	str	r3, [fp, #-260]
-	mov	r3, #0
 	str	r3, [fp, #-256]
-	mov	r3, #0
 	str	r3, [fp, #-252]
-	mov	r3, #4096
-	str	r3, [fp, #-248]
-	mov	r3, #0
 	str	r3, [fp, #-244]
-	mov	r3, #0
 	str	r3, [fp, #-240]
-	mov	r3, #0
 	str	r3, [fp, #-236]
-	mov	r3, #0
 	str	r3, [fp, #-232]
-	mov	r3, #4096
-	str	r3, [fp, #-228]
-	mov	r3, #0
 	str	r3, [fp, #-224]
-	mov	r3, #0
 	str	r3, [fp, #-220]
-	mov	r3, #0
 	str	r3, [fp, #-216]
-	mov	r3, #0
 	str	r3, [fp, #-212]
-	mov	r3, #4096
-	str	r3, [fp, #-208]
-	mov	r3, #4096
-	str	r3, [fp, #-332]
-	mov	r3, #0
 	str	r3, [fp, #-328]
-	mov	r3, #0
 	str	r3, [fp, #-324]
-	mov	r3, #0
 	str	r3, [fp, #-320]
-	mov	r3, #0
 	str	r3, [fp, #-316]
-	mov	r3, #4096
-	str	r3, [fp, #-312]
-	mov	r3, #0
 	str	r3, [fp, #-308]
-	mov	r3, #0
 	str	r3, [fp, #-304]
-	mov	r3, #0
 	str	r3, [fp, #-300]
-	mov	r3, #0
 	str	r3, [fp, #-296]
-	mov	r3, #4096
-	str	r3, [fp, #-292]
-	mov	r3, #0
 	str	r3, [fp, #-288]
-	mov	r3, #0
 	str	r3, [fp, #-284]
-	mov	r3, #0
 	str	r3, [fp, #-280]
-	mov	r3, #0
 	str	r3, [fp, #-276]
 	mov	r3, #4096
+	str	r3, [fp, #-248]
+	str	r3, [fp, #-228]
+	str	r3, [fp, #-208]
+	str	r3, [fp, #-332]
+	str	r3, [fp, #-312]
+	str	r3, [fp, #-292]
+	str	r3, [fp, #-268]
 	str	r3, [fp, #-272]
 	ldr	r2, [fp, #-32]
 	ldr	r1, .L1292+8
@@ -22765,7 +21854,6 @@ diagonalize:
 	mov	r3, r0
 .L1114:
 	str	r3, [fp, #-56]
-	ldr	r3, [fp, #-56]
 	cmp	r3, #2048
 	ble	.L1115
 	ldr	r3, [fp, #-56]
@@ -22951,7 +22039,6 @@ diagonalize:
 	mov	r3, r0
 .L1128:
 	str	r3, [fp, #-56]
-	ldr	r3, [fp, #-56]
 	cmp	r3, #2048
 	ble	.L1129
 	ldr	r3, [fp, #-56]
@@ -23261,69 +22348,39 @@ diagonalize:
 	add	r3, r3, #6
 	str	r3, [fp, #-28]
 .L1146:
-	mov	r3, #4096
-	str	r3, [fp, #-268]
 	mov	r3, #0
 	str	r3, [fp, #-264]
-	mov	r3, #0
 	str	r3, [fp, #-260]
-	mov	r3, #0
 	str	r3, [fp, #-256]
-	mov	r3, #0
 	str	r3, [fp, #-252]
-	mov	r3, #4096
-	str	r3, [fp, #-248]
-	mov	r3, #0
 	str	r3, [fp, #-244]
-	mov	r3, #0
 	str	r3, [fp, #-240]
-	mov	r3, #0
 	str	r3, [fp, #-236]
-	mov	r3, #0
 	str	r3, [fp, #-232]
-	mov	r3, #4096
-	str	r3, [fp, #-228]
-	mov	r3, #0
 	str	r3, [fp, #-224]
-	mov	r3, #0
 	str	r3, [fp, #-220]
-	mov	r3, #0
 	str	r3, [fp, #-216]
-	mov	r3, #0
 	str	r3, [fp, #-212]
-	mov	r3, #4096
-	str	r3, [fp, #-208]
-	mov	r3, #4096
-	str	r3, [fp, #-332]
-	mov	r3, #0
 	str	r3, [fp, #-328]
-	mov	r3, #0
 	str	r3, [fp, #-324]
-	mov	r3, #0
 	str	r3, [fp, #-320]
-	mov	r3, #0
 	str	r3, [fp, #-316]
-	mov	r3, #4096
-	str	r3, [fp, #-312]
-	mov	r3, #0
 	str	r3, [fp, #-308]
-	mov	r3, #0
 	str	r3, [fp, #-304]
-	mov	r3, #0
 	str	r3, [fp, #-300]
-	mov	r3, #0
 	str	r3, [fp, #-296]
-	mov	r3, #4096
-	str	r3, [fp, #-292]
-	mov	r3, #0
 	str	r3, [fp, #-288]
-	mov	r3, #0
 	str	r3, [fp, #-284]
-	mov	r3, #0
 	str	r3, [fp, #-280]
-	mov	r3, #0
 	str	r3, [fp, #-276]
 	mov	r3, #4096
+	str	r3, [fp, #-268]
+	str	r3, [fp, #-248]
+	str	r3, [fp, #-228]
+	str	r3, [fp, #-208]
+	str	r3, [fp, #-332]
+	str	r3, [fp, #-312]
+	str	r3, [fp, #-292]
 	str	r3, [fp, #-272]
 	ldr	r2, [fp, #-32]
 	ldr	r1, .L1294+16
@@ -23567,7 +22624,6 @@ diagonalize:
 	mov	r3, r0
 .L1156:
 	str	r3, [fp, #-56]
-	ldr	r3, [fp, #-56]
 	cmp	r3, #2048
 	ble	.L1157
 	ldr	r3, [fp, #-56]
@@ -23753,7 +22809,6 @@ diagonalize:
 	mov	r3, r0
 .L1170:
 	str	r3, [fp, #-56]
-	ldr	r3, [fp, #-56]
 	cmp	r3, #2048
 	ble	.L1171
 	ldr	r3, [fp, #-56]
@@ -24073,69 +23128,39 @@ diagonalize:
 	add	r3, r3, #6
 	str	r3, [fp, #-28]
 .L1188:
-	mov	r3, #4096
-	str	r3, [fp, #-268]
 	mov	r3, #0
 	str	r3, [fp, #-264]
-	mov	r3, #0
 	str	r3, [fp, #-260]
-	mov	r3, #0
 	str	r3, [fp, #-256]
-	mov	r3, #0
 	str	r3, [fp, #-252]
-	mov	r3, #4096
-	str	r3, [fp, #-248]
-	mov	r3, #0
 	str	r3, [fp, #-244]
-	mov	r3, #0
 	str	r3, [fp, #-240]
-	mov	r3, #0
 	str	r3, [fp, #-236]
-	mov	r3, #0
 	str	r3, [fp, #-232]
-	mov	r3, #4096
-	str	r3, [fp, #-228]
-	mov	r3, #0
 	str	r3, [fp, #-224]
-	mov	r3, #0
 	str	r3, [fp, #-220]
-	mov	r3, #0
 	str	r3, [fp, #-216]
-	mov	r3, #0
 	str	r3, [fp, #-212]
-	mov	r3, #4096
-	str	r3, [fp, #-208]
-	mov	r3, #4096
-	str	r3, [fp, #-332]
-	mov	r3, #0
 	str	r3, [fp, #-328]
-	mov	r3, #0
 	str	r3, [fp, #-324]
-	mov	r3, #0
 	str	r3, [fp, #-320]
-	mov	r3, #0
 	str	r3, [fp, #-316]
-	mov	r3, #4096
-	str	r3, [fp, #-312]
-	mov	r3, #0
 	str	r3, [fp, #-308]
-	mov	r3, #0
 	str	r3, [fp, #-304]
-	mov	r3, #0
 	str	r3, [fp, #-300]
-	mov	r3, #0
 	str	r3, [fp, #-296]
-	mov	r3, #4096
-	str	r3, [fp, #-292]
-	mov	r3, #0
 	str	r3, [fp, #-288]
-	mov	r3, #0
 	str	r3, [fp, #-284]
-	mov	r3, #0
 	str	r3, [fp, #-280]
-	mov	r3, #0
 	str	r3, [fp, #-276]
 	mov	r3, #4096
+	str	r3, [fp, #-268]
+	str	r3, [fp, #-248]
+	str	r3, [fp, #-228]
+	str	r3, [fp, #-208]
+	str	r3, [fp, #-332]
+	str	r3, [fp, #-312]
+	str	r3, [fp, #-292]
 	str	r3, [fp, #-272]
 	ldr	r2, [fp, #-32]
 	ldr	r1, .L1294+16
@@ -24379,7 +23404,6 @@ diagonalize:
 	mov	r3, r0
 .L1198:
 	str	r3, [fp, #-56]
-	ldr	r3, [fp, #-56]
 	cmp	r3, #2048
 	ble	.L1199
 	ldr	r3, [fp, #-56]
@@ -24565,7 +23589,6 @@ diagonalize:
 	mov	r3, r0
 .L1212:
 	str	r3, [fp, #-56]
-	ldr	r3, [fp, #-56]
 	cmp	r3, #2048
 	ble	.L1213
 	ldr	r3, [fp, #-56]
@@ -24875,69 +23898,39 @@ diagonalize:
 	add	r3, r3, #6
 	str	r3, [fp, #-28]
 .L1230:
-	mov	r3, #4096
-	str	r3, [fp, #-268]
 	mov	r3, #0
 	str	r3, [fp, #-264]
-	mov	r3, #0
 	str	r3, [fp, #-260]
-	mov	r3, #0
 	str	r3, [fp, #-256]
-	mov	r3, #0
 	str	r3, [fp, #-252]
-	mov	r3, #4096
-	str	r3, [fp, #-248]
-	mov	r3, #0
 	str	r3, [fp, #-244]
-	mov	r3, #0
 	str	r3, [fp, #-240]
-	mov	r3, #0
 	str	r3, [fp, #-236]
-	mov	r3, #0
 	str	r3, [fp, #-232]
-	mov	r3, #4096
-	str	r3, [fp, #-228]
-	mov	r3, #0
 	str	r3, [fp, #-224]
-	mov	r3, #0
 	str	r3, [fp, #-220]
-	mov	r3, #0
 	str	r3, [fp, #-216]
-	mov	r3, #0
 	str	r3, [fp, #-212]
-	mov	r3, #4096
-	str	r3, [fp, #-208]
-	mov	r3, #4096
-	str	r3, [fp, #-332]
-	mov	r3, #0
 	str	r3, [fp, #-328]
-	mov	r3, #0
 	str	r3, [fp, #-324]
-	mov	r3, #0
 	str	r3, [fp, #-320]
-	mov	r3, #0
 	str	r3, [fp, #-316]
-	mov	r3, #4096
-	str	r3, [fp, #-312]
-	mov	r3, #0
 	str	r3, [fp, #-308]
-	mov	r3, #0
 	str	r3, [fp, #-304]
-	mov	r3, #0
 	str	r3, [fp, #-300]
-	mov	r3, #0
 	str	r3, [fp, #-296]
-	mov	r3, #4096
-	str	r3, [fp, #-292]
-	mov	r3, #0
 	str	r3, [fp, #-288]
-	mov	r3, #0
 	str	r3, [fp, #-284]
-	mov	r3, #0
 	str	r3, [fp, #-280]
-	mov	r3, #0
 	str	r3, [fp, #-276]
 	mov	r3, #4096
+	str	r3, [fp, #-268]
+	str	r3, [fp, #-248]
+	str	r3, [fp, #-228]
+	str	r3, [fp, #-208]
+	str	r3, [fp, #-332]
+	str	r3, [fp, #-312]
+	str	r3, [fp, #-292]
 	str	r3, [fp, #-272]
 	ldr	r2, [fp, #-32]
 	ldr	r1, .L1294+16
@@ -25181,7 +24174,6 @@ diagonalize:
 	mov	r3, r0
 .L1240:
 	str	r3, [fp, #-56]
-	ldr	r3, [fp, #-56]
 	cmp	r3, #2048
 	ble	.L1241
 	ldr	r3, [fp, #-56]
@@ -25367,7 +24359,6 @@ diagonalize:
 	mov	r3, r0
 .L1254:
 	str	r3, [fp, #-56]
-	ldr	r3, [fp, #-56]
 	cmp	r3, #2048
 	ble	.L1255
 	ldr	r3, [fp, #-56]
@@ -25677,69 +24668,39 @@ diagonalize:
 	add	r3, r3, #6
 	str	r3, [fp, #-28]
 .L1272:
-	mov	r3, #4096
-	str	r3, [fp, #-268]
 	mov	r3, #0
 	str	r3, [fp, #-264]
-	mov	r3, #0
 	str	r3, [fp, #-260]
-	mov	r3, #0
 	str	r3, [fp, #-256]
-	mov	r3, #0
 	str	r3, [fp, #-252]
-	mov	r3, #4096
-	str	r3, [fp, #-248]
-	mov	r3, #0
 	str	r3, [fp, #-244]
-	mov	r3, #0
 	str	r3, [fp, #-240]
-	mov	r3, #0
 	str	r3, [fp, #-236]
-	mov	r3, #0
 	str	r3, [fp, #-232]
-	mov	r3, #4096
-	str	r3, [fp, #-228]
-	mov	r3, #0
 	str	r3, [fp, #-224]
-	mov	r3, #0
 	str	r3, [fp, #-220]
-	mov	r3, #0
 	str	r3, [fp, #-216]
-	mov	r3, #0
 	str	r3, [fp, #-212]
-	mov	r3, #4096
-	str	r3, [fp, #-208]
-	mov	r3, #4096
-	str	r3, [fp, #-332]
-	mov	r3, #0
 	str	r3, [fp, #-328]
-	mov	r3, #0
 	str	r3, [fp, #-324]
-	mov	r3, #0
 	str	r3, [fp, #-320]
-	mov	r3, #0
 	str	r3, [fp, #-316]
-	mov	r3, #4096
-	str	r3, [fp, #-312]
-	mov	r3, #0
 	str	r3, [fp, #-308]
-	mov	r3, #0
 	str	r3, [fp, #-304]
-	mov	r3, #0
 	str	r3, [fp, #-300]
-	mov	r3, #0
 	str	r3, [fp, #-296]
-	mov	r3, #4096
-	str	r3, [fp, #-292]
-	mov	r3, #0
 	str	r3, [fp, #-288]
-	mov	r3, #0
 	str	r3, [fp, #-284]
-	mov	r3, #0
 	str	r3, [fp, #-280]
-	mov	r3, #0
 	str	r3, [fp, #-276]
 	mov	r3, #4096
+	str	r3, [fp, #-268]
+	str	r3, [fp, #-248]
+	str	r3, [fp, #-228]
+	str	r3, [fp, #-208]
+	str	r3, [fp, #-332]
+	str	r3, [fp, #-312]
+	str	r3, [fp, #-292]
 	str	r3, [fp, #-272]
 	ldr	r2, [fp, #-32]
 	ldr	r1, .L1296+20
