@@ -1,3 +1,6 @@
+-- Implementation of Sine
+-- Using Fixed-Point Arithmetic 
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.std_logic_signed.all;
@@ -34,11 +37,7 @@ begin
 		sin_l := sin_off + ("111111111111" & sin_l(31 downto 12));
 		
 		sin_m := resize(rads*sin_in, sin_m'length);
-		if sin_m(31)='1' then
-			sin_m := "111111111111" & sin_m(31 downto 12);
-		else
-			sin_m := "000000000000" & sin_m(31 downto 12);
-		end if;
+		sin_m := (31 downto 20 => sin_m(31)) & sin_m(31 downto 12);
 		
 		if rads < cut_1 then 
 			angle <= sin_l;

@@ -1,3 +1,5 @@
+-- Testbench for Cosine Implementation
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.std_logic_signed.all;
@@ -35,7 +37,7 @@ BEGIN
 		
 		-- Middle Input Piece-Wise Function (Positive)
 		T_rads <= "0000000110100100"; -- 420 in binary
-		wait for 20 ns; -- 409 is answer
+		wait for 20 ns; -- 408 is answer
 		assert(T_angle="00000000000000000000000110011000") report "Error Detected! Sine Problem -- THREE"
 		severity warning;
 		
