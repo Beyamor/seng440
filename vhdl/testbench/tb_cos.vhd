@@ -1,7 +1,9 @@
+-- Testbench for Cosine Implementation
+
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
 use ieee.std_logic_signed.all;
+use ieee.numeric_std.all;
 
 entity tb_cos is
 end tb_cos;
@@ -46,14 +48,13 @@ BEGIN
 		severity warning;
 		
 		wait;
-	
 	end process;
 
 END;
 
 -----------------------------------------------------------
-configuration CFG_TB of tb_cos is
+configuration CFG_TB2 of tb_cos is
 	for TB
 	end for;
-end CFG_TB;
+end CFG_TB2;
 -----------------------------------------------------------

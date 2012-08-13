@@ -1,8 +1,10 @@
+-- Implementation of Cosine
+-- Using Fixed-Point Arithmetic 
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.std_logic_signed.all;
 use ieee.numeric_std.all;
---use ieee.std_logic_arith.all;
 
 entity cos is 
 port (
@@ -33,22 +35,12 @@ begin
 		variable cos_4		: signed(31 downto 0); -- Highest Cutoff
 	begin
 		cos_1 := resize(rads*cos_out, cos_1'length);
-		if cos_1(31)='1' then
-			cos_4 := cos_off - ("111111111111" & cos_1(31 downto 12)); 
-			cos_1 := cos_off + ("111111111111" & cos_1(31 downto 12));
-		else
-			cos_4 := cos_off - ("000000000000" & cos_1(31 downto 12)); 
-			cos_1 := cos_off + ("000000000000" & cos_1(31 downto 12));
-		end if;
+		cos_4 := cos_off - ((31 downto 20 => cos_1(31)) & cos_1(31 downto 12)); 
+		cos_1 := cos_off + ((31 downto 20 => cos_1(31)) & cos_1(31 downto 12));
 		
 		cos_2 := resize(rads*cos_in, cos_2'length);
-		if cos_2(31)='1' then
-			cos_3 := cos_scale - ("111111111111" & cos_2(31 downto 12));
-			cos_2 := cos_scale + ("111111111111" & cos_2(31 downto 12));
-		else
-			cos_3 := cos_scale - ("000000000000" & cos_2(31 downto 12));
-			cos_2 := cos_scale + ("000000000000" & cos_2(31 downto 12));
-		end if;
+		cos_3 := cos_scale - ((31 downto 20 => cos_2(31)) & cos_2(31 downto 12));
+		cos_2 := cos_scale + ((31 downto 20 => cos_2(31)) & cos_2(31 downto 12));
 		
 		if rads < cut_1 then	
 			angle <= cos_1;
